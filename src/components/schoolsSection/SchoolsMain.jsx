@@ -6,20 +6,26 @@ import { fadeIn } from "../../framerMotion/variants";
 const schools = [
   {
     name: "SMKN 1 Karawang",
-    year: "2024-2025",
+    year: "2022-2025",
     align: "right",
-    image: "../../public/images/website-img-1.jpg",
+    image: "../../public/images/smkn1karawang.jpg",
   },
   {
     name: "SMPN 3 Klari",
-    year: "2024-2025",
+    year: "2019-2021",
     align: "left",
-    image: "../../public/images/GoExpertLite.png",
+    image: "../../public/images/Tiklar.jpg",
   },
   {
     name: "SDN Pancawati 2",
-    year: "2024-2025",
+    year: "2013-2018",
     align: "right",
+    image: "../../public/images/PWT2.jpg",
+  },
+  {
+    name: "Al-Hidayah",
+    year: "2011-2012",
+    align: "left",
     image: "../../public/images/website-img-3.jpg",
   },
 ];
