@@ -52,6 +52,7 @@ const ProjectsMain = () => {
           );
         })}
       </div>
+      <div className="w-full h-1 mt-32 bg-lightBrown lg:block sm:hidden"></div>
     </div>
   );
 };
