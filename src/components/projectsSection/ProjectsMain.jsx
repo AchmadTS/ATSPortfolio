@@ -52,7 +52,7 @@ const ProjectsMain = () => {
           );
         })}
       </div>
-      <div className="w-full h-1 mt-32 bg-lightBrown lg:block"></div>
+      <div className="w-full h-1 lg:mt-32 sm:mt-24 bg-lightBrown lg:block"></div>
     </div>
   );
 };

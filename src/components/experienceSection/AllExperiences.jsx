@@ -4,42 +4,41 @@ import { motion } from "framer-motion";
 import { fadeIn } from "../../framerMotion/variants";
 
 const experiences = [
+  // {
+  //   job: "Student",
+  //   company: "SMKN 1 Karawang",
+  //   date: "2024",
+  //   responsibilities: [
+  //     "Entered and managed data using Microsoft Excel.",
+  //     "Retrieved office supplies (ATK) from the warehouse.",
+  //     "Delivered and collected documents between departments.",
+  //   ],
+  // },
   {
-    job: "Student",
-    company: "Alex Apps",
-    date: "2022 - Present",
+    job: "Internship",
+    company: "Bukit Muria Jaya",
+    date: "2024",
     responsibilities: [
-      "Implementing reusable components.",
-      "Participating in large scale application.",
-      "Working on the performance of web applications.",
-      "Generating new ideas for better user experience.",
+      "Entered and managed data using Microsoft Excel.",
+      "Retrieved office supplies (ATK) from the warehouse.",
+      "Delivered and collected documents between departments.",
     ],
   },
   {
-    job: "Course Instructor",
-    company: "Nucamp",
-    date: "2023 - Present",
+    job: "Internship",
+    company: "ICT SMKN 1 Karawang",
+    date: "2024",
     responsibilities: [
-      "Explaining and facilitating web development concepts.",
-      "Help students with their assignments and grade them weekly.",
-      "Provide support for students through their learning journey.",
-    ],
-  },
-  {
-    job: "Course Instructor",
-    company: "Sprints",
-    date: "2024 - Present",
-    responsibilities: [
-      "Teaching JavaScript, React and TailwindCSS.",
-      "Participating in preparing course materials.",
-      "Helping students through their way in learning web development technologies.",
+      "Performed routine maintenance and cleaning of the ICT lab.",
+      "Built a web-based attendance application for teachers using modern web technologies.",
+      "Designed and developed a functional website for the school.",
     ],
   },
 ];
 
 const AllExperiences = () => {
   return (
-    <div className="flex md:flex-row sm:flex-col items-center justify-between">
+    <div className="flex md:flex-row sm:flex-col items-center justify-center gap-8 flex-wrap">
       {experiences.map((experience, index) => {
         return (
           <div key={index}>
