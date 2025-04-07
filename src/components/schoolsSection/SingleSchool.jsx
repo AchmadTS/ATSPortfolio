@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 import { fadeIn } from "../../framerMotion/variants";
 
-const SingleSchool = ({ name, year, align, image }) => {
+const SingleSchool = ({ name, year, align, image, mapsLink }) => {
   return (
     <motion.div
       variants={fadeIn("top", 0)}
@@ -14,7 +14,14 @@ const SingleSchool = ({ name, year, align, image }) => {
       } justify-end sm:flex-col`}
     >
       <div>
-        <h2 className="md:text-3xl sm:text-2xl text-orange">{name}</h2>
+        <a
+          href={mapsLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-orange hover:underline md:text-3xl sm:text-2xl block"
+        >
+          {name}
+        </a>
         <h2
           className={`text-xl font-thin text-white font-special sm:text-center ${
             align === "left" ? "md:text-right" : "md:text-left"
@@ -36,6 +43,7 @@ SingleSchool.propTypes = {
   year: PropTypes.string.isRequired,
   align: PropTypes.oneOf(["left", "right"]).isRequired,
   image: PropTypes.string.isRequired,
+  mapsLink: PropTypes.string.isRequired,
 };
 
 export default SingleSchool;
