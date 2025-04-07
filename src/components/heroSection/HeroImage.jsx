@@ -12,7 +12,7 @@ const HeroImage = () => {
         </div>
         <img
           src="/images/Me.png"
-          alt="Achmadts"
+          alt="4chmadts"
           className="w-auto h-auto md:max-w-[570px] sm:max-w-[380px] absolute bottom-[0px] z-10 left-[50%] -translate-x-[50%]"
         />
         <div className="w-full h-full absolute  bottom-[-20%] -z-10 flex justify-center items-center">
