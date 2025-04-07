@@ -31,12 +31,12 @@ const skills = [
   },
   {
     skill: "ReactJS",
-    percentage: "60",
+    percentage: "75",
     icon: FaReact,
   },
   {
     skill: "Laravel",
-    percentage: "75",
+    percentage: "80",
     icon: SiLaravel,
   },
   {
