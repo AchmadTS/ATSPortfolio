@@ -1,7 +1,7 @@
 import { FaHtml5 } from "react-icons/fa";
 import { FaCss3Alt } from "react-icons/fa";
 import { IoLogoJavascript } from "react-icons/io";
-import { SiTypescript } from "react-icons/si";
+import { SiMysql, SiTypescript } from "react-icons/si";
 import { FaReact } from "react-icons/fa";
 import { SiLaravel } from "react-icons/si";
 import { SiPhp } from "react-icons/si";
@@ -38,6 +38,10 @@ const skills = [
   {
     skill: "PHP",
     icon: SiPhp,
+  },
+  {
+    skill: "MySQL",
+    icon: SiMysql,
   },
   {
     skill: "TailwindCSS",

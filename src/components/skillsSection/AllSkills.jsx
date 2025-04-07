@@ -2,7 +2,7 @@ import SingleSkill from "./SingleSkill";
 import { FaHtml5 } from "react-icons/fa";
 import { FaCss3Alt } from "react-icons/fa";
 import { IoLogoJavascript } from "react-icons/io";
-import { SiLaravel, SiTypescript, SiPhp, SiBootstrap } from "react-icons/si";
+import { SiLaravel, SiTypescript, SiPhp, SiBootstrap, SiMysql } from "react-icons/si";
 import { FaReact } from "react-icons/fa";
 import { RiTailwindCssFill } from "react-icons/ri";
 import { motion } from "framer-motion";
@@ -43,6 +43,11 @@ const skills = [
     skill: "PHP",
     percentage: "65",
     icon: SiPhp,
+  },
+  {
+    skill: "MySQL",
+    percentage: "70",
+    icon: SiMysql,
   },
   {
     skill: "TailwindCSS",

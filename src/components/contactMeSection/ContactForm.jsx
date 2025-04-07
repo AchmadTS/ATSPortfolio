@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 
@@ -72,7 +73,7 @@ const ContactForm = () => {
           type="submit"
           className="w-full rounded-lg border border-cyan text-white h-12 font-bold text-xl hover:bg-darkCyan bg-cyan transition-all duration-500"
         >
-          Send
+          Send (Comming Soon)
         </button>
       </form>
     </div>
