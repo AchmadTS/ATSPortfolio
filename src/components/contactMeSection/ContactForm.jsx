@@ -44,6 +44,7 @@ const ContactForm = () => {
           type="text"
           name="from_name"
           placeholder="Your Name"
+          autoComplete="off"
           required
           className="h-12 rounded-lg bg-lightBrown px-2"
           value={name}
@@ -53,6 +54,7 @@ const ContactForm = () => {
           type="email"
           name="from_email"
           placeholder="Your Email"
+          autoComplete="off"
           required
           className="h-12 rounded-lg bg-lightBrown px-2"
           value={email}
@@ -62,6 +64,7 @@ const ContactForm = () => {
           type="text"
           name="message"
           rows="9"
+          autoComplete="off"
           cols="50"
           placeholder="Message"
           required
