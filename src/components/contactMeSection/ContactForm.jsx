@@ -20,8 +20,8 @@ const ContactForm = () => {
   const sendEmail = (e) => {
     e.preventDefault();
     emailjs
-      .sendForm("service_ko3hmpt", "template_ahbmmqd", form.current, {
-        publicKey: "I6HAT5mUZH7WHabGE",
+      .sendForm("service_k16fbth", "template_2etb25a", form.current, {
+        publicKey: "_l1lSbUFXovxjJal0",
       })
       .then(
         () => {
@@ -76,7 +76,7 @@ const ContactForm = () => {
           type="submit"
           className="w-full rounded-lg border border-cyan text-white h-12 font-bold text-xl hover:bg-darkCyan bg-cyan transition-all duration-500"
         >
-          Send (Comming Soon)
+          Send
         </button>
       </form>
     </div>
