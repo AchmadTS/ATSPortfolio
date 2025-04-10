@@ -28,7 +28,7 @@ const ContactForm = () => {
           setEmail("");
           setName("");
           setMessage("");
-          setSuccess("Message Sent Succesfully");
+          setSuccess(`Message Sent Successfully to "${email}"`);
         },
         (error) => {
           console.log("FAILED...", error.text);
