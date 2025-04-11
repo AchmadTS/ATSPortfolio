@@ -14,11 +14,11 @@ const HeroPic = () => {
       <img
         src="/images/Me.webp"
         alt="Achmad Tirto Sudiro"
-        className="max-h-[450px] w-auto"
+        className="max-h-[450px] w-auto transition-transform duration-300 hover:scale-105"
       />
 
       <div className=" absolute -z-10 flex justify-center items-center animate-pulse ">
-        <PiHexagonThin className="h-[440px] md:h-[600px] w-auto text-cyan blur-md" />
+        <PiHexagonThin className="h-[475px] md:h-[600px] w-auto text-cyan blur-md" />
       </div>
     </motion.div>
   );
