@@ -11,52 +11,52 @@ import { fadeIn } from "../../framerMotion/variants";
 const skills = [
   {
     skill: "HTML",
-    percentage: "70",
+    // percentage: "70",
     icon: FaHtml5,
   },
   {
     skill: "CSS",
-    percentage: "50",
+    // percentage: "50",
     icon: FaCss3Alt,
   },
   {
     skill: "JavaScript",
-    percentage: "50",
+    // percentage: "50",
     icon: IoLogoJavascript,
   },
   {
     skill: "TypeScript",
-    percentage: "30",
+    // percentage: "30",
     icon: SiTypescript,
   },
   {
     skill: "ReactJS",
-    percentage: "75",
+    // percentage: "75",
     icon: FaReact,
   },
   {
     skill: "Laravel",
-    percentage: "80",
+    // percentage: "80",
     icon: SiLaravel,
   },
   {
     skill: "PHP",
-    percentage: "65",
+    // percentage: "65",
     icon: SiPhp,
   },
   {
     skill: "MySQL",
-    percentage: "70",
+    // percentage: "70",
     icon: SiMysql,
   },
   {
     skill: "TailwindCSS",
-    percentage: "65",
+    // percentage: "65",
     icon: RiTailwindCssFill,
   },
   {
     skill: "Bootstrap",
-    percentage: "65",
+    // percentage: "65",
     icon: SiBootstrap,
   },
 ];
@@ -77,7 +77,7 @@ const AllSkills = () => {
               <SingleSkill
                 key={index}
                 text={item.skill}
-                percentage={item.percentage}
+                // percentage={item.percentage}
                 imgSvg={<item.icon />}
               />
             </motion.div>

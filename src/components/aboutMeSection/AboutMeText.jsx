@@ -5,7 +5,7 @@ const AboutMeText = () => {
     <div className="flex flex-col md:items-start sm:items-center md:text-left sm:text-center">
       <h2 className="text-6xl text-cyan mb-10">About Me</h2>
       <p>
-        Hello! I&apos;m Achmad Tirto Sudiro, a recent graduate of SMKN 1
+        Hello! I&apos;m Achmad Tirto Sudiro, fresh graduate of SMKN 1
         Karawang, majoring in Software Engineering (Rekayasa Perangkat Lunak).
         My background in web development and administrative tasks has equipped
         me with a versatile skill set in both IT support and office
