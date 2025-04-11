@@ -30,7 +30,7 @@ const HeroText = () => {
         viewport={{ once: false, amount: 0 }}
         className="text-lg mt-4"
       >
-        Students at SMKN 1 KARAWANG majoring in <br /> Software Engineering.
+        Student at SMKN 1 KARAWANG majoring in <br /> Software Engineering.
       </motion.p>
     </div>
   );
