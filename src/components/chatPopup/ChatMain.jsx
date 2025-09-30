@@ -17,11 +17,11 @@ const ChatMain = ({ isOpen, onClose }) => {
   }, [onClose]);
 
   const suggestions = [
-    "What are the main technical skills?",
+    "What are Achmad' main technical skills?",
     "Tell me about recent projects",
+    "What his educational background?",
+    "What kind of developer role is he looking for?",
     "What technologies do you use?",
-    "Can you explain your work experience?",
-    "Do you have leadership experience?",
   ];
 
   return (
