@@ -1,0 +1,136 @@
+import { useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaRegPaperPlane } from "react-icons/fa";
+import { LuBot } from "react-icons/lu";
+import { IoClose } from "react-icons/io5";
+
+const ChatMain = ({ isOpen, onClose }) => {
+  useEffect(() => {
+    const handleEsc = (event) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [onClose]);
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-md z-50">
+          <motion.div
+            key="chat-popup"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ duration: 0.3 }}
+            className="relative w-[95%] max-w-lg h-[80vh] flex flex-col rounded-3xl
+             border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.4)]
+             overflow-hidden text-white"
+          >
+            <button
+              className="absolute top-4 right-4 z-50 text-gray-300 hover:text-white hover:rotate-90 transition-transform"
+              onClick={onClose}
+            >
+              <IoClose size={22} />
+            </button>
+
+            <div
+              className="flex items-center gap-3 px-6 pt-6 pb-4 shrink-0 
+                  bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl"
+            >
+              <motion.div
+                animate={{
+                  rotate: [0, 360, 360],
+                  boxShadow: [
+                    "0 0 0px rgba(251, 151, 24, 0.0)",
+                    "0 0 10px rgba(251, 151, 24, 0.6)",
+                    "0 0 0px rgba(251, 151, 24, 0.0)",
+                  ],
+                  scale: [1, 1.05, 1],
+                }}
+                transition={{
+                  duration: 1,
+                  times: [0, 0.4, 1],
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                }}
+                className="bg-orange/20 p-2 rounded-full"
+              >
+                <LuBot className="text-orange text-xl" />
+              </motion.div>
+
+              <div>
+                <h2 className="text-base font-semibold text-orange">
+                  Ask me anything!
+                </h2>
+                <p className="text-xs text-gray-400">Powered by advanced AI</p>
+              </div>
+            </div>
+
+            <div className="flex-1 px-6 pb-6 overflow-y-auto text-center custom-scroll">
+              <br />
+              <h3 className="text-xl font-bold mb-2 text-orange">
+                Welcome to My AI Assistant!
+              </h3>
+              <p className="text-sm text-gray-300 mb-6">
+                Hi! I&apos;m here to help you learn more. Feel free to ask me
+                anything about skills, experience, or projects!
+              </p>
+
+              <p className="text-xs text-gray-400 mb-3">Try asking:</p>
+
+              <div className="flex flex-col gap-3">
+                {[
+                  "What are the main technical skills?",
+                  "Tell me about recent projects",
+                  "What technologies do you use?",
+                  "Can you explain your work experience?",
+                  "Do you have leadership experience?",
+                ].map((text, i) => (
+                  <button
+                    key={i}
+                    className="w-full rounded-full border border-white/20 bg-white/5 px-5 py-2.5 
+      text-sm text-gray-200 transition shadow-sm
+      hover:border-teal-400 hover:text-white hover:bg-teal-500/20 
+      hover:scale-[1.03] hover:shadow-[0_0_10px_rgba(45,212,191,0.4)] 
+      active:scale-[0.97]"
+                  >
+                    {text}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div
+              className="px-4 py-5 pb-5 shrink-0 
+             bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl"
+            >
+              <div
+                className="flex items-center rounded-full border border-white/20 px-3 py-2 
+               focus-within:border-teal-400 transition"
+              >
+                <input
+                  type="text"
+                  placeholder="Ask me anything..."
+                  className="flex-1 bg-transparent outline-none text-sm text-white 
+                 placeholder-gray-400 px-2"
+                />
+                <button
+                  className="flex items-center justify-center w-10 h-10 rounded-full 
+                 bg-gradient-to-r from-orange to-darkOrange 
+                 hover:from-lightOrange hover:to-orange 
+                 transition shadow-md"
+                >
+                  <FaRegPaperPlane className="text-white text-base" />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+export default ChatMain;
