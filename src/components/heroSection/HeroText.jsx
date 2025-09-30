@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../framerMotion/variants";
 import { LuMessageSquareCode } from "react-icons/lu";
@@ -6,6 +6,20 @@ import ChatMain from "../chatPopup/ChatMain";
 
 const HeroText = () => {
   const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.ctrlKey && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setIsOpen(true);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   return (
     <div className="flex flex-col gap-4 h-full justify-center md:text-left sm:text-center relative">
@@ -27,7 +41,6 @@ const HeroText = () => {
           />
         </span>
       </motion.div>
-
       <motion.h1
         variants={fadeIn("right", 0.4)}
         initial="hidden"
@@ -48,6 +61,16 @@ const HeroText = () => {
       >
         Student at SMKN 1 KARAWANG majoring in <br /> Software Engineering.
       </motion.p>
+
+      <motion.div
+        variants={fadeIn("up", 0.8)}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: false, amount: 0 }}
+        className="hidden md:flex justify-start"
+      ></motion.div>
+
+      <ChatMain isOpen={isOpen} onClose={() => setIsOpen(false)} />
 
       <motion.div
         variants={fadeIn("up", 0.8)}

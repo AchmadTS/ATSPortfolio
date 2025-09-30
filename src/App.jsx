@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AboutMeMain from "./components/aboutMeSection/AboutMeMain";
 import ContactMeMain from "./components/contactMeSection/ContactMeMain";
 import ExperienceMain from "./components/experienceSection/ExperienceMain";
@@ -15,6 +15,28 @@ import ChatMain from "./components/chatPopup/ChatMain";
 
 function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [showCtrlKPopup, setShowCtrlKPopup] = useState(false);
+  useEffect(() => {
+    setShowCtrlKPopup(true);
+
+    const timer = setTimeout(() => {
+      setShowCtrlKPopup(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.ctrlKey && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setIsChatOpen(true);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
     <main className="font-body text-white relative overflow-hidden">
@@ -31,12 +53,11 @@ function App() {
       <ContactMeMain />
       <FooterMain />
 
-      <button
-        onClick={() => setIsChatOpen(true)}
-        className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-orange hover:bg-darkOrange flex items-center justify-center shadow-lg transition"
-      >
-        💬
-      </button>
+      {showCtrlKPopup && (
+        <div className="fixed bottom-6 left-6 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+          Ctrl + K to chat with aTs Copilot
+        </div>
+      )}
 
       <ChatMain isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </main>
