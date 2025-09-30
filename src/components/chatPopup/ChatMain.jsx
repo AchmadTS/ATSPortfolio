@@ -85,8 +85,10 @@ const ChatMain = ({ isOpen, onClose }) => {
               <IoClose size={22} />
             </button>
 
-            <div className="flex items-center gap-3 px-6 pt-6 pb-4 shrink-0 
-                  bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl">
+            <div
+              className="flex items-center gap-3 px-6 pt-6 pb-4 shrink-0 
+                  bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl"
+            >
               <motion.div
                 animate={{
                   rotate: [0, 360, 360],
@@ -123,7 +125,8 @@ const ChatMain = ({ isOpen, onClose }) => {
                     Welcome to My AI Assistant!
                   </h3>
                   <p className="text-sm text-gray-300 mb-6">
-                    Hi! I&apos;m here to help you learn more. Feel free to ask anything!
+                    Hi! I&apos;m here to help you learn more. Feel free to ask
+                    anything!
                   </p>
                   <p className="text-xs text-gray-400 mb-3">Try asking:</p>
                   <div className="flex flex-col gap-3">
@@ -147,7 +150,9 @@ const ChatMain = ({ isOpen, onClose }) => {
               {messages.map((msg, idx) => (
                 <div
                   key={idx}
-                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                  className={`flex ${
+                    msg.role === "user" ? "justify-end" : "justify-start"
+                  }`}
                 >
                   <div
                     className={`px-4 py-3 mt-2 rounded-xl max-w-[70%] ${
@@ -163,8 +168,10 @@ const ChatMain = ({ isOpen, onClose }) => {
               <div ref={messagesEndRef} />
             </div>
 
-            <div className="px-4 py-5 shrink-0 
-              bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl">
+            <div
+              className="px-4 py-5 shrink-0 
+              bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl"
+            >
               <div className="flex items-center rounded-full border border-white/20 px-3 py-2 focus-within:border-teal-400 transition">
                 <input
                   type="text"
