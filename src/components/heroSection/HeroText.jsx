@@ -56,10 +56,19 @@ const HeroText = () => {
         viewport={{ once: false, amount: 0 }}
         className="hidden md:flex justify-start"
       >
-        <LuMessageSquareCode
-          className="text-orange text-3xl cursor-pointer"
-          onClick={() => setIsOpen(true)}
-        />
+        <motion.div
+          animate={{ rotate: [0, -10, 10, -10, 10, 0] }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          <LuMessageSquareCode
+            className="text-orange text-3xl cursor-pointer"
+            onClick={() => setIsOpen(true)}
+          />
+        </motion.div>
       </motion.div>
 
       <ChatMain isOpen={isOpen} onClose={() => setIsOpen(false)} />
