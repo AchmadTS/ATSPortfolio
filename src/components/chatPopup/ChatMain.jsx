@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaRegPaperPlane } from "react-icons/fa";
 import { LuBot } from "react-icons/lu";
 import { IoClose } from "react-icons/io5";
 
 const ChatMain = ({ isOpen, onClose }) => {
+  const [inputValue, setInputValue] = useState("");
   useEffect(() => {
     const handleEsc = (event) => {
       if (event.key === "Escape") {
@@ -14,6 +15,14 @@ const ChatMain = ({ isOpen, onClose }) => {
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, [onClose]);
+
+  const suggestions = [
+    "What are the main technical skills?",
+    "Tell me about recent projects",
+    "What technologies do you use?",
+    "Can you explain your work experience?",
+    "Do you have leadership experience?",
+  ];
 
   return (
     <AnimatePresence>
@@ -82,20 +91,15 @@ const ChatMain = ({ isOpen, onClose }) => {
               <p className="text-xs text-gray-400 mb-3">Try asking:</p>
 
               <div className="flex flex-col gap-3">
-                {[
-                  "What are the main technical skills?",
-                  "Tell me about recent projects",
-                  "What technologies do you use?",
-                  "Can you explain your work experience?",
-                  "Do you have leadership experience?",
-                ].map((text, i) => (
+                {suggestions.map((text, i) => (
                   <button
                     key={i}
+                    onClick={() => setInputValue(text)}
                     className="w-full rounded-full border border-white/20 bg-white/5 px-5 py-2.5 
-      text-sm text-gray-200 transition shadow-sm
-      hover:border-teal-400 hover:text-white hover:bg-teal-500/20 
-      hover:scale-[1.03] hover:shadow-[0_0_10px_rgba(45,212,191,0.4)] 
-      active:scale-[0.97]"
+                      text-sm text-gray-200 transition shadow-sm
+                      hover:border-teal-400 hover:text-white hover:bg-teal-500/20 
+                      hover:scale-[1.03] hover:shadow-[0_0_10px_rgba(45,212,191,0.4)] 
+                      active:scale-[0.97]"
                   >
                     {text}
                   </button>
@@ -104,23 +108,25 @@ const ChatMain = ({ isOpen, onClose }) => {
             </div>
             <div
               className="px-4 py-5 pb-5 shrink-0 
-             bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl"
+              bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl"
             >
               <div
                 className="flex items-center rounded-full border border-white/20 px-3 py-2 
-               focus-within:border-teal-400 transition"
+                focus-within:border-teal-400 transition"
               >
                 <input
                   type="text"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Ask me anything..."
                   className="flex-1 bg-transparent outline-none text-sm text-white 
-                 placeholder-gray-400 px-2"
+                  placeholder-gray-400 px-2"
                 />
                 <button
                   className="flex items-center justify-center w-10 h-10 rounded-full 
-                 bg-gradient-to-r from-orange to-darkOrange 
-                 hover:from-lightOrange hover:to-orange 
-                 transition shadow-md"
+                    bg-gradient-to-r from-orange to-darkOrange 
+                    hover:from-lightOrange hover:to-orange 
+                    transition shadow-md"
                 >
                   <FaRegPaperPlane className="text-white text-base" />
                 </button>
