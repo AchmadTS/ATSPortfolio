@@ -11,6 +11,11 @@ const ChatMain = ({ isOpen, onClose }) => {
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
+  const API_URL =
+    import.meta.env.VITE_IS_DEPLOYMENT === "true"
+      ? "/api/chat"
+      : "http://localhost:3000/api/chat";
+
   const suggestions = [
     "What are Achmad' main technical skills?",
     "Tell me about recent projects",
@@ -42,27 +47,25 @@ const ChatMain = ({ isOpen, onClose }) => {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/chat", {
+      const response = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: [...messages, userMessage] }),
       });
 
       const data = await response.json();
-
       const aiMessage = {
         role: "assistant",
-        content: data.choices?.[0]?.message?.content || "No response from AI",
+        content: data.choices?.[0]?.message?.content || "No response from AI.",
       };
 
       setMessages((prev) => [...prev, aiMessage]);
     } catch (err) {
       console.error(err);
-      const errorMessage = {
-        role: "assistant",
-        content: "Oops, something went wrong!",
-      };
-      setMessages((prev) => [...prev, errorMessage]);
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: "Oops, something went wrong!" },
+      ]);
     } finally {
       setLoading(false);
     }
