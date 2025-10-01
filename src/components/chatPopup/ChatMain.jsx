@@ -53,7 +53,18 @@ const ChatMain = ({ isOpen, onClose }) => {
         body: JSON.stringify({ messages: [...messages, userMessage] }),
       });
 
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch (err) {
+        console.error("Failed to parse JSON:", err);
+        data = {
+          choices: [
+            { message: { content: "AI response invalid or timeout." } },
+          ],
+        };
+      }
+
       const aiMessage = {
         role: "assistant",
         content: data.choices?.[0]?.message?.content || "No response from AI.",
@@ -61,7 +72,7 @@ const ChatMain = ({ isOpen, onClose }) => {
 
       setMessages((prev) => [...prev, aiMessage]);
     } catch (err) {
-      console.error(err);
+      console.error("Fetch error:", err);
       setMessages((prev) => [
         ...prev,
         { role: "assistant", content: "Oops, something went wrong!" },
