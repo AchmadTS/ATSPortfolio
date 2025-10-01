@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 
 export const config = {
-  maxDuration: 60,
+  maxDuration: 300, // 5 minutes
 };
 
 export default async function handler(req, res) {
@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 60000);
+    const timeout = setTimeout(() => controller.abort(), 300000); // 5 minutes
     const response = await fetch(
       "https://openrouter.ai/api/v1/chat/completions",
       {
