@@ -12,7 +12,7 @@ const ChatMain = ({ isOpen, onClose }) => {
   const messagesEndRef = useRef(null);
 
   const API_URL =
-    import.meta.env.VITE_IS_DEPLOYMENT === "true"
+    import.meta.env.IS_DEPLOYMENT === "true"
       ? "/api/chat"
       : "http://localhost:3000/api/chat";
 
