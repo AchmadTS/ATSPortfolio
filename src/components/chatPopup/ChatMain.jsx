@@ -173,19 +173,64 @@ const ChatMain = ({ isOpen, onClose }) => {
                   }`}
                 >
                   <div
-                    className={`px-4 py-3 mt-2 rounded-xl max-w-[70%] ${
+                    className={`px-4 py-3 mt-2 rounded-2xl max-w-[70%] ${
                       msg.role === "user"
-                        ? "bg-orange/70 text-white"
-                        : "bg-gray-700/60 text-gray-200"
+                        ? "bg-orange/70 text-white shadow-md"
+                        : "bg-white/10 backdrop-blur-2xl border border-white/20 text-gray-200 shadow-md"
                     }`}
                   >
                     {msg.content}
                   </div>
                 </div>
               ))}
+              
+              {loading && (
+                <div className="flex flex-col items-center justify-center py-10 space-y-3">
+                  <motion.div
+                    animate={{
+                      rotate: [0, 360, 360],
+                      boxShadow: [
+                        "0 0 0px rgba(251, 151, 24, 0.0)",
+                        "0 0 10px rgba(251, 151, 24, 0.6)",
+                        "0 0 0px rgba(251, 151, 24, 0.0)",
+                      ],
+                      scale: [1, 1.05, 1],
+                    }}
+                    transition={{
+                      duration: 1,
+                      times: [0, 0.4, 1],
+                      ease: "easeInOut",
+                      repeat: Infinity,
+                    }}
+                    className="bg-orange/20 p-2 rounded-full"
+                  >
+                    <LuBot className="text-orange text-xl" />
+                  </motion.div>
+                  <p className="text-sm text-gray-400 flex items-center gap-1">
+                    Thinking
+                    <motion.span
+                      animate={{ opacity: [0, 1, 0] }}
+                      transition={{ duration: 1, repeat: Infinity }}
+                    >
+                      .
+                    </motion.span>
+                    <motion.span
+                      animate={{ opacity: [0, 1, 0] }}
+                      transition={{ duration: 1, repeat: Infinity, delay: 0.2 }}
+                    >
+                      .
+                    </motion.span>
+                    <motion.span
+                      animate={{ opacity: [0, 1, 0] }}
+                      transition={{ duration: 1, repeat: Infinity, delay: 0.4 }}
+                    >
+                      .
+                    </motion.span>
+                  </p>
+                </div>
+              )}
               <div ref={messagesEndRef} />
             </div>
-
             <div
               className="px-4 py-5 shrink-0 
               bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl"
@@ -209,11 +254,6 @@ const ChatMain = ({ isOpen, onClose }) => {
                   <FaRegPaperPlane className="text-white text-base" />
                 </button>
               </div>
-              {loading && (
-                <p className="text-xs text-gray-400 mt-2 text-center">
-                  Thinking...
-                </p>
-              )}
             </div>
           </motion.div>
         </div>
