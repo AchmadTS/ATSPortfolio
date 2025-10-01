@@ -14,7 +14,7 @@ export default async function handler(req, res) {
 
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 10000);
+    const timeout = setTimeout(() => controller.abort(), 60000);
     const response = await fetch(
       "https://openrouter.ai/api/v1/chat/completions",
       {
