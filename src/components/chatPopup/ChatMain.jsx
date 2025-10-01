@@ -132,7 +132,7 @@ const ChatMain = ({ isOpen, onClose }) => {
                 <h2 className="text-base font-semibold text-orange">
                   Ask me anything!
                 </h2>
-                <p className="text-xs text-gray-400">Powered by advanced AI</p>
+                <p className="text-xs text-gray-400">Powered by advanced AI!</p>
               </div>
             </div>
 
