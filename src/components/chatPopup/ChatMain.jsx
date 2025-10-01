@@ -35,22 +35,26 @@ const ChatMain = ({ isOpen, onClose }) => {
 
   const handleSend = async (text) => {
     if (!text.trim()) return;
+
     const userMessage = { role: "user", content: text };
     setMessages((prev) => [...prev, userMessage]);
     setInputValue("");
     setLoading(true);
 
     try {
-      const response = await fetch("/api/chat", {
+      const response = await fetch("http://localhost:3000/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: [...messages, userMessage] }),
       });
+
       const data = await response.json();
+
       const aiMessage = {
         role: "assistant",
-        content: data.choices[0].message.content,
+        content: data.choices?.[0]?.message?.content || "No response from AI",
       };
+
       setMessages((prev) => [...prev, aiMessage]);
     } catch (err) {
       console.error(err);

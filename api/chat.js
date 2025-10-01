@@ -1,21 +1,40 @@
 import fetch from "node-fetch";
 
 export default async function handler(req, res) {
-  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
 
   const { messages } = req.body;
 
+  // eslint-disable-next-line no-undef
+  if (!process.env.OPENROUTER_API_KEY) {
+    return res.status(500).json({ error: "API key not set in environment" });
+  }
+
   try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // eslint-disable-next-line no-undef
-        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({ model: "gpt-3.5-turbo", messages, max_tokens: 500 }),
-    });
+    const response = await fetch(
+      "https://openrouter.ai/api/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          // eslint-disable-next-line no-undef
+          "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "deepseek/deepseek-chat-v3.1:free",
+          messages,
+        }),
+      }
+    );
+
     const data = await response.json();
+
+    if (!data.choices || !data.choices[0]?.message?.content) {
+      return res.status(200).json({ choices: [{ message: { content: "" } }] });
+    }
+
     res.status(200).json(data);
   } catch (err) {
     console.error(err);
