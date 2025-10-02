@@ -49,14 +49,20 @@ const ChatMain = ({ isOpen, onClose }) => {
 
     if (suggestionAnswers[text]) {
       setLoading(true);
+
+      const answer = suggestionAnswers[text];
+      const charCount = answer.length;
+      const delay = Math.min(Math.max(charCount * 20, 800), 5000);
+
       setTimeout(() => {
         const aiMessage = {
           role: "assistant",
-          content: suggestionAnswers[text],
+          content: answer,
         };
         setMessages((prev) => [...prev, aiMessage]);
         setLoading(false);
-      }, 1200); // delay 1.2 seconds
+      }, delay);
+
       return;
     }
 
