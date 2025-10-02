@@ -33,13 +33,21 @@ const HeroText = () => {
         <h2 className="lg:text-2xl sm:text-xl uppercase text-lightGrey">
           Student
         </h2>
-
-        <span className="md:hidden">
-          <LuMessageSquareCode
-            className="text-orange text-2xl cursor-pointer"
-            onClick={() => setIsOpen(true)}
-          />
-        </span>
+        <motion.div
+          animate={{ rotate: [0, -10, 10, -10, 10, 0] }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          <span className="md:hidden">
+            <LuMessageSquareCode
+              className="text-orange text-2xl cursor-pointer"
+              onClick={() => setIsOpen(true)}
+            />
+          </span>
+        </motion.div>
       </motion.div>
       <motion.h1
         variants={fadeIn("right", 0.4)}
