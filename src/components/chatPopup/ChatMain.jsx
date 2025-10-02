@@ -7,6 +7,45 @@ import { IoClose } from "react-icons/io5";
 import ReactMarkdown from "react-markdown";
 
 // eslint-disable-next-line react/prop-types
+const TypewriterMessage = ({ content }) => {
+  const [displayed, setDisplayed] = useState("");
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    // eslint-disable-next-line react/prop-types
+    if (index < content.length) {
+      const timeout = setTimeout(() => {
+        setDisplayed((prev) => prev + content[index]);
+        setIndex((prev) => prev + 1);
+      }, 20);
+      return () => clearTimeout(timeout);
+    }
+  }, [index, content]);
+
+  return (
+    <ReactMarkdown
+      components={{
+        // eslint-disable-next-line no-unused-vars
+        a: ({ node, ...props }) => (
+          <a
+            {...props}
+            className="text-teal-400 underline hover:text-teal-300"
+            target="_blank"
+            rel="noopener noreferrer"
+          />
+        ),
+        // eslint-disable-next-line no-unused-vars
+        strong: ({ node, ...props }) => (
+          <strong className="font-semibold text-white" {...props} />
+        ),
+      }}
+    >
+      {displayed}
+    </ReactMarkdown>
+  );
+};
+
+// eslint-disable-next-line react/prop-types
 const ChatMain = ({ isOpen, onClose }) => {
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState([]);
@@ -200,28 +239,32 @@ const ChatMain = ({ isOpen, onClose }) => {
                         : "bg-white/10 backdrop-blur-2xl border border-white/20 text-gray-200 shadow-md"
                     }`}
                   >
-                    <ReactMarkdown
-                      components={{
-                        // eslint-disable-next-line no-unused-vars
-                        a: ({ node, ...props }) => (
-                          <a
-                            {...props}
-                            className="text-teal-400 underline hover:text-teal-300"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          />
-                        ),
-                        // eslint-disable-next-line no-unused-vars
-                        strong: ({ node, ...props }) => (
-                          <strong
-                            className="font-semibold text-white"
-                            {...props}
-                          />
-                        ),
-                      }}
-                    >
-                      {msg.content}
-                    </ReactMarkdown>
+                    {msg.role === "assistant" ? (
+                      <TypewriterMessage content={msg.content} />
+                    ) : (
+                      <ReactMarkdown
+                        components={{
+                          // eslint-disable-next-line no-unused-vars
+                          a: ({ node, ...props }) => (
+                            <a
+                              {...props}
+                              className="text-teal-400 underline hover:text-teal-300"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            />
+                          ),
+                          // eslint-disable-next-line no-unused-vars
+                          strong: ({ node, ...props }) => (
+                            <strong
+                              className="font-semibold text-white"
+                              {...props}
+                            />
+                          ),
+                        }}
+                      >
+                        {msg.content}
+                      </ReactMarkdown>
+                    )}
                   </div>
                 </div>
               ))}
