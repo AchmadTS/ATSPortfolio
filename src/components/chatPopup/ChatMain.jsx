@@ -1,8 +1,10 @@
+import suggestionAnswers from "./data/suggestionAnswers";
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaRegPaperPlane } from "react-icons/fa";
 import { LuBot } from "react-icons/lu";
 import { IoClose } from "react-icons/io5";
+import ReactMarkdown from "react-markdown";
 
 // eslint-disable-next-line react/prop-types
 const ChatMain = ({ isOpen, onClose }) => {
@@ -15,14 +17,6 @@ const ChatMain = ({ isOpen, onClose }) => {
     import.meta.env.VITE_IS_DEPLOYMENT === "true"
       ? "/api/chat"
       : "http://localhost:3000/api/chat";
-
-  const suggestions = [
-    "What are Achmad' main technical skills?",
-    "Tell me about recent projects",
-    "What his educational background?",
-    "What kind of developer role is he looking for?",
-    "What technologies do you use?",
-  ];
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -38,14 +32,35 @@ const ChatMain = ({ isOpen, onClose }) => {
     return () => window.removeEventListener("keydown", handleEsc);
   }, [onClose]);
 
+  const suggestions = [
+    "What are Achmad's main technical skills?",
+    "Tell me about recent projects",
+    "What his educational background?",
+    "What kind of developer role is he looking for?",
+    "What technologies do you use?",
+  ];
+
   const handleSend = async (text) => {
     if (!text.trim()) return;
 
     const userMessage = { role: "user", content: text };
     setMessages((prev) => [...prev, userMessage]);
     setInputValue("");
-    setLoading(true);
 
+    if (suggestionAnswers[text]) {
+      setLoading(true);
+      setTimeout(() => {
+        const aiMessage = {
+          role: "assistant",
+          content: suggestionAnswers[text],
+        };
+        setMessages((prev) => [...prev, aiMessage]);
+        setLoading(false);
+      }, 1200); // delay 1.2 seconds
+      return;
+    }
+
+    setLoading(true);
     try {
       const response = await fetch(API_URL, {
         method: "POST",
@@ -173,17 +188,37 @@ const ChatMain = ({ isOpen, onClose }) => {
                   }`}
                 >
                   <div
-                    className={`px-4 py-3 mt-2 rounded-2xl max-w-[70%] ${
+                    className={`px-4 py-3 mt-2 rounded-2xl max-w-[70%] break-words ${
                       msg.role === "user"
                         ? "bg-orange/70 text-white shadow-md"
                         : "bg-white/10 backdrop-blur-2xl border border-white/20 text-gray-200 shadow-md"
                     }`}
                   >
-                    {msg.content}
+                    <ReactMarkdown
+                      components={{
+                        // eslint-disable-next-line no-unused-vars
+                        a: ({ node, ...props }) => (
+                          <a
+                            {...props}
+                            className="text-teal-400 underline hover:text-teal-300"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          />
+                        ),
+                        // eslint-disable-next-line no-unused-vars
+                        strong: ({ node, ...props }) => (
+                          <strong
+                            className="font-semibold text-white"
+                            {...props}
+                          />
+                        ),
+                      }}
+                    >
+                      {msg.content}
+                    </ReactMarkdown>
                   </div>
                 </div>
               ))}
-              
               {loading && (
                 <div className="flex flex-col items-center justify-center py-10 space-y-3">
                   <motion.div
