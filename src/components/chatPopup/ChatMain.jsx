@@ -7,11 +7,14 @@ import { IoClose } from "react-icons/io5";
 import ReactMarkdown from "react-markdown";
 
 // eslint-disable-next-line react/prop-types
-const TypewriterMessage = ({ content }) => {
-  const [displayed, setDisplayed] = useState("");
-  const [index, setIndex] = useState(0);
+const TypewriterMessage = ({ content, onDone, alreadyTyped }) => {
+  const [displayed, setDisplayed] = useState(alreadyTyped ? content : "");
+  // eslint-disable-next-line react/prop-types
+  const [index, setIndex] = useState(alreadyTyped ? content.length : 0);
 
   useEffect(() => {
+    if (alreadyTyped) return;
+
     // eslint-disable-next-line react/prop-types
     if (index < content.length) {
       const timeout = setTimeout(() => {
@@ -19,8 +22,10 @@ const TypewriterMessage = ({ content }) => {
         setIndex((prev) => prev + 1);
       }, 20);
       return () => clearTimeout(timeout);
+    } else {
+      onDone();
     }
-  }, [index, content]);
+  }, [index, content, alreadyTyped, onDone]);
 
   return (
     <ReactMarkdown
@@ -240,7 +245,17 @@ const ChatMain = ({ isOpen, onClose }) => {
                     }`}
                   >
                     {msg.role === "assistant" ? (
-                      <TypewriterMessage content={msg.content} />
+                      <TypewriterMessage
+                        content={msg.content}
+                        alreadyTyped={msg.typed}
+                        onDone={() => {
+                          setMessages((prev) =>
+                            prev.map((m, i) =>
+                              i === idx ? { ...m, typed: true } : m
+                            )
+                          );
+                        }}
+                      />
                     ) : (
                       <ReactMarkdown
                         components={{
