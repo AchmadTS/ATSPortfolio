@@ -64,9 +64,9 @@ const HeroText = () => {
         initial="hidden"
         whileInView="show"
         viewport={{ once: false, amount: 0 }}
-        className="text-lg mt-4 text-lightGrey leading-relaxed max-w-xl"
+        className="text-base md:text-lg -mt-1 md:mt-3 mb-3 md:mb-0 text-lightGrey leading-relaxed max-w-xl"
       >
-        Currently pursuing an undergraduate degree in {" "}
+        Currently pursuing an undergraduate degree in{" "}
         <a
           href="https://bse.telkomuniversity.ac.id/"
           target="_blank"
