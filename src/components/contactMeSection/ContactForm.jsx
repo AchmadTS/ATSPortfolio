@@ -1,22 +1,15 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
+import { FiDownload } from "react-icons/fi";
 
 const ContactForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState("");
-  const handleName = (e) => {
-    setName(e.target.value);
-  };
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  const handleMessage = (e) => {
-    setMessage(e.target.value);
-  };
   const form = useRef();
+
   const sendEmail = (e) => {
     e.preventDefault();
     emailjs
@@ -38,7 +31,7 @@ const ContactForm = () => {
 
   return (
     <div>
-      <p className="text-cyan">{success}</p>
+      <p className="text-cyan mb-2">{success}</p>
       <form ref={form} onSubmit={sendEmail} className="flex flex-col gap-4">
         <input
           type="text"
@@ -46,9 +39,9 @@ const ContactForm = () => {
           placeholder="Your Name"
           autoComplete="off"
           required
-          className="h-12 rounded-lg bg-lightBrown px-2"
+          className="h-12 rounded-lg bg-transparent px-3 text-white placeholder-gray-400 border border-white/20 outline-none focus:border-cyan focus:ring-1 focus:ring-cyan transition-all duration-300"
           value={name}
-          onChange={handleName}
+          onChange={(e) => setName(e.target.value)}
         />
         <input
           type="email"
@@ -56,21 +49,19 @@ const ContactForm = () => {
           placeholder="Your Email"
           autoComplete="off"
           required
-          className="h-12 rounded-lg bg-lightBrown px-2"
+          className="h-12 rounded-lg bg-transparent px-3 text-white placeholder-gray-400 border border-white/20 outline-none focus:border-cyan focus:ring-1 focus:ring-cyan transition-all duration-300"
           value={email}
-          onChange={handleEmail}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <textarea
-          type="text"
           name="message"
-          rows="9"
+          rows="6"
           autoComplete="off"
-          cols="50"
           placeholder="Message"
           required
-          className=" rounded-lg bg-lightBrown p-2"
+          className="rounded-lg bg-transparent p-3 text-white placeholder-gray-400 border border-white/20 outline-none resize-none focus:border-cyan focus:ring-1 focus:ring-cyan transition-all duration-300"
           value={message}
-          onChange={handleMessage}
+          onChange={(e) => setMessage(e.target.value)}
         />
         <button
           type="submit"
@@ -78,6 +69,15 @@ const ContactForm = () => {
         >
           Send
         </button>
+
+        <a
+          href="/pdf/Achmad Tirto Sudiro_KitaLulusCV.pdf"
+          download
+          className="w-full rounded-lg border border-white/20 text-white h-12 flex items-center justify-center gap-2 font-semibold text-lg hover:bg-white/10 transition-all duration-300"
+        >
+          <FiDownload size={22} />
+          Download CV
+        </a>
       </form>
     </div>
   );

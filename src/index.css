@@ -47,4 +47,32 @@ input:-webkit-autofill:focus {
   background: transparent !important;
 }
 
+@keyframes slideUpFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+@keyframes slideDownFadeOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.animate-slideUpFadeIn {
+  animation: slideUpFadeIn 0.8s ease-out forwards;
+}
+
+.animate-slideDownFadeOut {
+  animation: slideDownFadeOut 0.8s ease-in forwards;
+}

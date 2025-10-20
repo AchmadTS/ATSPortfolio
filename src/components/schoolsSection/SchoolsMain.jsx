@@ -5,30 +5,37 @@ import { fadeIn } from "../../framerMotion/variants";
 
 const schools = [
   {
+    name: "Telkom University",
+    year: "2025-present",
+    align: "right",
+    image: "/images/Telkom.webp",
+    mapsLink: "https://maps.app.goo.gl/G1C67kZhz9msogcx6",
+  },
+  {
     name: "SMKN 1 Karawang",
     year: "2022-2025",
-    align: "right",
+    align: "left",
     image: "/images/smkn1karawang.webp",
     mapsLink: "https://maps.app.goo.gl/ikchpUEKRUK5tC248",
   },
   {
     name: "SMPN 3 Klari",
     year: "2019-2021",
-    align: "left",
+    align: "right",
     image: "/images/Tiklar.webp",
     mapsLink: "https://maps.app.goo.gl/p2jFU8dd6GK4SBo78",
   },
   {
     name: "SDN Pancawati 2",
     year: "2013-2018",
-    align: "right",
+    align: "left",
     image: "/images/PWT2.webp",
     mapsLink: "https://maps.app.goo.gl/hQ8qUdwTweyJQ4N2A",
   },
   {
     name: "Al-Hidayah",
     year: "2011-2012",
-    align: "left",
+    align: "right",
     image: "/images/TK.webp",
     mapsLink: "https://maps.app.goo.gl/NJbvpDjWDdiJynXa6",
   },

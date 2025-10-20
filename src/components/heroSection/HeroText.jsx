@@ -15,10 +15,7 @@ const HeroText = () => {
     };
 
     window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   return (
@@ -30,9 +27,10 @@ const HeroText = () => {
         viewport={{ once: false, amount: 0 }}
         className="flex items-center justify-center md:justify-start gap-2"
       >
-        <h2 className="lg:text-2xl sm:text-xl uppercase text-lightGrey">
+        <h2 className="lg:text-2xl sm:text-xl uppercase text-lightGrey tracking-wide">
           Student
         </h2>
+
         <motion.div
           animate={{ rotate: [0, -10, 10, -10, 10, 0] }}
           transition={{
@@ -43,18 +41,19 @@ const HeroText = () => {
         >
           <span className="md:hidden">
             <LuMessageSquareCode
-              className="text-orange text-2xl cursor-pointer"
+              className="text-orange text-2xl cursor-pointer hover:text-cyan transition-colors duration-300"
               onClick={() => setIsOpen(true)}
             />
           </span>
         </motion.div>
       </motion.div>
+
       <motion.h1
         variants={fadeIn("right", 0.4)}
         initial="hidden"
         whileInView="show"
         viewport={{ once: false, amount: 0 }}
-        className="md:text-[2.8rem] lg:text-6xl sm:text-4xl text-orange font-bold uppercase"
+        className="md:text-[2.8rem] lg:text-6xl sm:text-4xl text-orange font-bold uppercase leading-tight"
       >
         Achmad Tirto <br className="sm:hidden md:block" />
         Sudiro
@@ -65,9 +64,29 @@ const HeroText = () => {
         initial="hidden"
         whileInView="show"
         viewport={{ once: false, amount: 0 }}
-        className="text-lg mt-4"
+        className="text-lg mt-4 text-lightGrey leading-relaxed max-w-xl"
       >
-        Student at SMKN 1 KARAWANG majoring in <br /> Software Engineering.
+        Currently pursuing an undergraduate degree in {" "}
+        <a
+          href="https://bse.telkomuniversity.ac.id/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-orange font-semibold hover:underline hover:text-orange/80 transition-colors duration-200"
+        >
+          Software Engineering{" "}
+        </a>
+        at{" "}
+        <a
+          href="https://telkomuniversity.ac.id/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-cyan font-semibold hover:underline hover:text-cyan/80 transition-colors duration-200"
+        >
+          Telkom University
+        </a>
+        .
+        <br />
+        Passionate about software development, design, and innovation.
       </motion.p>
 
       <motion.div
@@ -75,17 +94,7 @@ const HeroText = () => {
         initial="hidden"
         whileInView="show"
         viewport={{ once: false, amount: 0 }}
-        className="hidden md:flex justify-start"
-      ></motion.div>
-
-      <ChatMain isOpen={isOpen} onClose={() => setIsOpen(false)} />
-
-      <motion.div
-        variants={fadeIn("up", 0.8)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: false, amount: 0 }}
-        className="hidden md:flex justify-start"
+        className="hidden md:flex justify-start mt-2"
       >
         <motion.div
           animate={{ rotate: [0, -10, 10, -10, 10, 0] }}
@@ -96,7 +105,7 @@ const HeroText = () => {
           }}
         >
           <LuMessageSquareCode
-            className="text-orange text-3xl cursor-pointer"
+            className="text-orange text-3xl cursor-pointer hover:text-cyan transition-colors duration-300"
             onClick={() => setIsOpen(true)}
           />
         </motion.div>
