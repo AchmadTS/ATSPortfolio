@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../framerMotion/variants";
 import { LuMessageSquareCode } from "react-icons/lu";
+import { TypeAnimation } from "react-type-animation";
 import ChatMain from "../chatPopup/ChatMain";
 
 const HeroText = () => {
   const [isOpen, setIsOpen] = useState(false);
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.ctrlKey && e.key.toLowerCase() === "k") {
@@ -13,7 +15,6 @@ const HeroText = () => {
         setIsOpen(true);
       }
     };
-
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
@@ -53,10 +54,24 @@ const HeroText = () => {
         initial="hidden"
         whileInView="show"
         viewport={{ once: false, amount: 0 }}
-        className="md:text-[2.8rem] lg:text-6xl sm:text-4xl text-orange font-bold uppercase leading-tight"
+        className="md:text-[2.8rem] lg:text-6xl sm:text-4xl font-bold uppercase leading-tight text-orange"
       >
-        Achmad Tirto <br className="sm:hidden md:block" />
-        Sudiro
+        <TypeAnimation
+          sequence={[
+            "Achmad Tirto\nSudiro",
+            1500,
+            "",
+            1000,
+          ]}
+          speed={30}
+          deletionSpeed={30}
+          cursor={true}
+          style={{
+            whiteSpace: "pre-line",
+            display: "inline-block",
+          }}
+          repeat={Infinity}
+        />
       </motion.h1>
 
       <motion.p
