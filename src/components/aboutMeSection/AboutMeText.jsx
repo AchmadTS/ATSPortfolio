@@ -29,7 +29,7 @@ const AboutMeText = () => {
         </span>
         , majoring in{" "}
         <a
-          href="https://bse.telkomuniversity.ac.id/"
+          href="https://pplg.smkn1karawang.sch.id/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-orange font-semibold hover:underline hover:text-orange/80 transition-colors duration-200"
