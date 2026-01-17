@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { FiDownload, FiX } from "react-icons/fi";
 
@@ -9,6 +9,8 @@ const ContactForm = () => {
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState("");
   const [showPopup, setShowPopup] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+  const [isOpening, setIsOpening] = useState(false);
   const form = useRef();
 
   const sendEmail = (e) => {
@@ -33,7 +35,34 @@ const ContactForm = () => {
   const handleDownloadClick = (e) => {
     e.preventDefault();
     setShowPopup(true);
+    setIsClosing(false);
+    setTimeout(() => setIsOpening(true), 10);
   };
+
+  const closePopup = () => {
+    setIsClosing(true);
+    setIsOpening(false);
+    setTimeout(() => {
+      setShowPopup(false);
+      setIsClosing(false);
+    }, 300);
+  };
+
+  useEffect(() => {
+    const handleEscKey = (e) => {
+      if (e.key === "Escape" && showPopup) {
+        closePopup();
+      }
+    };
+
+    if (showPopup) {
+      document.addEventListener("keydown", handleEscKey);
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleEscKey);
+    };
+  }, [showPopup]);
 
   const handleDownload = (cvType) => {
     const cvPaths = {
@@ -101,10 +130,16 @@ const ContactForm = () => {
       </div>
 
       {showPopup && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 px-4">
-          <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-6 max-w-md w-full border border-white/20 relative">
+        <div 
+          className={`fixed inset-0 bg-black/70 flex items-center justify-center z-50 px-4 transition-opacity duration-300 ${isOpening ? 'opacity-100' : 'opacity-0'}`}
+          onClick={closePopup}
+        >
+          <div 
+            className={`bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-6 max-w-md w-full border border-white/20 relative transition-all duration-300 ${isOpening && !isClosing ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
-              onClick={() => setShowPopup(false)}
+              onClick={closePopup}
               className="absolute top-4 right-4 text-white/60 hover:text-white transition-colors"
             >
               <FiX size={24} />
