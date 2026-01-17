@@ -7,6 +7,14 @@ body {
   @apply bg-darkBrown;
 }
 
+.active {
+  color: rgb(6 182 212) !important;
+}
+
+.active + div {
+  width: 100% !important;
+}
+
 .custom-scroll {
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
