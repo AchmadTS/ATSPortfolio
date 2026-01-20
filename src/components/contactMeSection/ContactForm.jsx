@@ -139,7 +139,7 @@ const ContactForm = () => {
   return (
     <div>
       <p className="text-cyan mb-2">{success}</p>
-      <div ref={form} className="flex flex-col gap-4">
+      <form ref={form} className="flex flex-col gap-4">
         <input
           type="text"
           name="from_name"
@@ -184,7 +184,7 @@ const ContactForm = () => {
           <FiDownload size={22} />
           Download CV
         </button>
-      </div>
+      </form>
 
       {showPopup && (
         <div
