@@ -290,7 +290,7 @@ const ContactForm = () => {
                   className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 bg-white/10 border border-white/20 text-white hover:bg-darkCyan rounded-lg transition-all duration-300 text-sm md:text-base"
                 >
                   <FiDownload size={18} className="md:w-5 md:h-5" />
-                  <span className="hidden md:inline">Download</span>
+                  <span className="inline">Download</span>
                 </button>
                 <button
                   onClick={closePdfViewer}
