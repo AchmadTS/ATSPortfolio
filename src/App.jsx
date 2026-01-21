@@ -59,15 +59,12 @@ function App() {
 
       {showCtrlKPopup && (
         <div
-          className={`fixed bottom-6 left-6 z-50 flex items-center gap-3 px-5 py-3 
-          bg-gradient-to-r from-gray-800/90 to-gray-700/90 
-          border border-cyan-400/40 backdrop-blur-md 
-          text-white rounded-xl shadow-[0_0_20px_rgba(0,255,255,0.15)] 
-          ${fadeOut ? "animate-slideDownFadeOut" : "animate-slideUpFadeIn"}`}
+          className={`hidden lg:flex fixed bottom-6 left-6 z-50 items-center gap-3 px-5 py-3 bg-gradient-to-r from-gray-800/90 to-gray-700/90 border border-cyan-400/40 backdrop-blur-mdtext-white rounded-xl shadow-[0_0_20px_rgba(0,255,255,0.15)] ${fadeOut ? "animate-slideDownFadeOut" : "animate-slideUpFadeIn"}`}
         >
           <span className="text-cyan-300 text-lg">
             <FiCommand />
           </span>
+
           <p className="text-sm font-medium">
             <kbd className="bg-gray-900/60 px-2 py-1 rounded-md border border-white/20 text-xs mr-1">
               Ctrl + K
