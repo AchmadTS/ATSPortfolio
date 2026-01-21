@@ -48,7 +48,6 @@ const PdfViewer = ({ show, currentPdf, onClose }) => {
   };
 
   if (!show || !currentPdf) return null;
-  const pdfSrc = `${currentPdf.path}#toolbar=0&navpanes=0&scrollbar=0`;
 
   return (
     <div
@@ -89,7 +88,11 @@ const PdfViewer = ({ show, currentPdf, onClose }) => {
           </div>
         </div>
         <div className="flex-1 overflow-hidden">
-          <iframe src={pdfSrc} className="w-full h-full" title="PDF Viewer" />
+          <iframe
+            src={currentPdf.path}
+            className="w-full h-full"
+            title="PDF Viewer"
+          />
         </div>
       </div>
     </div>
