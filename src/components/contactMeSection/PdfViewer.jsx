@@ -51,7 +51,7 @@ const PdfViewer = ({ show, currentPdf, onClose }) => {
 
   return (
     <div
-      className={`fixed inset-0 bg-black/90 flex items-center justify-center z-[60] p-2 sm:p-4 transition-opacity duration-300 ${
+      className={`backdrop-blur-sm fixed inset-0 bg-black/90 flex items-center justify-center z-[60] p-2 sm:p-4 transition-opacity duration-300 ${
         isPdfOpening ? "opacity-100" : "opacity-0"
       }`}
     >
