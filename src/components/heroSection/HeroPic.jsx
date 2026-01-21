@@ -14,13 +14,28 @@ const HeroPic = () => {
       <img
         src="/images/Me-Mobile.webp"
         alt="Achmad Tirto Sudiro"
-        className="block md:hidden max-h-[240px] w-auto transition-transform duration-300"
+        className="
+          block md:hidden
+          max-h-[240px]
+          hover:max-h-[250px]
+          w-auto
+          transition-[max-height]
+          duration-300
+          ease-out
+        "
       />
 
       <img
         src="/images/Me.webp"
         alt="Achmad Tirto Sudiro"
-        className="hidden md:block max-h-[450px] w-auto transition-transform duration-300 hover:scale-105"
+        className="
+          hidden md:block
+          max-h-[450px]
+          w-auto
+          transition-transform
+          duration-300
+          hover:scale-105
+        "
       />
 
       <div className="absolute -z-10 flex justify-center items-center animate-pulse">
