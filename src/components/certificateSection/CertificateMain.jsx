@@ -54,7 +54,42 @@ const certificates = [
     link: "/pdf/java_basic certificate.pdf",
   },
   {
-    name: "Test",
+    name: "Test 1",
+    issuer: "HackerRank",
+    year: "Jul 2025",
+    image: "/images/cert-js.webp",
+    link: "/pdf/java_basic certificate.pdf",
+  },
+  {
+    name: "Test 2",
+    issuer: "HackerRank",
+    year: "Jul 2025",
+    image: "/images/cert-js.webp",
+    link: "/pdf/java_basic certificate.pdf",
+  },
+  {
+    name: "Test 3",
+    issuer: "HackerRank",
+    year: "Jul 2025",
+    image: "/images/cert-js.webp",
+    link: "/pdf/java_basic certificate.pdf",
+  },
+  {
+    name: "Test 4",
+    issuer: "HackerRank",
+    year: "Jul 2025",
+    image: "/images/cert-js.webp",
+    link: "/pdf/java_basic certificate.pdf",
+  },
+  {
+    name: "Test 5",
+    issuer: "HackerRank",
+    year: "Jul 2025",
+    image: "/images/cert-js.webp",
+    link: "/pdf/java_basic certificate.pdf",
+  },
+  {
+    name: "Test 6",
     issuer: "HackerRank",
     year: "Jul 2025",
     image: "/images/cert-js.webp",
@@ -65,14 +100,18 @@ const certificates = [
 const CertificateMain = () => {
   const [showAll, setShowAll] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
-  const staticCertificates = certificates.slice(0, 3);
-  const extraCertificates = certificates.slice(3);
-  const chunks = [];
-  for (let i = 0; i < extraCertificates.length; i += 3) {
-    chunks.push(extraCertificates.slice(i, i + 3));
+  const PAGE_SIZE = 6;
+  const pages = [];
+
+  for (let i = 0; i < certificates.length; i += PAGE_SIZE) {
+    pages.push(certificates.slice(i, i + PAGE_SIZE));
   }
 
-  const currentExtraItems = chunks[currentPage] || [];
+  const displayedCertificates = showAll
+    ? pages[currentPage]
+    : certificates.slice(0, 3);
+  const animationKey = showAll ? `page-${currentPage}` : "collapsed";
+
   return (
     <div id="certificate" className="max-w-[1200px] mx-auto px-4">
       <motion.div
@@ -83,47 +122,45 @@ const CertificateMain = () => {
       >
         <CertificateText />
       </motion.div>
+
       <div className="relative max-w-[1000px] mx-auto mt-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {staticCertificates.map((cert) => (
-            <SingleCertificate key={cert.name} {...cert} />
-          ))}
-        </div>
-        {showAll && certificates.length > 6 && (
-          <div className="absolute inset-y-0 -left-20 -right-20 flex items-center justify-between pointer-events-none">
+        {showAll && pages.length > 1 && (
+          <div className="absolute inset-y-0 -left-20 -right-20 flex items-center justify-between pointer-events-none z-20">
             <button
               onClick={() => setCurrentPage((prev) => Math.max(0, prev - 1))}
-              className="pointer-events-auto p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all z-20 bg-gray-900"
+              disabled={currentPage === 0}
+              className="pointer-events-auto p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all bg-gray-900 disabled:opacity-30"
             >
               <FiChevronLeft size={30} />
             </button>
             <button
               onClick={() =>
-                setCurrentPage((prev) => Math.min(chunks.length - 1, prev + 1))
+                setCurrentPage((prev) => Math.min(pages.length - 1, prev + 1))
               }
-              className="pointer-events-auto p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all z-20 bg-gray-900"
+              disabled={currentPage === pages.length - 1}
+              className="pointer-events-auto p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all bg-gray-900 disabled:opacity-30"
             >
               <FiChevronRight size={30} />
             </button>
           </div>
         )}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-10">
-          <AnimatePresence mode="wait">
-            {showAll &&
-              currentExtraItems.map((cert) => (
-                <motion.div
-                  key={cert.name}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.4, ease: "easeInOut" }}
-                >
-                  <SingleCertificate {...cert} />
-                </motion.div>
-              ))}
-          </AnimatePresence>
-        </div>
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={animationKey}
+            variants={fadeIn("top", 0)}
+            initial="hidden"
+            animate="show"
+            exit="hidden"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
+          >
+            {displayedCertificates.map((cert) => (
+              <SingleCertificate key={cert.name} {...cert} />
+            ))}
+          </motion.div>
+        </AnimatePresence>
       </div>
+
       {certificates.length > 3 && (
         <div className="flex justify-center mt-12">
           <motion.button
