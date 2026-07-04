@@ -72,7 +72,7 @@ const SingleCertificate = ({ name, issuer, year, link }) => {
             onClick={() => setShowPdf(true)}
             className="mt-3 text-lg flex gap-2 items-center text-cyan hover:text-orange transition-all duration-500 cursor-pointer"
           >
-            View Credential <BsFillArrowUpRightCircleFill />
+            View <BsFillArrowUpRightCircleFill />
           </button>
         </div>
       </motion.div>

@@ -16,14 +16,14 @@ const certificates = [
     issuer: "HackerRank",
     year: "Jul 2025",
     image: "/images/cert-frontend.webp",
-    link: "/pdf/javascript_intermediate certificate.pdf",
+    link: "/pdf/problem_solving_intermediate certificate.pdf",
   },
   {
     name: "Rest API (Intermediate)",
     issuer: "HackerRank",
     year: "Jul 2025",
     image: "/images/cert-python.webp",
-    link: "/pdf/java_basic certificate.pdf",
+    link: "/pdf/rest_api_intermediate certificate.pdf",
   },
   {
     name: "JavaScript (Intermediate)",
