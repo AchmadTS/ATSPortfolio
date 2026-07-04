@@ -28,7 +28,7 @@ const SingleCertificate = ({ name, issuer, year, link }) => {
       >
         <div className="w-full aspect-[4/3] rounded-xl overflow-hidden transform transition-all duration-500 relative border border-white hover:scale-105 bg-gray-900 flex items-center justify-center">
           <div className="w-full h-full bg-cyan opacity-50 absolute top-0 left-0 group-hover:opacity-0 transition-all duration-500 z-10 md:block sm:hidden pointer-events-none"></div>
-          <div className="w-full h-full absolute inset-0 pointer-events-none flex items-center justify-center">
+          <div className="w-full h-full absolute inset-0 pointer-events-none flex items-center justify-center p-2">
             <div className="w-full h-full flex md:hidden items-center justify-center overflow-hidden">
               <Document
                 file={link}
@@ -46,10 +46,11 @@ const SingleCertificate = ({ name, issuer, year, link }) => {
               >
                 <Page
                   pageNumber={1}
+                  width={300}
                   renderTextLayer={false}
                   renderAnnotationLayer={false}
-                  className="w-full h-full flex items-center justify-center"
-                  canvasClassName="!w-full !h-full !object-contain"
+                  className="flex items-center justify-center"
+                  canvasClassName="!max-w-full !h-auto !object-contain rounded-md"
                 />
               </Document>
             </div>
