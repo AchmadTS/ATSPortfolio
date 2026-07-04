@@ -111,6 +111,15 @@ const CertificateMain = () => {
     ? pages[currentPage]
     : certificates.slice(0, 3);
   const animationKey = showAll ? `page-${currentPage}` : "collapsed";
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+    setTimeout(() => {
+      const section = document.getElementById("certificate");
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 150);
+  };
 
   return (
     <div id="certificate" className="max-w-[1200px] mx-auto px-4">
@@ -122,18 +131,19 @@ const CertificateMain = () => {
       >
         <CertificateText />
       </motion.div>
+      
       <div className="relative max-w-[1000px] mx-auto mt-16">
         {showAll && pages.length > 1 && (
-          <div className="absolute inset-y-0 -left-20 -right-20 flex items-center justify-between pointer-events-none">
+          <div className="hidden md:flex absolute inset-y-0 -left-20 -right-20 items-center justify-between pointer-events-none">
             <button
-              onClick={() => setCurrentPage((prev) => Math.max(0, prev - 1))}
+              onClick={() => handlePageChange(Math.max(0, currentPage - 1))}
               disabled={currentPage === 0}
               className="pointer-events-auto p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all bg-gray-900 disabled:opacity-30"
             >
               <FiChevronLeft size={30} />
             </button>
             <button
-              onClick={() => setCurrentPage((prev) => Math.min(pages.length - 1, prev + 1))}
+              onClick={() => handlePageChange(Math.min(pages.length - 1, currentPage + 1))}
               disabled={currentPage === pages.length - 1}
               className="pointer-events-auto p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all bg-gray-900 disabled:opacity-30"
             >
@@ -156,7 +166,30 @@ const CertificateMain = () => {
             ))}
           </motion.div>
         </AnimatePresence>
+
+        {showAll && pages.length > 1 && (
+          <div className="flex md:hidden justify-center items-center gap-6 mt-10">
+            <button
+              onClick={() => handlePageChange(Math.max(0, currentPage - 1))}
+              disabled={currentPage === 0}
+              className="p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all bg-gray-900 disabled:opacity-30"
+            >
+              <FiChevronLeft size={24} />
+            </button>
+            <span className="text-white font-special">
+              {currentPage + 1} / {pages.length}
+            </span>
+            <button
+              onClick={() => handlePageChange(Math.min(pages.length - 1, currentPage + 1))}
+              disabled={currentPage === pages.length - 1}
+              className="p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all bg-gray-900 disabled:opacity-30"
+            >
+              <FiChevronRight size={24} />
+            </button>
+          </div>
+        )}
       </div>
+
       {certificates.length > 3 && (!showAll || currentPage === 0) && (
         <div className="flex justify-center mt-12">
           <motion.button
@@ -165,6 +198,11 @@ const CertificateMain = () => {
             onClick={() => {
               setShowAll(!showAll);
               setCurrentPage(0);
+              if (showAll) {
+                setTimeout(() => {
+                  document.getElementById("certificate")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }, 150);
+              }
             }}
             className="flex items-center justify-center w-12 h-12 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all duration-300"
           >
