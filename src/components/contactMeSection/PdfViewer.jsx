@@ -65,7 +65,11 @@ const PdfViewer = ({ show, currentPdf, onClose }) => {
         <div className="flex items-center justify-between p-3 sm:p-4 border-b border-white/20 gap-2">
           <div className="flex-1 min-w-0">
             <h3 className="text-base sm:text-lg md:text-xl font-bold text-white truncate">
-              {currentPdf.type === "creative" ? "Creative CV" : "ATS CV"}
+              {currentPdf.type === "certificate"
+                ? "Certificate"
+                : currentPdf.type === "creative"
+                  ? "Creative CV"
+                  : "ATS CV"}
             </h3>
             <p className="hidden lg:block text-sm text-gray-400 truncate">
               {currentPdf.name}
