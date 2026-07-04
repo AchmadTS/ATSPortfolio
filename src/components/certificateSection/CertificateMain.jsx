@@ -9,21 +9,21 @@ const certificates = [
     issuer: "HackerRank",
     year: "Jul 2025",
     image: "/images/cert-frontend.webp",
-    link: "../../../public/pdf/javascript_intermediate certificate.pdf",
+    link: "/pdf/javascript_intermediate certificate.pdf",
   },
   {
     name: "Java (Basic)",
     issuer: "HackerRank",
     year: "Jul 2025",
     image: "/images/cert-responsive.webp",
-    link: "../../../public/pdf/java_basic certificate.pdf",
+    link: "/pdf/java_basic certificate.pdf",
   },
   {
     name: "SQL (Advanced)",
     issuer: "HackerRank",
     year: "Jul 2025",
     image: "/images/cert-js.webp",
-    link: "../../../public/pdf/java_basic certificate.pdf",
+    link: "/pdf/java_basic certificate.pdf",
   },
 ];
 
