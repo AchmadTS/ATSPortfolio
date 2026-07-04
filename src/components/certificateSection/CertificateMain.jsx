@@ -122,10 +122,9 @@ const CertificateMain = () => {
       >
         <CertificateText />
       </motion.div>
-
       <div className="relative max-w-[1000px] mx-auto mt-16">
         {showAll && pages.length > 1 && (
-          <div className="absolute inset-y-0 -left-20 -right-20 flex items-center justify-between pointer-events-none z-20">
+          <div className="absolute inset-y-0 -left-20 -right-20 flex items-center justify-between pointer-events-none">
             <button
               onClick={() => setCurrentPage((prev) => Math.max(0, prev - 1))}
               disabled={currentPage === 0}
@@ -134,9 +133,7 @@ const CertificateMain = () => {
               <FiChevronLeft size={30} />
             </button>
             <button
-              onClick={() =>
-                setCurrentPage((prev) => Math.min(pages.length - 1, prev + 1))
-              }
+              onClick={() => setCurrentPage((prev) => Math.min(pages.length - 1, prev + 1))}
               disabled={currentPage === pages.length - 1}
               className="pointer-events-auto p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all bg-gray-900 disabled:opacity-30"
             >
@@ -160,8 +157,7 @@ const CertificateMain = () => {
           </motion.div>
         </AnimatePresence>
       </div>
-
-      {certificates.length > 3 && (
+      {certificates.length > 3 && (!showAll || currentPage === 0) && (
         <div className="flex justify-center mt-12">
           <motion.button
             whileHover={{ scale: 1.1 }}
