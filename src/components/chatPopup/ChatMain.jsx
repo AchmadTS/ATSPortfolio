@@ -162,7 +162,7 @@ const ChatMain = ({ isOpen, onClose }) => {
              overflow-hidden text-white"
           >
             <button
-              className="absolute top-4 right-4 z-50 text-text-muted hover:text-white hover:rotate-90 transition-transform"
+              className="cursor-pointer absolute top-4 right-4 z-50 text-text-muted hover:text-white hover:rotate-90 transition-transform"
               onClick={onClose}
             >
               <IoClose size={22} />
@@ -170,7 +170,7 @@ const ChatMain = ({ isOpen, onClose }) => {
 
             <div
               className="flex items-center gap-3 px-6 pt-6 pb-4 shrink-0 
-                  bg-gradient-to-br from-card to-card-soft backdrop-blur-2xl"
+                  bg-linear-to-br from-card to-card-soft backdrop-blur-2xl"
             >
               <motion.div
                 animate={{
@@ -219,7 +219,7 @@ const ChatMain = ({ isOpen, onClose }) => {
                       <button
                         key={i}
                         onClick={() => handleSend(text)}
-                        className="w-full rounded-full border border-border-soft bg-card-soft px-5 py-2.5 
+                        className="cursor-pointer w-full rounded-full border border-border-soft bg-card-soft px-5 py-2.5 
                           text-sm text-white/90 transition shadow-sm
                           hover:border-accent hover:text-white hover:bg-accent-soft 
                           hover:scale-[1.03] hover:shadow-[0_0_10px_rgba(94,206,220,0.35)] 
@@ -240,7 +240,7 @@ const ChatMain = ({ isOpen, onClose }) => {
                   }`}
                 >
                   <div
-                    className={`px-4 py-3 mt-2 rounded-2xl max-w-[70%] break-words ${
+                    className={`px-4 py-3 mt-2 rounded-2xl max-w-[70%] wrap-break-word ${
                       msg.role === "user"
                         ? "bg-orange/70 text-white shadow-md"
                         : "bg-card backdrop-blur-2xl border border-border-soft text-white/90 shadow-md"
@@ -334,7 +334,7 @@ const ChatMain = ({ isOpen, onClose }) => {
             </div>
             <div
               className="px-4 py-5 shrink-0 
-              bg-gradient-to-br from-card to-card-soft backdrop-blur-2xl"
+              bg-linear-to-br from-card to-card-soft backdrop-blur-2xl"
             >
               <div className="flex items-center rounded-full border border-border-soft px-3 py-2 focus-within:border-accent transition">
                 <input
@@ -347,8 +347,8 @@ const ChatMain = ({ isOpen, onClose }) => {
                 />
                 <button
                   onClick={() => handleSend(inputValue)}
-                  className="flex items-center justify-center w-10 h-10 rounded-full 
-                    bg-gradient-to-r from-orange to-darkOrange 
+                  className="cursor-pointer flex items-center justify-center w-10 h-10 rounded-full 
+                    bg-linear-to-r from-orange to-darkOrange 
                     hover:from-lightOrange hover:to-orange 
                     transition shadow-md"
                 >

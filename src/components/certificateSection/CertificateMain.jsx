@@ -122,7 +122,7 @@ const CertificateMain = () => {
   };
 
   return (
-    <div id="certificate" className="max-w-[1200px] mx-auto px-4">
+    <div id="certificate" className="max-w-300 mx-auto px-4">
       <motion.div
         variants={fadeIn("top", 0)}
         initial="hidden"
@@ -132,7 +132,7 @@ const CertificateMain = () => {
         <CertificateText />
       </motion.div>
 
-      <div className="relative max-w-[1000px] mx-auto mt-16">
+      <div className="relative max-w-250 mx-auto mt-16">
         {showAll && pages.length > 1 && (
           <div className="hidden md:flex absolute inset-y-0 -left-20 -right-20 items-center justify-between pointer-events-none">
             <button
@@ -174,7 +174,7 @@ const CertificateMain = () => {
             <button
               onClick={() => handlePageChange(Math.max(0, currentPage - 1))}
               disabled={currentPage === 0}
-              className="p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all bg-gray-900 disabled:opacity-30"
+              className="cursor-pointer p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all bg-gray-900 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-gray-900 disabled:hover:text-cyan"
             >
               <FiChevronLeft size={24} />
             </button>
@@ -186,7 +186,7 @@ const CertificateMain = () => {
                 handlePageChange(Math.min(pages.length - 1, currentPage + 1))
               }
               disabled={currentPage === pages.length - 1}
-              className="p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all bg-gray-900 disabled:opacity-30"
+              className="cursor-pointer p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all bg-gray-900 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-gray-900 disabled:hover:text-cyan"
             >
               <FiChevronRight size={24} />
             </button>
