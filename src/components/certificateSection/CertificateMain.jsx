@@ -131,21 +131,23 @@ const CertificateMain = () => {
       >
         <CertificateText />
       </motion.div>
-      
+
       <div className="relative max-w-[1000px] mx-auto mt-16">
         {showAll && pages.length > 1 && (
           <div className="hidden md:flex absolute inset-y-0 -left-20 -right-20 items-center justify-between pointer-events-none">
             <button
               onClick={() => handlePageChange(Math.max(0, currentPage - 1))}
               disabled={currentPage === 0}
-              className="pointer-events-auto p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all bg-gray-900 disabled:opacity-30"
+              className="cursor-pointer pointer-events-auto p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all bg-gray-900 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-gray-900 disabled:hover:text-cyan"
             >
               <FiChevronLeft size={30} />
             </button>
             <button
-              onClick={() => handlePageChange(Math.min(pages.length - 1, currentPage + 1))}
+              onClick={() =>
+                handlePageChange(Math.min(pages.length - 1, currentPage + 1))
+              }
               disabled={currentPage === pages.length - 1}
-              className="pointer-events-auto p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all bg-gray-900 disabled:opacity-30"
+              className="cursor-pointer pointer-events-auto p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all bg-gray-900 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-gray-900 disabled:hover:text-cyan"
             >
               <FiChevronRight size={30} />
             </button>
@@ -180,7 +182,9 @@ const CertificateMain = () => {
               {currentPage + 1} / {pages.length}
             </span>
             <button
-              onClick={() => handlePageChange(Math.min(pages.length - 1, currentPage + 1))}
+              onClick={() =>
+                handlePageChange(Math.min(pages.length - 1, currentPage + 1))
+              }
               disabled={currentPage === pages.length - 1}
               className="p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all bg-gray-900 disabled:opacity-30"
             >
@@ -200,11 +204,13 @@ const CertificateMain = () => {
               setCurrentPage(0);
               if (showAll) {
                 setTimeout(() => {
-                  document.getElementById("certificate")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  document
+                    .getElementById("certificate")
+                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
                 }, 150);
               }
             }}
-            className="flex items-center justify-center w-12 h-12 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all duration-300"
+            className="cursor-pointer flex items-center justify-center w-12 h-12 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all duration-300"
           >
             {showAll ? <FiChevronUp size={28} /> : <FiChevronDown size={28} />}
           </motion.button>

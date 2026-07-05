@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { BsFillArrowUpRightCircleFill } from "react-icons/bs";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../framerMotion/variants";
@@ -31,12 +32,21 @@ const SingleProject = ({ name, year, align, image, link }) => {
           View <BsFillArrowUpRightCircleFill />
         </a>
       </div>
-      <div className="max-h-[220px] max-w-[400px] rounded-xl overflow-hidden hover:scale-110 transform transition-all duration-500 ralative border border-white">
+      <div className="max-h-[220px] max-w-[400px] rounded-xl overflow-hidden hover:scale-110 transform transition-all duration-500 relative border border-white">
+        {" "}
         <div className="w-full h-full bg-cyan opacity-50 absolute top-0 left-0 hover:opacity-0 transition-all duration-500 md:block sm:hidden"></div>
         <img src={image} alt="website image" className="w-full h-full" />
       </div>
     </motion.div>
   );
+};
+
+SingleProject.propTypes = {
+  name: PropTypes.string.isRequired,
+  year: PropTypes.string.isRequired,
+  align: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
 };
 
 export default SingleProject;
