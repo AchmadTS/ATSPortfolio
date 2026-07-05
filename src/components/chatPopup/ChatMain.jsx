@@ -158,11 +158,11 @@ const ChatMain = ({ isOpen, onClose }) => {
             exit={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.3 }}
             className="relative w-[95%] max-w-lg h-[80vh] flex flex-col rounded-3xl
-             border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.4)]
+             border border-border-soft shadow-[0_8px_32px_rgba(0,0,0,0.4)]
              overflow-hidden text-white"
           >
             <button
-              className="absolute top-4 right-4 z-50 text-gray-300 hover:text-white hover:rotate-90 transition-transform"
+              className="absolute top-4 right-4 z-50 text-text-muted hover:text-white hover:rotate-90 transition-transform"
               onClick={onClose}
             >
               <IoClose size={22} />
@@ -170,7 +170,7 @@ const ChatMain = ({ isOpen, onClose }) => {
 
             <div
               className="flex items-center gap-3 px-6 pt-6 pb-4 shrink-0 
-                  bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl"
+                  bg-gradient-to-br from-card to-card-soft backdrop-blur-2xl"
             >
               <motion.div
                 animate={{
@@ -197,7 +197,9 @@ const ChatMain = ({ isOpen, onClose }) => {
                 <h2 className="text-base font-semibold text-orange">
                   Ask me anything!
                 </h2>
-                <p className="text-xs text-gray-400">Powered by OpenRouterAI</p>
+                <p className="text-xs text-text-muted">
+                  Powered by OpenRouterAI
+                </p>
               </div>
             </div>
 
@@ -207,20 +209,20 @@ const ChatMain = ({ isOpen, onClose }) => {
                   <h3 className="text-xl font-bold mb-2 text-orange">
                     Welcome to My AI Assistant!
                   </h3>
-                  <p className="text-sm text-gray-300 mb-6">
+                  <p className="text-sm text-white/75 mb-6">
                     Hi! I&apos;m here to help you learn more. Feel free to ask
                     anything!
                   </p>
-                  <p className="text-xs text-gray-400 mb-3">Try asking:</p>
+                  <p className="text-xs text-text-muted mb-3">Try asking:</p>
                   <div className="flex flex-col gap-3">
                     {suggestions.map((text, i) => (
                       <button
                         key={i}
                         onClick={() => handleSend(text)}
-                        className="w-full rounded-full border border-white/20 bg-white/5 px-5 py-2.5 
-                          text-sm text-gray-200 transition shadow-sm
-                          hover:border-teal-400 hover:text-white hover:bg-teal-500/20 
-                          hover:scale-[1.03] hover:shadow-[0_0_10px_rgba(45,212,191,0.4)] 
+                        className="w-full rounded-full border border-border-soft bg-card-soft px-5 py-2.5 
+                          text-sm text-white/90 transition shadow-sm
+                          hover:border-accent hover:text-white hover:bg-accent-soft 
+                          hover:scale-[1.03] hover:shadow-[0_0_10px_rgba(94,206,220,0.35)] 
                           active:scale-[0.97]"
                       >
                         {text}
@@ -241,7 +243,7 @@ const ChatMain = ({ isOpen, onClose }) => {
                     className={`px-4 py-3 mt-2 rounded-2xl max-w-[70%] break-words ${
                       msg.role === "user"
                         ? "bg-orange/70 text-white shadow-md"
-                        : "bg-white/10 backdrop-blur-2xl border border-white/20 text-gray-200 shadow-md"
+                        : "bg-card backdrop-blur-2xl border border-border-soft text-white/90 shadow-md"
                     }`}
                   >
                     {msg.role === "assistant" ? (
@@ -251,8 +253,8 @@ const ChatMain = ({ isOpen, onClose }) => {
                         onDone={() => {
                           setMessages((prev) =>
                             prev.map((m, i) =>
-                              i === idx ? { ...m, typed: true } : m
-                            )
+                              i === idx ? { ...m, typed: true } : m,
+                            ),
                           );
                         }}
                       />
@@ -305,7 +307,7 @@ const ChatMain = ({ isOpen, onClose }) => {
                   >
                     <LuBot className="text-orange text-xl" />
                   </motion.div>
-                  <p className="text-sm text-gray-400 flex items-center gap-1">
+                  <p className="text-sm text-text-muted flex items-center gap-1">
                     Thinking
                     <motion.span
                       animate={{ opacity: [0, 1, 0] }}
@@ -332,15 +334,15 @@ const ChatMain = ({ isOpen, onClose }) => {
             </div>
             <div
               className="px-4 py-5 shrink-0 
-              bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl"
+              bg-gradient-to-br from-card to-card-soft backdrop-blur-2xl"
             >
-              <div className="flex items-center rounded-full border border-white/20 px-3 py-2 focus-within:border-teal-400 transition">
+              <div className="flex items-center rounded-full border border-border-soft px-3 py-2 focus-within:border-accent transition">
                 <input
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Ask me anything..."
-                  className="flex-1 bg-transparent outline-none text-sm text-white placeholder-gray-400 px-2"
+                  className="flex-1 bg-transparent outline-none text-sm text-white placeholder-text-muted px-2"
                   onKeyDown={(e) => e.key === "Enter" && handleSend(inputValue)}
                 />
                 <button

@@ -46,29 +46,29 @@ const DownloadPopup = ({ show, onClose, onPreview, onDirectDownload }) => {
       className={`backdrop-blur-md fixed inset-0 bg-black/70 flex items-center justify-center z-50 px-4 transition-opacity duration-300 ${isOpening ? "opacity-100" : "opacity-0"}`}
     >
       <div
-        className={`bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-6 max-w-md w-full border border-white/20 relative transition-all duration-300 ${isOpening && !isClosing ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}
+        className={`bg-surface rounded-xl p-6 max-w-md w-full border border-border-soft relative transition-all duration-300 ${isOpening && !isClosing ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}
       >
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 text-white/60 hover:text-white transition-colors"
+          className="cursor-pointer absolute top-4 right-4 text-white/60 hover:text-white transition-colors"
         >
           <FiX size={24} />
         </button>
 
         <h3 className="text-2xl font-bold text-white mb-2">Choose CV Type</h3>
-        <p className="text-gray-400 mb-6">
+        <p className="text-text-muted mb-6">
           Select which CV format you&apos;d like to view or download
         </p>
 
         <div className="flex flex-col gap-3">
           <div
             onClick={() => onPreview("creative")}
-            className="w-full rounded-lg bg-white/10 border border-white/20 text-white py-4 px-6 hover:bg-darkCyan transition-all duration-300 group cursor-pointer"
+            className="w-full rounded-lg bg-card border border-border-soft text-white py-4 px-6 hover:bg-darkCyan transition-all duration-300 group cursor-pointer"
           >
             <div className="flex items-center justify-between">
               <div>
                 <p className="font-bold text-lg">Creative CV</p>
-                <p className="text-sm text-white/80">
+                <p className="text-sm text-white/75">
                   Modern & visually appealing design
                 </p>
               </div>
@@ -77,7 +77,7 @@ const DownloadPopup = ({ show, onClose, onPreview, onDirectDownload }) => {
                   e.stopPropagation();
                   onDirectDownload("creative");
                 }}
-                className="p-2 hover:bg-white/10 rounded-lg transition-all duration-200"
+                className="p-2 hover:bg-card rounded-lg transition-all duration-200"
               >
                 <FiDownload
                   size={24}
@@ -89,12 +89,12 @@ const DownloadPopup = ({ show, onClose, onPreview, onDirectDownload }) => {
 
           <div
             onClick={() => onPreview("ats")}
-            className="w-full rounded-lg bg-white/10 border border-white/20 text-white py-4 px-6 hover:bg-darkCyan transition-all duration-300 group cursor-pointer"
+            className="w-full rounded-lg bg-card border border-border-soft text-white py-4 px-6 hover:bg-darkCyan transition-all duration-300 group cursor-pointer"
           >
             <div className="flex items-center justify-between">
               <div>
                 <p className="font-bold text-lg">ATS CV</p>
-                <p className="text-sm text-white/80">
+                <p className="text-sm text-white/75">
                   Optimized for applicant tracking systems
                 </p>
               </div>
@@ -103,7 +103,7 @@ const DownloadPopup = ({ show, onClose, onPreview, onDirectDownload }) => {
                   e.stopPropagation();
                   onDirectDownload("ats");
                 }}
-                className="p-2 hover:bg-white/10 rounded-lg transition-all duration-200"
+                className="p-2 hover:bg-card rounded-lg transition-all duration-200"
               >
                 <FiDownload
                   size={24}

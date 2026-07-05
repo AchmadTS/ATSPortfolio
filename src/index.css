@@ -1,7 +1,51 @@
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-brown: #53423e;
+  --color-lightBrown: #645550;
+  --color-darkBrown: #2c2523;
+  --color-black: #1e1917;
+  --color-white: #f1e1d9;
+
+  --color-cyan: #15d1e9;
+  --color-lightCyan: #88e5f0;
+  --color-darkCyan: #009fb3;
+
+  --color-orange: #fb9718;
+  --color-lightOrange: #fac27b;
+  --color-darkOrange: #d28422;
+
+  --color-grey: #626965;
+  --color-lightGrey: #978580;
+  --color-darkGrey: #3f4441;
+
+  --color-surface: #2c2523;
+  --color-surface-2: #1e1917;
+  --color-card: rgba(255, 255, 255, 0.08);
+  --color-card-soft: rgba(255, 255, 255, 0.05);
+  --color-border-soft: rgba(255, 255, 255, 0.15);
+  --color-text-muted: rgba(255, 255, 255, 0.6);
+  --color-accent: #15d1e9;
+  --color-accent-strong: #009fb3;
+  --color-accent-soft: rgba(21, 209, 233, 0.22);
+
+  --font-body: "Josefin Sans", sans-serif;
+  --font-special: "Nunito", sans-serif;
+
+  --breakpoint-sm: 350px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  --shadow-cyanShadow: 0px 0px 20px 0px rgba(94, 206, 220, 0.5);
+  --shadow-cyanBigShadow: 10px 10px 1000px 500px rgba(94, 206, 220, 0.3);
+  --shadow-cyanMediumShadow: 10px 10px 200px 150px rgba(94, 206, 220, 0.5);
+  --shadow-orangeBigShadow: 10px 10px 10000px 500px rgba(240, 169, 79, 0.3);
+  --shadow-orangeMediumShadow: 10px 10px 2000px 150px rgba(240, 169, 79, 0.5);
+  --shadow-accentGlow: 0px 0px 20px rgba(94, 206, 220, 0.25);
+}
 
 body {
   @apply bg-darkBrown;

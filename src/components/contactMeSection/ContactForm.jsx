@@ -124,14 +124,14 @@ const ContactForm = () => {
         />
         <button
           onClick={sendEmail}
-          className="w-full rounded-lg border border-cyan text-white h-12 font-bold text-xl hover:bg-darkCyan bg-cyan transition-all duration-500"
+          className="cursor-pointer w-full rounded-lg border border-cyan text-white h-12 font-bold text-xl hover:bg-darkCyan bg-cyan transition-all duration-500"
         >
           Send
         </button>
 
         <button
           onClick={handleDownloadClick}
-          className="w-full rounded-lg border border-white/20 text-white h-12 flex items-center justify-center gap-2 font-semibold text-lg hover:bg-white/10 transition-all duration-300"
+          className="cursor-pointer w-full rounded-lg border border-white/20 text-white h-12 flex items-center justify-center gap-2 font-semibold text-lg hover:bg-white/10 transition-all duration-300"
         >
           <FiDownload size={22} />
           Download CV
