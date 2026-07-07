@@ -50,15 +50,17 @@ Experience:
   - Designed and developed a functional website for the school
 
 Projects:
-- Collaborative Web & Mobile System (Ongoing - 2026)
-  - Mengembangkan sistem terintegrasi yang mencakup fitur Dashboard Web dan Automated Daily Report untuk platform Mobile.
-  - Aktif berkolaborasi dalam tim (bersama Faiq, Ammar, Syahrul, Bagas, dkk) dengan mengedepankan komunikasi profesional dan efisiensi pengerjaan tugas.
+- Collaborative Desktop System — TofuBase (Ongoing)
+  - A Java Swing and MySQL-based desktop application designed to help manage tofu factory operations.
+  - It includes role-based authentication for Admin, Owner, and Staff, an interactive dashboard, raw material management, supplier management, transaction history, and a database seeder for initial data.
+  - Developed using Java 25, Java Swing, Maven, and MySQL/MariaDB, with a focus on performance, usability, and a modern interface.
+  - GitHub: https://github.com/AchmadTS/TofuBase
 - Neskar Insight — September 2024
-  - Website sekolah SMKN 1 Karawang (https://smkn1karawang.sch.id/)
+  - The official website of SMKN 1 Karawang (https://smkn1karawang.sch.id/)
 - ATZuperr-Cashier — February 2025
-  - Sistem aplikasi kasir (https://github.com/Achmadts/ATZuperr-Cashier-FrontEnd)
+  - A cashier system application (https://github.com/Achmadts/ATZuperr-Cashier-FrontEnd)
 - Sianes — October 2024
-  - School information / administration related project
+  - A school information system project for administrative needs and data management.
 
 Certificates:
 - Problem Solving (Intermediate) — HackerRank — Jul 2025
