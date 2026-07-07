@@ -21,36 +21,36 @@ const markdownComponents = {
     <strong className="font-semibold text-white" {...props} />
   ),
   // eslint-disable-next-line no-unused-vars
-  p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />,
+  p: ({ node, ...props }) => <p className="mb-3 leading-relaxed" {...props} />,
   // eslint-disable-next-line no-unused-vars
   ul: ({ node, ...props }) => (
-    <ul className="list-disc pl-5 my-2 space-y-1" {...props} />
+    <ul className="list-disc pl-5 my-3 space-y-2" {...props} />
   ),
   // eslint-disable-next-line no-unused-vars
   ol: ({ node, ...props }) => (
-    <ol className="list-decimal pl-5 my-2 space-y-1" {...props} />
+    <ol className="list-decimal pl-5 my-3 space-y-2" {...props} />
   ),
   // eslint-disable-next-line no-unused-vars
-  li: ({ node, ...props }) => <li className="mb-1" {...props} />,
+  li: ({ node, ...props }) => <li className="pl-1" {...props} />,
   // eslint-disable-next-line no-unused-vars
   table: ({ node, ...props }) => (
-    <div className="overflow-x-auto my-3">
-      <table
-        className="min-w-full border-collapse border border-white/20 text-sm"
-        {...props}
-      />
+    <div className="overflow-x-auto my-4 border border-white/20 rounded-lg">
+      <table className="w-full text-sm text-left border-collapse" {...props} />
     </div>
   ),
   // eslint-disable-next-line no-unused-vars
   th: ({ node, ...props }) => (
     <th
-      className="border border-white/20 px-3 py-2 bg-white/10 text-orange text-left font-semibold"
+      className="bg-white/10 px-4 py-3 border-b border-white/20 text-orange font-bold uppercase tracking-wider"
       {...props}
     />
   ),
   // eslint-disable-next-line no-unused-vars
   td: ({ node, ...props }) => (
-    <td className="border border-white/20 px-3 py-2" {...props} />
+    <td
+      className="px-4 py-3 border-b border-white/10 text-white/80"
+      {...props}
+    />
   ),
 };
 
@@ -59,9 +59,10 @@ const CopyButton = ({ text }) => {
   const [copied, setCopied] = useState(false);
   const stripMarkdown = (md) => {
     return md
+      .replace(/\|/g, " | ")
       .replace(/\*\*(.*?)\*\*/g, "$1")
       .replace(/\*(.*?)\*/g, "$1")
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1 ($2)")
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1: $2")
       .replace(/#{1,6}\s?/g, "")
       .replace(/`/g, "");
   };
