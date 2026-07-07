@@ -114,7 +114,7 @@ const PdfViewer = ({ show, currentPdf, onClose }) => {
         </div>
         <div className="flex-1 overflow-y-auto overflow-x-hidden bg-black/50 rounded-b-xl">
           <iframe
-            src={`${currentPdf.path}#toolbar=0`}
+            src={currentPdf.path}
             className="w-full h-full hidden md:block"
             title="PDF Viewer"
           />
