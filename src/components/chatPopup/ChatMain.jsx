@@ -1,10 +1,90 @@
 import suggestionAnswers from "./data/suggestionAnswers";
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaRegPaperPlane } from "react-icons/fa";
+import { FaRegPaperPlane, FaRegCopy, FaCheck } from "react-icons/fa";
 import { LuBot } from "react-icons/lu";
 import { IoClose } from "react-icons/io5";
 import ReactMarkdown from "react-markdown";
+
+const markdownComponents = {
+  // eslint-disable-next-line no-unused-vars
+  a: ({ node, ...props }) => (
+    <a
+      {...props}
+      className="text-teal-400 underline hover:text-teal-300"
+      target="_blank"
+      rel="noopener noreferrer"
+    />
+  ),
+  // eslint-disable-next-line no-unused-vars
+  strong: ({ node, ...props }) => (
+    <strong className="font-semibold text-white" {...props} />
+  ),
+  // eslint-disable-next-line no-unused-vars
+  p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />,
+  // eslint-disable-next-line no-unused-vars
+  ul: ({ node, ...props }) => (
+    <ul className="list-disc pl-5 my-2 space-y-1" {...props} />
+  ),
+  // eslint-disable-next-line no-unused-vars
+  ol: ({ node, ...props }) => (
+    <ol className="list-decimal pl-5 my-2 space-y-1" {...props} />
+  ),
+  // eslint-disable-next-line no-unused-vars
+  li: ({ node, ...props }) => <li className="mb-1" {...props} />,
+  // eslint-disable-next-line no-unused-vars
+  table: ({ node, ...props }) => (
+    <div className="overflow-x-auto my-3">
+      <table
+        className="min-w-full border-collapse border border-white/20 text-sm"
+        {...props}
+      />
+    </div>
+  ),
+  // eslint-disable-next-line no-unused-vars
+  th: ({ node, ...props }) => (
+    <th
+      className="border border-white/20 px-3 py-2 bg-white/10 text-orange text-left font-semibold"
+      {...props}
+    />
+  ),
+  // eslint-disable-next-line no-unused-vars
+  td: ({ node, ...props }) => (
+    <td className="border border-white/20 px-3 py-2" {...props} />
+  ),
+};
+
+// eslint-disable-next-line react/prop-types
+const CopyButton = ({ text }) => {
+  const [copied, setCopied] = useState(false);
+  const stripMarkdown = (md) => {
+    return md
+      .replace(/\*\*(.*?)\*\*/g, "$1")
+      .replace(/\*(.*?)\*/g, "$1")
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1 ($2)")
+      .replace(/#{1,6}\s?/g, "")
+      .replace(/`/g, "");
+  };
+
+  const handleCopy = () => {
+    const cleanText = stripMarkdown(text);
+    navigator.clipboard.writeText(cleanText);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <button
+      onClick={handleCopy}
+      className="mt-3 flex items-center gap-1.5 text-xs text-cyan hover:text-orange transition-colors duration-300 cursor-pointer"
+    >
+      {copied ? <FaCheck className="text-green-400" /> : <FaRegCopy />}
+      <span className={copied ? "text-green-400" : ""}>
+        {copied ? "Berhasil disalin!" : "Salin Response"}
+      </span>
+    </button>
+  );
+};
 
 // eslint-disable-next-line react/prop-types
 const TypewriterMessage = ({ content, onDone, alreadyTyped }) => {
@@ -28,25 +108,7 @@ const TypewriterMessage = ({ content, onDone, alreadyTyped }) => {
   }, [index, content, alreadyTyped, onDone]);
 
   return (
-    <ReactMarkdown
-      components={{
-        // eslint-disable-next-line no-unused-vars
-        a: ({ node, ...props }) => (
-          <a
-            {...props}
-            className="text-teal-400 underline hover:text-teal-300"
-            target="_blank"
-            rel="noopener noreferrer"
-          />
-        ),
-        // eslint-disable-next-line no-unused-vars
-        strong: ({ node, ...props }) => (
-          <strong className="font-semibold text-white" {...props} />
-        ),
-      }}
-    >
-      {displayed}
-    </ReactMarkdown>
+    <ReactMarkdown components={markdownComponents}>{displayed}</ReactMarkdown>
   );
 };
 
@@ -240,45 +302,29 @@ const ChatMain = ({ isOpen, onClose }) => {
                   }`}
                 >
                   <div
-                    className={`px-4 py-3 mt-2 rounded-2xl max-w-[70%] wrap-break-word ${
+                    className={`px-4 py-3 mt-2 rounded-2xl max-w-[85%] wrap-break-word text-left ${
                       msg.role === "user"
                         ? "bg-orange/70 text-white shadow-md"
                         : "bg-card backdrop-blur-2xl border border-border-soft text-white/90 shadow-md"
                     }`}
                   >
                     {msg.role === "assistant" ? (
-                      <TypewriterMessage
-                        content={msg.content}
-                        alreadyTyped={msg.typed}
-                        onDone={() => {
-                          setMessages((prev) =>
-                            prev.map((m, i) =>
-                              i === idx ? { ...m, typed: true } : m,
-                            ),
-                          );
-                        }}
-                      />
+                      <>
+                        <TypewriterMessage
+                          content={msg.content}
+                          alreadyTyped={msg.typed}
+                          onDone={() => {
+                            setMessages((prev) =>
+                              prev.map((m, i) =>
+                                i === idx ? { ...m, typed: true } : m,
+                              ),
+                            );
+                          }}
+                        />
+                        {msg.typed && <CopyButton text={msg.content} />}
+                      </>
                     ) : (
-                      <ReactMarkdown
-                        components={{
-                          // eslint-disable-next-line no-unused-vars
-                          a: ({ node, ...props }) => (
-                            <a
-                              {...props}
-                              className="text-teal-400 underline hover:text-teal-300"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            />
-                          ),
-                          // eslint-disable-next-line no-unused-vars
-                          strong: ({ node, ...props }) => (
-                            <strong
-                              className="font-semibold text-white"
-                              {...props}
-                            />
-                          ),
-                        }}
-                      >
+                      <ReactMarkdown components={markdownComponents}>
                         {msg.content}
                       </ReactMarkdown>
                     )}
