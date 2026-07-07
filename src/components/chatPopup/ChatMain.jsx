@@ -58,13 +58,21 @@ const markdownComponents = {
 const CopyButton = ({ text }) => {
   const [copied, setCopied] = useState(false);
   const stripMarkdown = (md) => {
-    return md
-      .replace(/\|/g, " | ")
+    let clean = md
+      .replace(/<br\s*\/?>/gi, "\n")
+      .replace(/\|/g, " ")
+      .replace(/---+/g, "")
       .replace(/\*\*(.*?)\*\*/g, "$1")
       .replace(/\*(.*?)\*/g, "$1")
       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1: $2")
       .replace(/#{1,6}\s?/g, "")
-      .replace(/`/g, "");
+      .replace(/`/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+    return clean
+      .split("\n")
+      .map((line) => line.trim())
+      .join("\n");
   };
 
   const handleCopy = () => {
