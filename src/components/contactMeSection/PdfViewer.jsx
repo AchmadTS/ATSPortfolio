@@ -2,10 +2,16 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { FiDownload, FiX } from "react-icons/fi";
 import PropTypes from "prop-types";
+import { Document, Page, pdfjs } from "react-pdf";
+import "react-pdf/dist/Page/AnnotationLayer.css";
+import "react-pdf/dist/Page/TextLayer.css";
 
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 const PdfViewer = ({ show, currentPdf, onClose }) => {
   const [isPdfClosing, setIsPdfClosing] = useState(false);
   const [isPdfOpening, setIsPdfOpening] = useState(false);
+  const [numPages, setNumPages] = useState(null);
+  const [pdfWidth, setPdfWidth] = useState(300);
 
   useEffect(() => {
     if (show) {
@@ -20,6 +26,7 @@ const PdfViewer = ({ show, currentPdf, onClose }) => {
     setTimeout(() => {
       onClose();
       setIsPdfClosing(false);
+      setNumPages(null);
     }, 300);
   }, [onClose]);
 
@@ -39,12 +46,26 @@ const PdfViewer = ({ show, currentPdf, onClose }) => {
     };
   }, [show, handleClose]);
 
+  useEffect(() => {
+    const updateWidth = () => {
+      setPdfWidth(Math.min(window.innerWidth - 48, 800));
+    };
+
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
+
   const handleDownload = () => {
     if (!currentPdf) return;
     const link = document.createElement("a");
     link.href = currentPdf.path;
     link.download = currentPdf.name;
     link.click();
+  };
+
+  const onDocumentLoadSuccess = ({ numPages }) => {
+    setNumPages(numPages);
   };
 
   if (!show || !currentPdf) return null;
@@ -62,7 +83,7 @@ const PdfViewer = ({ show, currentPdf, onClose }) => {
             : "scale-95 opacity-0"
         } flex flex-col`}
       >
-        <div className="flex items-center justify-between p-3 sm:p-4 border-b border-border-soft gap-2">
+        <div className="flex items-center justify-between p-3 sm:p-4 border-b border-border-soft gap-2 shrink-0">
           <div className="flex-1 min-w-0">
             <h3 className="text-base sm:text-lg md:text-xl font-bold text-white truncate">
               {currentPdf.type === "certificate"
@@ -91,12 +112,48 @@ const PdfViewer = ({ show, currentPdf, onClose }) => {
             </button>
           </div>
         </div>
-        <div className="flex-1 overflow-hidden">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden bg-black/50 rounded-b-xl">
           <iframe
-            src={currentPdf.path}
-            className="w-full h-full"
+            src={`${currentPdf.path}#toolbar=0`}
+            className="w-full h-full hidden md:block"
             title="PDF Viewer"
           />
+          <div className="md:hidden flex flex-col items-center w-full min-h-full py-4">
+            <Document
+              file={currentPdf.path}
+              onLoadSuccess={onDocumentLoadSuccess}
+              loading={
+                <span className="text-cyan text-sm flex h-full items-center justify-center mt-10">
+                  Memuat PDF...
+                </span>
+              }
+              error={
+                <div className="flex flex-col items-center mt-10">
+                  <span className="text-red-500 text-sm">
+                    Gagal memuat PDF.
+                  </span>
+                  <button
+                    onClick={handleDownload}
+                    className="text-cyan mt-2 underline"
+                  >
+                    Download File
+                  </button>
+                </div>
+              }
+            >
+              {Array.from(new Array(numPages), (el, index) => (
+                <div key={`page_${index + 1}`} className="mb-4">
+                  <Page
+                    pageNumber={index + 1}
+                    width={pdfWidth}
+                    renderTextLayer={false}
+                    renderAnnotationLayer={false}
+                    className="shadow-lg flex items-center justify-center bg-white rounded-md overflow-hidden"
+                  />
+                </div>
+              ))}
+            </Document>
+          </div>
         </div>
       </div>
     </div>
