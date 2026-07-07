@@ -1,4 +1,5 @@
 import fetch from "node-fetch";
+import { systemMessage } from "../src/components/chatPopup/data/systemPrompt.js";
 
 export const config = {
   maxDuration: 60, // 1 minutes
@@ -16,9 +17,11 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "API key not set in environment" });
   }
 
+  const apiMessages = [systemMessage, ...messages];
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 60000); // 1 minutes
+
     const response = await fetch(
       "https://openrouter.ai/api/v1/chat/completions",
       {
@@ -30,10 +33,10 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           model: "openai/gpt-oss-20b:free",
-          messages,
+          messages: apiMessages,
         }),
         signal: controller.signal,
-      }
+      },
     );
 
     clearTimeout(timeout);
