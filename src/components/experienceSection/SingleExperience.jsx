@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import PropTypes from "prop-types";
 import { fadeIn } from "../../framerMotion/variants";
 
 const SingleExperience = ({ experience }) => {
@@ -8,7 +9,7 @@ const SingleExperience = ({ experience }) => {
       initial="hidden"
       whileInView="show"
       viewport={{ once: false, amount: 0.7 }}
-      className="md:h-[350px] md:w-[240px] sm:h-auto sm:w-full border-2 border-orange border-dashed rounded-2xl mt-12 p-4"
+      className="md:h-87.5 md:w-60 sm:h-auto sm:w-full border-2 border-orange border-dashed rounded-2xl mt-12 p-4"
     >
       <p className="font-bold text-cyan">{experience.job}</p>
       <p className="text-orange">{experience.company}</p>
@@ -20,6 +21,15 @@ const SingleExperience = ({ experience }) => {
       </ul>
     </motion.div>
   );
+};
+
+SingleExperience.propTypes = {
+  experience: PropTypes.shape({
+    job: PropTypes.string.isRequired,
+    company: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    responsibilities: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
 };
 
 export default SingleExperience;

@@ -43,7 +43,7 @@ const schools = [
 
 const SchoolsMain = () => {
   return (
-    <div id="education" className="max-w-[1200px] mx-auto px-4">
+    <div id="education" className="max-w-300 mx-auto px-4">
       <motion.div
         variants={fadeIn("top", 0)}
         initial="hidden"
@@ -52,7 +52,7 @@ const SchoolsMain = () => {
       >
         <SchoolsText />
       </motion.div>
-      <div className="flex flex-col gap-20 max-w-[900px] mx-auto mt-12">
+      <div className="flex flex-col gap-20 max-w-225 mx-auto mt-12">
         {schools.map((school, index) => {
           return (
             <SingleSchool

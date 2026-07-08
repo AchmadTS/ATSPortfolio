@@ -1,6 +1,6 @@
 const SchoolsText = () => {
   return (
-    <div className="flex flex-col items-center mt-[100px]">
+    <div className="flex flex-col items-center mt-25">
       <h2 className="text-6xl text-cyan mb-10">Education</h2>
       <p className="text-lg text-center">
         The following is my educational background

@@ -4,7 +4,7 @@ const SingleSkill = ({ imgSvg, text }) => {
   return (
     <div className="hover:-translate-y-10 transition-all duration-500 group">
       <div className="flex flex-col items-center gap-2 relative">
-        <div className="bg-white text-cyan h-[100px] w-[100px] flex items-center justify-center rounded-full hover:text-darkGrey hover:scale-105 transform transition-all duration-500 text-6xl border-4 border-orange">
+        <div className="bg-white text-cyan h-25 w-25 flex items-center justify-center rounded-full hover:text-darkGrey hover:scale-105 transform transition-all duration-500 text-6xl border-4 border-orange">
           {imgSvg}
         </div>
         <p className="text-white font-bold">{text}</p>
@@ -12,7 +12,7 @@ const SingleSkill = ({ imgSvg, text }) => {
           {percentage}%
         </p> */}
       </div>
-      <div className="w-[100px] h-[200px] bg-orange absolute top-[50px] -z-10"></div>
+      <div className="w-25 h-50 bg-orange absolute top-12.5 -z-10"></div>
     </div>
   );
 };

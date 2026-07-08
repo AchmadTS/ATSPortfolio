@@ -16,8 +16,8 @@ const HeroPic = () => {
         alt="Achmad Tirto Sudiro"
         className="
           block md:hidden
-          max-h-[240px]
-          hover:max-h-[250px]
+          max-h-60
+          hover:max-h-62.5
           w-auto
           transition-[max-height]
           duration-300
@@ -30,7 +30,7 @@ const HeroPic = () => {
         alt="Achmad Tirto Sudiro"
         className="
           hidden md:block
-          max-h-[450px]
+          max-h-112.5
           w-auto
           transition-transform
           duration-300
@@ -39,7 +39,7 @@ const HeroPic = () => {
       />
 
       <div className="absolute -z-10 flex justify-center items-center animate-pulse">
-        <PiHexagonThin className="h-[320px] md:h-[600px] w-auto text-cyan blur-md" />
+        <PiHexagonThin className="h-80 md:h-150 w-auto text-cyan blur-md" />
       </div>
     </motion.div>
   );

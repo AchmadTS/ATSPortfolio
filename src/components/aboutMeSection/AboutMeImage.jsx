@@ -1,7 +1,7 @@
 const AboutMeImage = () => {
   return (
-    <div className="h-[500px] w-[300px] relative hidden md:block">
-      <div className="h-[500px] w-[300px] rounded-[100px] absolute overflow-hidden">
+    <div className="h-125 w-75 relative hidden md:block">
+      <div className="h-125 w-75 rounded-[100px] absolute overflow-hidden">
         <img
           src="/images/abot_me.webp"
           alt="About Me Image"

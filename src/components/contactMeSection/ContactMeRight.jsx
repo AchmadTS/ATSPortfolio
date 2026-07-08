@@ -7,7 +7,7 @@ const ContactMeRight = () => {
       <img
         src="/images/email-image.webp"
         alt="email image"
-        className="max-w-[300px]"
+        className="max-w-75"
       />
       <ContactInfo />
       <ContactSocial />
