@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 /* eslint-env node */
-import fetch from "node-fetch";
 import { systemMessage } from "../src/components/chatPopup/data/systemPrompt";
 
 export const config = {
