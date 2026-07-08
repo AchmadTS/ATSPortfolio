@@ -6,7 +6,7 @@ const suggestionAnswers = {
         "My expertise is focused on **Web Backend Development**, with a strong emphasis on clean code and system efficiency. 🚀\n\n**My Tech Stack:**\n- **Backend:** Laravel, PHP, MySQL, React & Laravel APIs, Node.js\n- **Frontend/UI/UX:** ReactJS, TypeScript, TailwindCSS, Figma, Adaptive UI",
       
       "Tell me about recent projects": 
-        "Here are some of my key projects:\n- **TofuBase:** A Java Swing desktop app for factory management. [View on GitHub](https://github.com/AchmadTS/TofuBase)\n- **Neskar Insight:** The official website of SMKN 1 Karawang. [Visit Site](https://smkn1karawang.sch.id/)\n- **ATZuperr-Cashier:** A functional cashier application. [View on GitHub](https://github.com/Achmadts/ATZuperr-Cashier-FrontEnd)",
+        "Here are some of my key projects:\n- **TofuBase:** A Java Swing desktop app for tofu factory management. [View on GitHub](https://github.com/AchmadTS/TofuBase)\n- **Neskar Insight:** The official website of SMKN 1 Karawang. [Visit Site](https://smkn1karawang.sch.id/)\n- **ATZuperr-Cashier:** A functional cashier application. [View on GitHub](https://github.com/Achmadts/ATZuperr-Cashier-FrontEnd)",
       
       "What his educational background?": 
         "Here is my academic journey:\n- **Telkom University (2025 - Present):** Computer Science, focusing on programming logic & system development.\n- **SMKN 1 Karawang (2022 - 2025):** Software Engineering (RPL).",
@@ -34,7 +34,7 @@ const suggestionAnswers = {
         "Keahlian utamaku berfokus pada **Web Backend Development**, dengan penekanan pada *clean code* dan efisiensi sistem. 🚀\n\n**Tech Stack:**\n- **Backend:** Laravel, PHP, MySQL, Node.js\n- **Frontend/UI/UX:** ReactJS, TypeScript, TailwindCSS, Figma",
       
       projects: 
-        "Ini adalah beberapa proyek yang sudah saya kerjakan:\n- **TofuBase:** Sistem manajemen pabrik berbasis Java Swing. [Lihat GitHub](https://github.com/AchmadTS/TofuBase)\n- **Neskar Insight:** Situs resmi SMKN 1 Karawang. [Kunjungi Web](https://smkn1karawang.sch.id/)\n- **ATZuperr-Cashier:** Aplikasi sistem kasir. [Lihat GitHub](https://github.com/Achmadts/ATZuperr-Cashier-FrontEnd)",
+        "Ini adalah beberapa proyek yang sudah saya kerjakan:\n- **TofuBase:** Sistem manajemen pabrik tahu berbasis Java Swing. [Lihat GitHub](https://github.com/AchmadTS/TofuBase)\n- **Neskar Insight:** Situs resmi SMKN 1 Karawang. [Kunjungi Web](https://smkn1karawang.sch.id/)\n- **ATZuperr-Cashier:** Aplikasi sistem kasir. [Lihat GitHub](https://github.com/Achmadts/ATZuperr-Cashier-FrontEnd)",
       
       education: 
         "Berikut adalah latar belakang pendidikan saya:\n- **Telkom University (2025 - Sekarang):** Ilmu Komputer, fokus pada logika pemrograman & sistem.\n- **SMKN 1 Karawang (2022 - 2025):** Rekayasa Perangkat Lunak (RPL).",
