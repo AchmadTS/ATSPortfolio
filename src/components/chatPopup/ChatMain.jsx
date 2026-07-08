@@ -9,16 +9,52 @@ import CopyButton from "./CopyButton";
 import TypewriterMessage from "./TypewriterMessage";
 import { findLocalAnswer, stripBullets } from "./data/chatOptimizer";
 
+const CHAT_STORAGE_KEY = "ats_chat_history";
+const CHAT_EXPIRE_TIME = 60 * 60 * 1000; // 1 Jam dalam milidetik
+
 // eslint-disable-next-line react/prop-types
 const ChatMain = ({ isOpen, onClose }) => {
   const [inputValue, setInputValue] = useState("");
-  const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const API_URL =
     import.meta.env.VITE_IS_DEPLOYMENT === "true"
       ? "/api/chat"
       : "http://localhost:3000/api/chat";
+
+  const [messages, setMessages] = useState(() => {
+    const savedData = sessionStorage.getItem(CHAT_STORAGE_KEY);
+    if (savedData) {
+      try {
+        const { data, timestamp } = JSON.parse(savedData);
+        if (Date.now() - timestamp < CHAT_EXPIRE_TIME) {
+          return data.map((msg) =>
+            msg.role === "assistant" ? { ...msg, typed: true } : msg,
+          );
+        } else {
+          sessionStorage.removeItem(CHAT_STORAGE_KEY);
+        }
+        // eslint-disable-next-line no-unused-vars
+      } catch (err) {
+        sessionStorage.removeItem(CHAT_STORAGE_KEY);
+      }
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      sessionStorage.setItem(
+        CHAT_STORAGE_KEY,
+        JSON.stringify({
+          data: messages,
+          timestamp: Date.now(),
+        }),
+      );
+    } else {
+      sessionStorage.removeItem(CHAT_STORAGE_KEY);
+    }
+  }, [messages]);
 
   const isInputDisabled =
     loading || messages.some((msg) => msg.role === "assistant" && !msg.typed);
