@@ -161,7 +161,7 @@ const ChatMain = ({ isOpen, onClose }) => {
               </div>
             </div>
 
-            <div className="flex-1 px-6 text-center mt-7 pb-6 overflow-y-auto custom-scroll space-y-4">
+            <div className="flex-1 px-6 text-center mt-7 pb-6 overflow-y-auto overscroll-contain custom-scroll space-y-4">
               {messages.length === 0 && (
                 <>
                   <h3 className="text-xl font-bold mb-2 text-orange">
