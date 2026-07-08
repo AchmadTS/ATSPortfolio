@@ -72,7 +72,7 @@ const PdfViewer = ({ show, currentPdf, onClose }) => {
 
   return (
     <div
-      className={`backdrop-blur-sm fixed inset-0 bg-black/90 flex items-center justify-center z-60 p-2 sm:p-4 transition-opacity duration-300 ${
+      className={`backdrop-blur-md fixed inset-0 bg-black/60 flex items-center justify-center z-60 p-2 sm:p-4 transition-opacity duration-300 ${
         isPdfOpening ? "opacity-100" : "opacity-0"
       }`}
     >
@@ -112,7 +112,7 @@ const PdfViewer = ({ show, currentPdf, onClose }) => {
             </button>
           </div>
         </div>
-        <div className="flex-1 overflow-y-auto overflow-x-hidden bg-black/50 rounded-b-xl">
+        <div className="flex-1 overflow-y-auto overscroll-contain overflow-x-hidden bg-black/50 rounded-b-xl">
           <iframe
             src={currentPdf.path}
             className="w-full h-full hidden md:block"
@@ -134,7 +134,7 @@ const PdfViewer = ({ show, currentPdf, onClose }) => {
                   </span>
                   <button
                     onClick={handleDownload}
-                    className="text-cyan mt-2 underline"
+                    className="text-cyan mt-2 underline cursor-pointer"
                   >
                     Download File
                   </button>
