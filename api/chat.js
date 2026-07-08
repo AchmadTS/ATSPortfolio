@@ -34,7 +34,8 @@ export default async function handler(req, res) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            model: "openai/gpt-oss-20b:free",
+            model: "qwen/qwen3-next-80b-a3b-instruct:free",
+            temperature: 0.2,
             messages: apiMessages,
           }),
         },
