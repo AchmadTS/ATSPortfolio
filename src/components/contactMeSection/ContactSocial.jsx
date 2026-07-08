@@ -15,7 +15,7 @@ const ContactSocial = () => {
         Icon={FiGithub}
       />
       <SingleContactSocial
-        link="https://www.instagram.com/achmadtirtosudiro/"
+        link="https://www.instagram.com/ats090906/"
         Icon={FaInstagram}
       />
     </div>

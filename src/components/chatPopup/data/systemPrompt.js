@@ -76,7 +76,7 @@ Contact:
 - Location: Karawang, Indonesia
 - LinkedIn: [Achmad Tirto Sudiro](https://id.linkedin.com/in/achmad-tirto-sudiro-368aa6304)
 - GitHub: [Achmadts](https://github.com/Achmadts/)
-- Instagram: [@achmadtirtosudirosudiro](https://www.instagram.com/achmadtirtosudirosudiro/)
+- Instagram: [@ats090906](https://www.instagram.com/ats090906/)
 
 Portfolio Sections:
 - Hero, About Me, Skills, Experience, Projects, Certificates, Education, Contact

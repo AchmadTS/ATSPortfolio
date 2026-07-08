@@ -182,7 +182,7 @@ src/
 * **Email:** [achmadtirtosudirosudiro@gmail.com](mailto:achmadtirtosudirosudiro@gmail.com)
 * **LinkedIn:** [Achmad Tirto Sudiro](https://id.linkedin.com/in/achmad-tirto-sudiro-368aa6304)
 * **GitHub:** [@Achmadts](https://github.com/Achmadts/)
-* **Instagram:** [@achmadtirtosudiro](https://www.instagram.com/achmadtirtosudiro/)
+* **Instagram:** [@ats090906](https://www.instagram.com/ats090906/)
 * **Lokasi:** Karawang, Indonesia
 
 ---
