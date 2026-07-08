@@ -1,9 +1,8 @@
 import SingleSkill from "./SingleSkill";
 import { FaHtml5 } from "react-icons/fa";
-import { FaCss3Alt } from "react-icons/fa";
 import { IoLogoJavascript } from "react-icons/io";
-import { SiLaravel, SiTypescript, SiPhp, SiBootstrap, SiMysql } from "react-icons/si";
-import { FaReact } from "react-icons/fa";
+import { SiLaravel, SiTypescript, SiPhp, SiMysql } from "react-icons/si";
+import { FaReact, FaJava } from "react-icons/fa";
 import { RiTailwindCssFill } from "react-icons/ri";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../framerMotion/variants";
@@ -13,11 +12,6 @@ const skills = [
     skill: "HTML",
     // percentage: "70",
     icon: FaHtml5,
-  },
-  {
-    skill: "CSS",
-    // percentage: "50",
-    icon: FaCss3Alt,
   },
   {
     skill: "JavaScript",
@@ -55,9 +49,9 @@ const skills = [
     icon: RiTailwindCssFill,
   },
   {
-    skill: "Bootstrap",
+    skill: "Java",
     // percentage: "65",
-    icon: SiBootstrap,
+    icon: FaJava,
   },
 ];
 
