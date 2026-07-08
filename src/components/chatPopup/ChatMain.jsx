@@ -20,6 +20,9 @@ const ChatMain = ({ isOpen, onClose }) => {
       ? "/api/chat"
       : "http://localhost:3000/api/chat";
 
+  const isInputDisabled =
+    loading || messages.some((msg) => msg.role === "assistant" && !msg.typed);
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -43,7 +46,7 @@ const ChatMain = ({ isOpen, onClose }) => {
   ];
 
   const handleSend = async (text) => {
-    if (!text.trim()) return;
+    if (!text.trim() || isInputDisabled) return;
 
     const userMessage = { role: "user", content: text };
     setMessages((prev) => [...prev, userMessage]);
@@ -180,12 +183,17 @@ const ChatMain = ({ isOpen, onClose }) => {
                     {suggestions.map((text, i) => (
                       <button
                         key={i}
-                        onClick={() => handleSend(text)}
-                        className="cursor-pointer w-full rounded-full border border-border-soft bg-card-soft px-5 py-2.5 
+                        onClick={() => {
+                          if (!isInputDisabled) handleSend(text);
+                        }}
+                        disabled={isInputDisabled}
+                        className={`w-full rounded-full border border-border-soft bg-card-soft px-5 py-2.5 
                           text-sm text-white/90 transition shadow-sm
-                          hover:border-accent hover:text-white hover:bg-accent-soft 
-                          hover:scale-[1.03] hover:shadow-[0_0_10px_rgba(94,206,220,0.35)] 
-                          active:scale-[0.97]"
+                          ${
+                            isInputDisabled
+                              ? "opacity-50 cursor-not-allowed"
+                              : "cursor-pointer hover:border-accent hover:text-white hover:bg-accent-soft hover:scale-[1.03] hover:shadow-[0_0_10px_rgba(94,206,220,0.35)] active:scale-[0.97]"
+                          }`}
                       >
                         {text}
                       </button>
@@ -285,24 +293,46 @@ const ChatMain = ({ isOpen, onClose }) => {
               className="px-4 py-5 shrink-0 
               bg-linear-to-br from-card to-card-soft backdrop-blur-2xl"
             >
-              <div className="flex items-center rounded-full border border-border-soft px-3 py-2 focus-within:border-accent transition">
+              <div
+                className={`flex items-center rounded-full border px-3 py-2 transition ${
+                  isInputDisabled
+                    ? "border-border-soft opacity-60 bg-black/10"
+                    : "border-border-soft focus-within:border-accent"
+                }`}
+              >
                 <input
                   type="text"
                   maxLength={255}
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  placeholder="Ask me anything (max 255 character)..."
-                  className="flex-1 bg-transparent outline-none text-sm text-white placeholder-text-muted px-2"
-                  onKeyDown={(e) => e.key === "Enter" && handleSend(inputValue)}
+                  placeholder={
+                    isInputDisabled
+                      ? "Please wait..."
+                      : "Ask me anything (max 255 character)..."
+                  }
+                  disabled={isInputDisabled}
+                  className={`flex-1 bg-transparent outline-none text-sm text-white placeholder-text-muted px-2 ${
+                    isInputDisabled ? "cursor-not-allowed" : ""
+                  }`}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !isInputDisabled) {
+                      e.preventDefault();
+                      handleSend(inputValue);
+                    }
+                  }}
                 />
                 <button
-                  onClick={() => handleSend(inputValue)}
-                  className="cursor-pointer flex items-center justify-center w-10 h-10 rounded-full 
-                    bg-linear-to-r from-orange to-darkOrange 
-                    hover:from-lightOrange hover:to-orange 
-                    transition shadow-md"
+                  onClick={() => {
+                    if (!isInputDisabled) handleSend(inputValue);
+                  }}
+                  disabled={isInputDisabled}
+                  className={`flex items-center justify-center w-10 h-10 rounded-full transition shadow-md ${
+                    isInputDisabled
+                      ? "bg-white/10 text-white/30 cursor-not-allowed"
+                      : "cursor-pointer bg-linear-to-r from-orange to-darkOrange hover:from-lightOrange hover:to-orange text-white"
+                  }`}
                 >
-                  <FaRegPaperPlane className="text-white text-base" />
+                  <FaRegPaperPlane className="text-base" />
                 </button>
               </div>
             </div>
