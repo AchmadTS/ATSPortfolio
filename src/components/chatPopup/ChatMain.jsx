@@ -1,122 +1,13 @@
 import suggestionAnswers from "./data/suggestionAnswers";
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaRegPaperPlane, FaRegCopy, FaCheck } from "react-icons/fa";
+import { FaRegPaperPlane } from "react-icons/fa";
 import { LuBot } from "react-icons/lu";
 import { IoClose } from "react-icons/io5";
 import ReactMarkdown from "react-markdown";
-
-const markdownComponents = {
-  // eslint-disable-next-line no-unused-vars
-  a: ({ node, ...props }) => (
-    <a
-      {...props}
-      className="text-teal-400 underline hover:text-teal-300"
-      target="_blank"
-      rel="noopener noreferrer"
-    />
-  ),
-  // eslint-disable-next-line no-unused-vars
-  strong: ({ node, ...props }) => (
-    <strong className="font-semibold text-white" {...props} />
-  ),
-  // eslint-disable-next-line no-unused-vars
-  p: ({ node, ...props }) => <p className="mb-3 leading-relaxed" {...props} />,
-  // eslint-disable-next-line no-unused-vars
-  ul: ({ node, ...props }) => (
-    <ul className="list-disc pl-5 my-3 space-y-2" {...props} />
-  ),
-  // eslint-disable-next-line no-unused-vars
-  ol: ({ node, ...props }) => (
-    <ol className="list-decimal pl-5 my-3 space-y-2" {...props} />
-  ),
-  // eslint-disable-next-line no-unused-vars
-  li: ({ node, ...props }) => <li className="pl-1" {...props} />,
-  // eslint-disable-next-line no-unused-vars
-  table: ({ node, ...props }) => (
-    <div className="overflow-x-auto my-4 border border-white/20 rounded-lg">
-      <table className="w-full text-sm text-left border-collapse" {...props} />
-    </div>
-  ),
-  // eslint-disable-next-line no-unused-vars
-  th: ({ node, ...props }) => (
-    <th
-      className="bg-white/10 px-4 py-3 border-b border-white/20 text-orange font-bold uppercase tracking-wider"
-      {...props}
-    />
-  ),
-  // eslint-disable-next-line no-unused-vars
-  td: ({ node, ...props }) => (
-    <td
-      className="px-4 py-3 border-b border-white/10 text-white/80"
-      {...props}
-    />
-  ),
-};
-
-// eslint-disable-next-line react/prop-types
-const CopyButton = ({ text }) => {
-  const [copied, setCopied] = useState(false);
-  const stripMarkdown = (md) => {
-    return (
-      md
-        .replace(/\|/g, " ")
-        .replace(/[-|]{3,}/g, "")
-        .replace(/<\/?br\s*\/?>/gi, "\n")
-        .replace(/•\s+/g, "\n- ")
-        .replace(/\*\*(.*?)\*\*/g, "$1")
-        .replace(/\*(.*?)\*/g, "$1")
-        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1: $2")
-        .replace(/\n{3,}/g, "\n\n")
-        .trim()
-    );
-  };
-
-  const handleCopy = () => {
-    const cleanText = stripMarkdown(text);
-    navigator.clipboard.writeText(cleanText);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  return (
-    <button
-      onClick={handleCopy}
-      className="mt-3 flex items-center gap-1.5 text-xs text-cyan hover:text-orange transition-colors duration-300 cursor-pointer"
-    >
-      {copied ? <FaCheck className="text-green-400" /> : <FaRegCopy />}
-      <span className={copied ? "text-green-400" : ""}>
-        {copied ? "Berhasil disalin!" : "Salin Response"}
-      </span>
-    </button>
-  );
-};
-
-// eslint-disable-next-line react/prop-types
-const TypewriterMessage = ({ content, onDone, alreadyTyped }) => {
-  const [displayed, setDisplayed] = useState(alreadyTyped ? content : "");
-  // eslint-disable-next-line react/prop-types
-  const [index, setIndex] = useState(alreadyTyped ? content.length : 0);
-
-  useEffect(() => {
-    if (alreadyTyped) return;
-
-    // eslint-disable-next-line react/prop-types
-    if (index < content.length) {
-      const timeout = setTimeout(() => {
-        setDisplayed((prev) => prev + content[index]);
-        setIndex((prev) => prev + 1);
-      }, 20);
-      return () => clearTimeout(timeout);
-    } else {
-      onDone();
-    }
-  }, [index, content, alreadyTyped, onDone]);
-
-  return (
-    <ReactMarkdown components={markdownComponents}>{displayed}</ReactMarkdown>
-  );
-};
+import { markdownComponents } from "./MarkdownComponents";
+import CopyButton from "./CopyButton";
+import TypewriterMessage from "./TypewriterMessage";
 
 // eslint-disable-next-line react/prop-types
 const ChatMain = ({ isOpen, onClose }) => {
@@ -124,7 +15,6 @@ const ChatMain = ({ isOpen, onClose }) => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
-
   const API_URL =
     import.meta.env.VITE_IS_DEPLOYMENT === "true"
       ? "/api/chat"
@@ -330,9 +220,12 @@ const ChatMain = ({ isOpen, onClose }) => {
                         {msg.typed && <CopyButton text={msg.content} />}
                       </>
                     ) : (
-                      <ReactMarkdown components={markdownComponents}>
-                        {msg.content}
-                      </ReactMarkdown>
+                      <>
+                        <ReactMarkdown components={markdownComponents}>
+                          {msg.content}
+                        </ReactMarkdown>
+                        <CopyButton text={msg.content} isUser={true} />
+                      </>
                     )}
                   </div>
                 </div>
