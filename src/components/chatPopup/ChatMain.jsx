@@ -1,4 +1,3 @@
-import suggestionAnswers from "./data/suggestionAnswers";
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaRegPaperPlane } from "react-icons/fa";
@@ -8,6 +7,7 @@ import ReactMarkdown from "react-markdown";
 import { markdownComponents } from "./MarkdownComponents";
 import CopyButton from "./CopyButton";
 import TypewriterMessage from "./TypewriterMessage";
+import { findLocalAnswer, stripBullets } from "./data/chatOptimizer";
 
 // eslint-disable-next-line react/prop-types
 const ChatMain = ({ isOpen, onClose }) => {
@@ -49,17 +49,16 @@ const ChatMain = ({ isOpen, onClose }) => {
     setMessages((prev) => [...prev, userMessage]);
     setInputValue("");
 
-    if (suggestionAnswers[text]) {
+    const localAnswer = findLocalAnswer(text);
+    if (localAnswer) {
       setLoading(true);
-
-      const answer = suggestionAnswers[text];
-      const charCount = answer.length;
+      const charCount = localAnswer.length;
       const delay = Math.min(Math.max(charCount * 20, 800), 5000);
 
       setTimeout(() => {
         const aiMessage = {
           role: "assistant",
-          content: answer,
+          content: localAnswer,
         };
         setMessages((prev) => [...prev, aiMessage]);
         setLoading(false);
@@ -70,10 +69,15 @@ const ChatMain = ({ isOpen, onClose }) => {
 
     setLoading(true);
     try {
+      const contextWindow = messages.slice(-4).map((msg) => ({
+        ...msg,
+        content:
+          msg.role === "assistant" ? stripBullets(msg.content) : msg.content,
+      }));
       const response = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: [...messages, userMessage] }),
+        body: JSON.stringify({ messages: [...contextWindow, userMessage] }),
       });
 
       let data;
@@ -284,9 +288,10 @@ const ChatMain = ({ isOpen, onClose }) => {
               <div className="flex items-center rounded-full border border-border-soft px-3 py-2 focus-within:border-accent transition">
                 <input
                   type="text"
+                  maxLength={255}
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  placeholder="Ask me anything..."
+                  placeholder="Ask me anything (max 255 character)..."
                   className="flex-1 bg-transparent outline-none text-sm text-white placeholder-text-muted px-2"
                   onKeyDown={(e) => e.key === "Enter" && handleSend(inputValue)}
                 />
