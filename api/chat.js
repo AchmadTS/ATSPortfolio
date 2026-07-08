@@ -6,9 +6,6 @@ export const config = {
 };
 
 export default async function handler(req, res) {
-  // Tambahkan log untuk debug di Vercel
-  console.log("Function triggered");
-
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
@@ -28,13 +25,12 @@ export default async function handler(req, res) {
     const apiMessages = [systemMessage, ...messages];
 
     for (let i = 0; i < apiKeys.length; i++) {
-      const currentKey = apiKeys[i];
       const response = await fetch(
         "https://openrouter.ai/api/v1/chat/completions",
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${currentKey}`,
+            Authorization: `Bearer ${apiKeys[i]}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
@@ -49,12 +45,12 @@ export default async function handler(req, res) {
         return res.status(200).json(data);
       }
 
-      console.warn(`Key ${i + 1} failed with status: ${response.status}`);
+      console.warn(`Attempt ${i + 1} failed with status: ${response.status}`);
     }
 
     throw new Error("All API keys failed");
   } catch (err) {
-    console.error("FATAL ERROR:", err);
-    return res.status(500).json({ error: err.message });
+    console.error("FATAL ERROR:", err.message);
+    return res.status(500).json({ error: "Internal server error" });
   }
 }
