@@ -64,7 +64,7 @@ const AllSkillsSM = () => {
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))}
             disabled={isFirstPage}
-            className="absolute left-0 top-[33.5%] -translate-y-1/2 p-2 text-cyan border border-cyan/30 rounded-full transition-all z-10 disabled:opacity-20 disabled:cursor-not-allowed hover:bg-cyan/10"
+            className="absolute left-0 top-[34.5%] -translate-y-1/2 p-2 text-cyan border border-cyan/30 rounded-full transition-all z-10 disabled:opacity-20 disabled:cursor-not-allowed hover:bg-cyan/10"
           >
             <FiChevronLeft size={20} />
           </button>
@@ -73,7 +73,7 @@ const AllSkillsSM = () => {
               setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1))
             }
             disabled={isLastPage}
-            className="absolute right-0 top-[33.5%] -translate-y-1/2 p-2 text-cyan border border-cyan/30 rounded-full transition-all z-10 disabled:opacity-20 disabled:cursor-not-allowed hover:bg-cyan/10"
+            className="absolute right-0 top-[34.5%] -translate-y-1/2 p-2 text-cyan border border-cyan/30 rounded-full transition-all z-10 disabled:opacity-20 disabled:cursor-not-allowed hover:bg-cyan/10"
           >
             <FiChevronRight size={20} />
           </button>
