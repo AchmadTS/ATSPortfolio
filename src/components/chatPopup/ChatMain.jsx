@@ -65,6 +65,13 @@ const ChatMain = ({ isOpen, onClose }) => {
   const isSendButtonDisabled = isSystemBusy || isOverLimit;
 
   useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.style.height = "auto";
+      inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
+    }
+  }, [inputValue]);
+
+  useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
@@ -362,25 +369,27 @@ const ChatMain = ({ isOpen, onClose }) => {
               </AnimatePresence>
 
               <div
-                className={`flex items-center rounded-full border px-3 py-2 transition ${
+                className={`flex items-end rounded-3xl border p-2 transition ${
                   isOverLimit
                     ? "border-red-500 bg-red-500/5 focus-within:border-red-500"
                     : "border-border-soft focus-within:border-accent"
                 }`}
               >
-                <input
+                <textarea
                   ref={inputRef}
-                  type="text"
+                  rows={1} // Default 1 baris
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Ask me anything..."
-                  className={`flex-1 bg-transparent outline-none text-sm text-white placeholder-text-muted px-2 ${
+                  className={`flex-1 bg-transparent outline-none text-sm text-white placeholder-text-muted px-3 py-2.5 resize-none max-h-30 overflow-y-auto custom-scroll ${
                     isOverLimit ? "text-red-300" : ""
                   }`}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter" && !isSendButtonDisabled) {
+                    if (e.key === "Enter" && !e.shiftKey) {
                       e.preventDefault();
-                      handleSend(inputValue);
+                      if (!isSendButtonDisabled) {
+                        handleSend(inputValue);
+                      }
                     }
                   }}
                 />
@@ -389,7 +398,7 @@ const ChatMain = ({ isOpen, onClose }) => {
                     if (!isSendButtonDisabled) handleSend(inputValue);
                   }}
                   disabled={isSendButtonDisabled}
-                  className={`flex items-center justify-center w-10 h-10 rounded-full transition shadow-md ${
+                  className={`flex items-center justify-center w-10 h-10 shrink-0 rounded-full transition shadow-md mb-0.6 ${
                     isSendButtonDisabled
                       ? "bg-white/10 text-white/30 cursor-not-allowed"
                       : "cursor-pointer bg-linear-to-r from-orange to-darkOrange hover:from-lightOrange hover:to-orange text-white"
