@@ -56,8 +56,14 @@ const ChatMain = ({ isOpen, onClose }) => {
     }
   }, [messages]);
 
-  const isInputDisabled =
-    loading || messages.some((msg) => msg.role === "assistant" && !msg.typed);
+  const isTyping = messages.some(
+    (msg) => msg.role === "assistant" && !msg.typed,
+  );
+  const isSystemBusy = loading || isTyping;
+
+  // Logika input text
+  const isOverLimit = inputValue.length > 255;
+  const isSendButtonDisabled = isSystemBusy || isOverLimit;
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -82,7 +88,7 @@ const ChatMain = ({ isOpen, onClose }) => {
   ];
 
   const handleSend = async (text) => {
-    if (!text.trim() || isInputDisabled) return;
+    if (!text.trim() || isSystemBusy || text.length > 255) return;
 
     const userMessage = { role: "user", content: text };
     setMessages((prev) => [...prev, userMessage]);
@@ -220,13 +226,13 @@ const ChatMain = ({ isOpen, onClose }) => {
                       <button
                         key={i}
                         onClick={() => {
-                          if (!isInputDisabled) handleSend(text);
+                          if (!isSystemBusy) handleSend(text);
                         }}
-                        disabled={isInputDisabled}
+                        disabled={isSystemBusy}
                         className={`w-full rounded-full border border-border-soft bg-card-soft px-5 py-2.5 
                           text-sm text-white/90 transition shadow-sm
                           ${
-                            isInputDisabled
+                            isSystemBusy
                               ? "opacity-50 cursor-not-allowed"
                               : "cursor-pointer hover:border-accent hover:text-white hover:bg-accent-soft hover:scale-[1.03] hover:shadow-[0_0_10px_rgba(94,206,220,0.35)] active:scale-[0.97]"
                           }`}
@@ -326,32 +332,40 @@ const ChatMain = ({ isOpen, onClose }) => {
               <div ref={messagesEndRef} />
             </div>
             <div
-              className="px-4 py-5 shrink-0 
+              className="relative px-4 py-5 shrink-0 
               bg-linear-to-br from-card to-card-soft backdrop-blur-2xl"
             >
+              <AnimatePresence>
+                {isOverLimit && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 5 }}
+                    className="absolute -top-3 left-8 bg-red-500/90 backdrop-blur-sm text-white text-xs px-3 py-1.5 rounded-lg shadow-lg z-10"
+                  >
+                    Melebihi 255 karakter!
+                    <div className="absolute -bottom-1 left-4 w-2 h-2 bg-red-500/90 rotate-45"></div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               <div
                 className={`flex items-center rounded-full border px-3 py-2 transition ${
-                  isInputDisabled
-                    ? "border-border-soft opacity-60 bg-black/10"
+                  isOverLimit
+                    ? "border-red-500 bg-red-500/5 focus-within:border-red-500"
                     : "border-border-soft focus-within:border-accent"
                 }`}
               >
                 <input
                   type="text"
-                  maxLength={255}
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  placeholder={
-                    isInputDisabled
-                      ? "Please wait..."
-                      : "Ask me anything (max 255 character)..."
-                  }
-                  disabled={isInputDisabled}
+                  placeholder="Ask me anything..."
                   className={`flex-1 bg-transparent outline-none text-sm text-white placeholder-text-muted px-2 ${
-                    isInputDisabled ? "cursor-not-allowed" : ""
+                    isOverLimit ? "text-red-300" : ""
                   }`}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter" && !isInputDisabled) {
+                    if (e.key === "Enter" && !isSendButtonDisabled) {
                       e.preventDefault();
                       handleSend(inputValue);
                     }
@@ -359,11 +373,11 @@ const ChatMain = ({ isOpen, onClose }) => {
                 />
                 <button
                   onClick={() => {
-                    if (!isInputDisabled) handleSend(inputValue);
+                    if (!isSendButtonDisabled) handleSend(inputValue);
                   }}
-                  disabled={isInputDisabled}
+                  disabled={isSendButtonDisabled}
                   className={`flex items-center justify-center w-10 h-10 rounded-full transition shadow-md ${
-                    isInputDisabled
+                    isSendButtonDisabled
                       ? "bg-white/10 text-white/30 cursor-not-allowed"
                       : "cursor-pointer bg-linear-to-r from-orange to-darkOrange hover:from-lightOrange hover:to-orange text-white"
                   }`}
