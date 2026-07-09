@@ -29,5 +29,10 @@ Projects:
 - ATZuperr-Cashier (Feb 2025): Link: [GitHub](https://github.com/Achmadts/ATZuperr-Cashier-FrontEnd)
 - Sianes (Oct 2024): School info system.
 Certs: HackerRank Jul 2025 (Problem Solving Int, Rest API Int, JS Int, Node.js Int, Java Basic, SQL Adv).
-Contact: Email: [Email](mailto:achmadtirtosudirosudiro@gmail.com), Phone: +6285878288920, LinkedIn: [LinkedIn](https://id.linkedin.com/in/achmad-tirto-sudiro-368aa6304), GitHub: [GitHub](https://github.com/Achmadts/), IG: [Instagram](https://www.instagram.com/ats090906/).`,
+Contacts (YOU MUST COPY PASTE THIS EXACTLY AS WRITTEN):
+- Email: [achmadtirtosudirosudiro@gmail.com](mailto:achmadtirtosudirosudiro@gmail.com)
+- Phone: +6285878288920
+- LinkedIn: [Achmad Tirto Sudiro](https://id.linkedin.com/in/achmad-tirto-sudiro-368aa6304)
+- GitHub: [Achmadts](https://github.com/Achmadts/)
+- Instagram: [@ats090906](https://www.instagram.com/ats090906/)`,
 };

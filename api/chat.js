@@ -6,12 +6,25 @@ export const config = {
 };
 
 export default async function handler(req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
+  const { messages } = req.body;
+
+  if (!messages) {
+    return res.status(400).json({ error: "Property 'messages' is required." });
+  }
+
   try {
-    const { messages } = req.body;
     const apiKeys = [
       process.env.OPENROUTER_API_KEY,
       process.env.OPENROUTER_API_KEY2,
@@ -19,7 +32,7 @@ export default async function handler(req, res) {
     ].filter(Boolean);
 
     if (apiKeys.length === 0) {
-      throw new Error("No API keys found in environment variables");
+      throw new Error("API Keys tidak ditemukan di dalam file .env Vercel");
     }
 
     const apiMessages = [systemMessage, ...messages];
@@ -34,7 +47,12 @@ export default async function handler(req, res) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            model: "openai/gpt-oss-20b:free",
+            models: [
+              "openai/gpt-oss-120b:free",
+              "google/gemma-4-31b-it:free",
+              "poolside/laguna-m.1:free",
+            ],
+            temperature: 0.2,
             messages: apiMessages,
           }),
         },
@@ -45,12 +63,19 @@ export default async function handler(req, res) {
         return res.status(200).json(data);
       }
 
-      console.warn(`Attempt ${i + 1} failed with status: ${response.status}`);
+      const errorText = await response.text();
+      console.warn(
+        `[Key ke-${i + 1} Gagal] Status: ${response.status} - ${errorText}`,
+      );
     }
 
-    throw new Error("All API keys failed");
+    return res
+      .status(500)
+      .json({ error: "Semua API Key limit atau gagal dihubungi." });
   } catch (err) {
-    console.error("FATAL ERROR:", err.message);
-    return res.status(500).json({ error: "Internal server error" });
+    console.error("Server Error:", err);
+    return res
+      .status(500)
+      .json({ error: "Internal server error", details: err.message });
   }
 }
