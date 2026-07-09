@@ -105,7 +105,12 @@ const ChatMain = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (isOpen) {
       const timeout = setTimeout(() => {
-        inputRef.current?.focus();
+        const textarea = inputRef.current;
+        if (textarea) {
+          textarea.focus();
+          textarea.selectionStart = textarea.value.length;
+          textarea.selectionEnd = textarea.value.length;
+        }
       }, 350);
       return () => clearTimeout(timeout);
     }
