@@ -10,11 +10,15 @@ import TypewriterMessage from "./TypewriterMessage";
 import { findLocalAnswer, stripBullets } from "./data/chatOptimizer";
 
 const CHAT_STORAGE_KEY = "ats_chat_history";
-const CHAT_EXPIRE_TIME = 60 * 60 * 1000; // 1 Jam dalam milidetik
+const CHAT_DRAFT_KEY = "ats_chat_draft";
+const CHAT_EXPIRE_TIME = 60 * 60 * 1000; // 1 Jam
 
 // eslint-disable-next-line react/prop-types
 const ChatMain = ({ isOpen, onClose }) => {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(() => {
+    return sessionStorage.getItem(CHAT_DRAFT_KEY) || "";
+  });
+
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
@@ -42,6 +46,10 @@ const ChatMain = ({ isOpen, onClose }) => {
     }
     return [];
   });
+
+  useEffect(() => {
+    sessionStorage.setItem(CHAT_DRAFT_KEY, inputValue);
+  }, [inputValue]);
 
   useEffect(() => {
     if (messages.length > 0) {

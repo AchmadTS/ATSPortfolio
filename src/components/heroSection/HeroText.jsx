@@ -1,23 +1,12 @@
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../framerMotion/variants";
 import { LuMessageSquareCode } from "react-icons/lu";
 import { TypeAnimation } from "react-type-animation";
-import ChatMain from "../chatPopup/ChatMain";
 
 const HeroText = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.ctrlKey && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        setIsOpen(true);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  const triggerChat = () => {
+    window.dispatchEvent(new CustomEvent("toggle-chat"));
+  };
 
   return (
     <div className="flex flex-col gap-4 h-full justify-center md:text-left sm:text-center relative">
@@ -43,7 +32,7 @@ const HeroText = () => {
           <span className="md:hidden">
             <LuMessageSquareCode
               className="text-orange text-2xl cursor-pointer hover:text-cyan transition-colors duration-300"
-              onClick={() => setIsOpen(true)}
+              onClick={triggerChat}
             />
           </span>
         </motion.div>
@@ -121,12 +110,10 @@ const HeroText = () => {
         >
           <LuMessageSquareCode
             className="text-orange text-3xl cursor-pointer hover:text-cyan transition-colors duration-300"
-            onClick={() => setIsOpen(true)}
+            onClick={triggerChat}
           />
         </motion.div>
       </motion.div>
-
-      <ChatMain isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </div>
   );
 };

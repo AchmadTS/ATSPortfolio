@@ -21,19 +21,8 @@ function App() {
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    setShowCtrlKPopup(true);
-
-    const timer = setTimeout(() => {
-      setFadeOut(true);
-      setTimeout(() => setShowCtrlKPopup(false), 800);
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.ctrlKey && e.key.toLowerCase() === "k") {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         setIsChatOpen(true);
       }
@@ -41,6 +30,21 @@ function App() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  useEffect(() => {
+    const handleManualOpen = () => setIsChatOpen((prev) => !prev);
+    window.addEventListener("toggle-chat", handleManualOpen);
+    return () => window.removeEventListener("toggle-chat", handleManualOpen);
+  }, []);
+
+  useEffect(() => {
+    setShowCtrlKPopup(true);
+    const timer = setTimeout(() => {
+      setFadeOut(true);
+      setTimeout(() => setShowCtrlKPopup(false), 800);
+    }, 5000);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
