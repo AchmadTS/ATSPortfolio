@@ -20,8 +20,24 @@ export default async function handler(req, res) {
 
   const { messages } = req.body;
 
-  if (!messages) {
-    return res.status(400).json({ error: "Property 'messages' is required." });
+  if (!messages || !Array.isArray(messages) || messages.length === 0) {
+    return res
+      .status(400)
+      .json({ error: "Property 'messages' is required and must be an array." });
+  }
+
+  const lastMessage = messages[messages.length - 1];
+
+  if (
+    lastMessage &&
+    lastMessage.role === "user" &&
+    typeof lastMessage.content === "string"
+  ) {
+    if (lastMessage.content.length > 255) {
+      return res
+        .status(400)
+        .json({ error: "Message exceeds 255 characters limit." });
+    }
   }
 
   try {

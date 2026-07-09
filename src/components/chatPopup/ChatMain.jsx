@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useLayoutEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaRegPaperPlane } from "react-icons/fa";
 import { LuBot } from "react-icons/lu";
@@ -64,10 +64,19 @@ const ChatMain = ({ isOpen, onClose }) => {
   const isOverLimit = inputValue.length > 255;
   const isSendButtonDisabled = isSystemBusy || isOverLimit;
 
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.style.height = "auto";
-      inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
+  useLayoutEffect(() => {
+    const textarea = inputRef.current;
+    if (!textarea) return;
+
+    textarea.style.height = "auto";
+    const nextHeight = textarea.scrollHeight;
+
+    if (nextHeight <= 120) {
+      textarea.style.height = `${nextHeight}px`;
+      textarea.style.overflowY = "hidden";
+    } else {
+      textarea.style.height = "120px";
+      textarea.style.overflowY = "auto";
     }
   }, [inputValue]);
 
@@ -377,11 +386,11 @@ const ChatMain = ({ isOpen, onClose }) => {
               >
                 <textarea
                   ref={inputRef}
-                  rows={1} // Default 1 baris
+                  rows={1}
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  placeholder="Ask me anything..."
-                  className={`flex-1 bg-transparent outline-none text-sm text-white placeholder-text-muted px-3 py-2.5 resize-none max-h-30 overflow-y-auto custom-scroll ${
+                  placeholder="Ask me anything (max 255 character)..."
+                  className={`flex-1 bg-transparent outline-none text-sm text-white placeholder-text-muted px-3 py-2.5 resize-none min-h-10 custom-scroll ${
                     isOverLimit ? "text-red-300" : ""
                   }`}
                   onKeyDown={(e) => {
