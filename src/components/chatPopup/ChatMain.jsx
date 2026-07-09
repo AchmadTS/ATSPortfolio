@@ -17,6 +17,7 @@ const ChatMain = ({ isOpen, onClose }) => {
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
+  const inputRef = useRef(null);
   const API_URL =
     import.meta.env.VITE_IS_DEPLOYMENT === "true"
       ? "/api/chat"
@@ -60,8 +61,6 @@ const ChatMain = ({ isOpen, onClose }) => {
     (msg) => msg.role === "assistant" && !msg.typed,
   );
   const isSystemBusy = loading || isTyping;
-
-  // Logika input text
   const isOverLimit = inputValue.length > 255;
   const isSendButtonDisabled = isSystemBusy || isOverLimit;
 
@@ -78,6 +77,15 @@ const ChatMain = ({ isOpen, onClose }) => {
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, [onClose]);
+
+  useEffect(() => {
+    if (isOpen) {
+      const timeout = setTimeout(() => {
+        inputRef.current?.focus();
+      }, 350);
+      return () => clearTimeout(timeout);
+    }
+  }, [isOpen]);
 
   const suggestions = [
     "What are Achmad's main technical skills?",
@@ -269,6 +277,10 @@ const ChatMain = ({ isOpen, onClose }) => {
                                 i === idx ? { ...m, typed: true } : m,
                               ),
                             );
+
+                            setTimeout(() => {
+                              inputRef.current?.focus();
+                            }, 50);
                           }}
                         />
                         {msg.typed && <CopyButton text={msg.content} />}
@@ -357,6 +369,7 @@ const ChatMain = ({ isOpen, onClose }) => {
                 }`}
               >
                 <input
+                  ref={inputRef}
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
