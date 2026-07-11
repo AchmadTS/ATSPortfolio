@@ -106,8 +106,8 @@ const ChatMain = ({ isOpen, onClose }) => {
     if (isOpen) {
       const timeout = setTimeout(() => {
         const textarea = inputRef.current;
-        if (textarea) {
-          textarea.focus();
+        if (textarea && window.innerWidth > 768) {
+          textarea.focus({ preventScroll: true });
           textarea.selectionStart = textarea.value.length;
           textarea.selectionEnd = textarea.value.length;
         }
@@ -402,7 +402,7 @@ const ChatMain = ({ isOpen, onClose }) => {
                   rows={1}
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  placeholder="Ask me anything (max 255 character)..."
+                  placeholder="Ask me anything..."
                   className={`flex-1 bg-transparent outline-none text-sm text-white placeholder-text-muted px-3 py-2.5 resize-none min-h-10 custom-scroll ${
                     isOverLimit ? "text-red-300" : ""
                   }`}
