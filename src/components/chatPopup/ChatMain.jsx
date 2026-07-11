@@ -89,8 +89,14 @@ const ChatMain = ({ isOpen, onClose }) => {
   }, [inputValue]);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    if (isOpen) {
+      const timeout = setTimeout(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 150);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [messages, isOpen]);
 
   useEffect(() => {
     const handleEsc = (event) => {
@@ -259,7 +265,7 @@ const ChatMain = ({ isOpen, onClose }) => {
               </div>
             </div>
 
-            <div className="flex-1 px-6 text-center mt-7 pb-6 overflow-y-auto overscroll-contain custom-scroll space-y-4">
+            <div className="flex-1 px-6 text-center mt-7 pb-6 overflow-y-auto overscroll-contain custom-scroll space-y-4 scroll-smooth transform-gpu [-webkit-overflow-scrolling:touch]">
               {messages.length === 0 && (
                 <>
                   <h3 className="text-xl font-bold mb-2 text-orange">
