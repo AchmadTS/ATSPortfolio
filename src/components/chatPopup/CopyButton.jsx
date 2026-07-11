@@ -17,17 +17,39 @@ const CopyButton = ({ text, isUser = false }) => {
       .trim();
   };
 
-  const handleCopy = () => {
+  const handleCopy = async (e) => {
+    e.preventDefault();
+
     const cleanText = stripMarkdown(text);
-    navigator.clipboard.writeText(cleanText);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(cleanText);
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = cleanText;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-9999px";
+        textArea.style.top = "0";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+      }
+
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Gagal menyalin teks: ", err);
+    }
   };
 
   return (
     <button
+      type="button"
       onClick={handleCopy}
-      className={`mt-3 flex items-center gap-1.5 text-xs transition-colors duration-300 cursor-pointer ${
+      className={`mt-2 py-2 pr-2 flex items-center gap-1.5 text-xs transition-colors duration-300 cursor-pointer select-none ${
         isUser
           ? "text-white/70 hover:text-white"
           : "text-cyan hover:text-orange"

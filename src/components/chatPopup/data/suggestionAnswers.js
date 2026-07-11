@@ -37,7 +37,7 @@ const suggestionAnswers = {
         "Ini adalah beberapa proyek yang sudah saya kerjakan:\n- **TofuBase:** Sistem manajemen pabrik tahu berbasis Java Swing. [Lihat GitHub](https://github.com/AchmadTS/TofuBase)\n- **Neskar Insight:** Situs resmi SMKN 1 Karawang. [Kunjungi Web](https://smkn1karawang.sch.id/)\n- **ATZuperr-Cashier:** Aplikasi sistem kasir. [Lihat GitHub](https://github.com/Achmadts/ATZuperr-Cashier-FrontEnd)",
       
       education: 
-        "Berikut adalah latar belakang pendidikan saya:\n- **Telkom University (2025 - Sekarang):** Ilmu Komputer, fokus pada logika pemrograman & sistem.\n- **SMKN 1 Karawang (2022 - 2025):** Rekayasa Perangkat Lunak (RPL).",
+        "Berikut adalah latar belakang pendidikan saya:\n- **Telkom University (2025 - Sekarang):** Rekayasa Perangkat Lunak (RPL), fokus pada logika pemrograman & sistem.\n- **SMKN 1 Karawang (2022 - 2025):** Rekayasa Perangkat Lunak (RPL).",
       
       role: 
         "Saat ini saya sedang mencari peluang sebagai **Web Backend Developer** atau **Fullstack Developer**. Saya sangat antusias untuk berkontribusi di sistem yang kompleks! ✨",
