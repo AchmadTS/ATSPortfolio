@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { FiDownload, FiX } from "react-icons/fi";
 import PropTypes from "prop-types";
 
 const DownloadPopup = ({ show, onClose, onPreview, onDirectDownload }) => {
   const [isClosing, setIsClosing] = useState(false);
   const [isOpening, setIsOpening] = useState(false);
+  const popupRef = useRef(null);
 
   useEffect(() => {
     if (show) {
@@ -39,6 +40,25 @@ const DownloadPopup = ({ show, onClose, onPreview, onDirectDownload }) => {
     };
   }, [show, handleClose]);
 
+  useEffect(() => {
+    const popupElement = popupRef.current;
+    if (!popupElement || !show) return;
+
+    const preventScroll = (e) => {
+      e.preventDefault();
+    };
+
+    popupElement.addEventListener("wheel", preventScroll, { passive: false });
+    popupElement.addEventListener("touchmove", preventScroll, {
+      passive: false,
+    });
+
+    return () => {
+      popupElement.removeEventListener("wheel", preventScroll);
+      popupElement.removeEventListener("touchmove", preventScroll);
+    };
+  }, [show, isOpening]);
+
   if (!show) return null;
 
   return (
@@ -46,6 +66,7 @@ const DownloadPopup = ({ show, onClose, onPreview, onDirectDownload }) => {
       className={`backdrop-blur-md fixed inset-0 bg-black/60 flex items-center justify-center z-50 px-4 transition-opacity duration-300 ${isOpening ? "opacity-100" : "opacity-0"}`}
     >
       <div
+        ref={popupRef}
         className={`bg-surface rounded-xl p-6 max-w-md w-full border border-border-soft relative transition-all duration-300 ${isOpening && !isClosing ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}
       >
         <button
@@ -77,7 +98,7 @@ const DownloadPopup = ({ show, onClose, onPreview, onDirectDownload }) => {
                   e.stopPropagation();
                   onDirectDownload("creative");
                 }}
-                className="p-2 hover:bg-card rounded-lg transition-all duration-200"
+                className="p-2 hover:bg-card rounded-lg transition-all duration-200 cursor-pointer"
               >
                 <FiDownload
                   size={24}
@@ -103,7 +124,7 @@ const DownloadPopup = ({ show, onClose, onPreview, onDirectDownload }) => {
                   e.stopPropagation();
                   onDirectDownload("ats");
                 }}
-                className="p-2 hover:bg-card rounded-lg transition-all duration-200"
+                className="p-2 hover:bg-card rounded-lg transition-all duration-200 cursor-pointer"
               >
                 <FiDownload
                   size={24}
