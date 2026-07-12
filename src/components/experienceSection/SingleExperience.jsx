@@ -31,7 +31,7 @@ const SingleExperience = ({ experience, onViewCertificate }) => {
                      hover:bg-cyan hover:text-white transition-all duration-300 cursor-pointer shrink-0"
         >
           <FiFileText className="w-4 h-4 shrink-0" />
-          <span>Lihat Surat Keterangan</span>
+          <span>See Certificate</span>
         </button>
       )}
     </motion.div>
