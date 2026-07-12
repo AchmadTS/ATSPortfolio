@@ -89,7 +89,7 @@ const ChatMain = ({ isOpen, onClose }) => {
   }, [inputValue]);
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && messages.length > 0) {
       const timeout = setTimeout(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
       }, 150);
