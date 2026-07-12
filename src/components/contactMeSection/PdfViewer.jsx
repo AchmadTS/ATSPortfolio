@@ -112,7 +112,8 @@ const PdfViewer = ({ show, currentPdf, onClose }) => {
             </button>
           </div>
         </div>
-        <div className="flex-1 overflow-y-auto overscroll-contain overflow-x-hidden bg-black/50 rounded-b-xl">
+
+        <div className="flex-1 overflow-y-auto overscroll-contain overflow-x-hidden bg-black/50 rounded-b-xl transform-gpu [-webkit-overflow-scrolling:touch]">
           <iframe
             src={currentPdf.path}
             className="w-full h-full hidden md:block"
@@ -142,13 +143,17 @@ const PdfViewer = ({ show, currentPdf, onClose }) => {
               }
             >
               {Array.from(new Array(numPages), (el, index) => (
-                <div key={`page_${index + 1}`} className="mb-4">
+                <div key={`page_${index + 1}`} className="mb-4 transform-gpu">
                   <Page
                     pageNumber={index + 1}
                     width={pdfWidth}
                     renderTextLayer={false}
                     renderAnnotationLayer={false}
-                    className="shadow-lg flex items-center justify-center bg-white rounded-md overflow-hidden"
+                    devicePixelRatio={Math.min(
+                      window.devicePixelRatio || 1,
+                      1.5,
+                    )}
+                    className="flex items-center justify-center bg-white rounded-md overflow-hidden border border-border-soft"
                   />
                 </div>
               ))}
