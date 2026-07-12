@@ -2,9 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import { markdownComponents } from "./MarkdownComponents";
 
-const typingMemory = new Map();
 // eslint-disable-next-line react/prop-types
-const TypewriterMessage = ({ content, onDone, alreadyTyped }) => {
+const TypewriterMessage = ({ content, onDone, alreadyTyped, createdAt }) => {
   const [displayed, setDisplayed] = useState(alreadyTyped ? content : "");
   const onDoneRef = useRef(onDone);
 
@@ -18,12 +17,8 @@ const TypewriterMessage = ({ content, onDone, alreadyTyped }) => {
       return;
     }
 
-    if (!typingMemory.has(content)) {
-      typingMemory.set(content, Date.now());
-    }
-
-    const startTime = typingMemory.get(content);
-    const typingSpeed = 20; // Kecepatan ngetik (ms)
+    const startTime = createdAt || Date.now();
+    const typingSpeed = 20;
     const fullText = content;
     const initialElapsedTime = Date.now() - startTime;
     let expectedCharCount = Math.floor(initialElapsedTime / typingSpeed);
@@ -50,7 +45,7 @@ const TypewriterMessage = ({ content, onDone, alreadyTyped }) => {
     }, 20);
 
     return () => clearInterval(interval);
-  }, [content, alreadyTyped]);
+  }, [content, alreadyTyped, createdAt]);
 
   return (
     <ReactMarkdown components={markdownComponents}>{displayed}</ReactMarkdown>

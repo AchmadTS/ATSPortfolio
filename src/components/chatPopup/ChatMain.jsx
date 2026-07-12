@@ -20,6 +20,8 @@ const ChatMain = ({ isOpen, onClose }) => {
   });
 
   const [loading, setLoading] = useState(false);
+  const popupRef = useRef(null);
+  const scrollContainerRef = useRef(null);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const API_URL =
@@ -123,14 +125,42 @@ const ChatMain = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    const popupElement = popupRef.current;
+    if (!popupElement || !isOpen) return;
+
+    const preventScrollBleed = (e) => {
+      const scrollContainer = scrollContainerRef.current;
+      const input = inputRef.current;
+      const isInsideScrollable = scrollContainer?.contains(e.target);
+      const isInsideInput = input?.contains(e.target);
+
+      if (isInsideScrollable) {
+        if (scrollContainer.scrollHeight <= scrollContainer.clientHeight) {
+          e.preventDefault();
+        }
+        return;
+      }
+
+      if (isInsideInput) {
+        if (input.scrollHeight <= input.clientHeight) {
+          e.preventDefault();
+        }
+        return;
+      }
+
+      e.preventDefault();
+    };
+
+    popupElement.addEventListener("wheel", preventScrollBleed, {
+      passive: false,
+    });
+    popupElement.addEventListener("touchmove", preventScrollBleed, {
+      passive: false,
+    });
 
     return () => {
-      document.body.style.overflow = "unset";
+      popupElement.removeEventListener("wheel", preventScrollBleed);
+      popupElement.removeEventListener("touchmove", preventScrollBleed);
     };
   }, [isOpen]);
 
@@ -159,6 +189,7 @@ const ChatMain = ({ isOpen, onClose }) => {
         const aiMessage = {
           role: "assistant",
           content: localAnswer,
+          createdAt: Date.now(),
         };
         setMessages((prev) => [...prev, aiMessage]);
         setLoading(false);
@@ -195,6 +226,7 @@ const ChatMain = ({ isOpen, onClose }) => {
       const aiMessage = {
         role: "assistant",
         content: data.choices?.[0]?.message?.content || "No response from AI.",
+        createdAt: Date.now(),
       };
 
       setMessages((prev) => [...prev, aiMessage]);
@@ -215,6 +247,7 @@ const ChatMain = ({ isOpen, onClose }) => {
         <div className="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-md z-50">
           <motion.div
             key="chat-popup"
+            ref={popupRef}
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
@@ -265,7 +298,10 @@ const ChatMain = ({ isOpen, onClose }) => {
               </div>
             </div>
 
-            <div className="flex-1 px-6 text-center mt-7 pb-6 overflow-y-auto overscroll-contain custom-scroll space-y-4 scroll-smooth transform-gpu [-webkit-overflow-scrolling:touch]">
+            <div
+              ref={scrollContainerRef}
+              className="flex-1 px-6 text-center mt-7 pb-6 overflow-y-auto overscroll-contain custom-scroll space-y-4 scroll-smooth transform-gpu [-webkit-overflow-scrolling:touch]"
+            >
               {messages.length === 0 && (
                 <>
                   <h3 className="text-xl font-bold mb-2 text-orange">
@@ -307,10 +343,10 @@ const ChatMain = ({ isOpen, onClose }) => {
                   }`}
                 >
                   <div
-                    className={`px-4 py-3 mt-2 rounded-2xl max-w-[85%] wrap-break-word text-left ${
+                    className={`px-4 py-3 mt-2 rounded-2xl max-w-[85%] wrap-break-word text-left transform-gpu ${
                       msg.role === "user"
                         ? "bg-orange/70 text-white shadow-md"
-                        : "bg-card backdrop-blur-2xl border border-border-soft text-white/90 shadow-md"
+                        : "bg-card/95 border border-border-soft text-white/90 shadow-md"
                     }`}
                   >
                     {msg.role === "assistant" ? (
@@ -318,6 +354,7 @@ const ChatMain = ({ isOpen, onClose }) => {
                         <TypewriterMessage
                           content={msg.content}
                           alreadyTyped={msg.typed}
+                          createdAt={msg.createdAt}
                           onDone={() => {
                             setMessages((prev) =>
                               prev.map((m, i) =>
@@ -421,7 +458,7 @@ const ChatMain = ({ isOpen, onClose }) => {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Ask me anything..."
-                  className={`flex-1 bg-transparent outline-none text-sm text-white placeholder-text-muted px-3 py-2.5 resize-none min-h-10 custom-scroll ${
+                  className={`flex-1 bg-transparent outline-none text-sm text-white placeholder-text-muted px-3 py-2.5 resize-none min-h-10 custom-scroll overscroll-contain ${
                     isOverLimit ? "text-red-300" : ""
                   }`}
                   onKeyDown={(e) => {
