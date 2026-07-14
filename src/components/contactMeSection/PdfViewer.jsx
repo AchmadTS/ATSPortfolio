@@ -12,6 +12,7 @@ const PdfViewer = ({ show, currentPdf, onClose }) => {
   const [isPdfOpening, setIsPdfOpening] = useState(false);
   const [numPages, setNumPages] = useState(null);
   const [pdfWidth, setPdfWidth] = useState(300);
+  const [isDesktop, setIsDesktop] = useState(true);
 
   useEffect(() => {
     if (show) {
@@ -36,24 +37,22 @@ const PdfViewer = ({ show, currentPdf, onClose }) => {
         handleClose();
       }
     };
-
-    if (show) {
-      document.addEventListener("keydown", handleEscKey);
-    }
-
-    return () => {
-      document.removeEventListener("keydown", handleEscKey);
-    };
+    if (show) document.addEventListener("keydown", handleEscKey);
+    return () => document.removeEventListener("keydown", handleEscKey);
   }, [show, handleClose]);
 
   useEffect(() => {
-    const updateWidth = () => {
-      setPdfWidth(Math.min(window.innerWidth - 48, 800));
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setIsDesktop(width >= 768);
+      if (width < 768) {
+        setPdfWidth(width - 48);
+      }
     };
 
-    updateWidth();
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleDownload = () => {
@@ -113,52 +112,60 @@ const PdfViewer = ({ show, currentPdf, onClose }) => {
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto overscroll-contain overflow-x-hidden bg-black/50 rounded-b-xl transform-gpu [-webkit-overflow-scrolling:touch]">
-          <iframe
-            src={currentPdf.path}
-            className="w-full h-full hidden md:block"
-            title="PDF Viewer"
-          />
-          <div className="md:hidden flex flex-col items-center w-full min-h-full py-4">
-            <Document
-              file={currentPdf.path}
-              onLoadSuccess={onDocumentLoadSuccess}
-              loading={
-                <span className="text-cyan text-sm flex h-full items-center justify-center mt-10">
-                  Memuat PDF...
-                </span>
-              }
-              error={
-                <div className="flex flex-col items-center mt-10">
-                  <span className="text-red-500 text-sm">
-                    Gagal memuat PDF.
-                  </span>
-                  <button
-                    onClick={handleDownload}
-                    className="text-cyan mt-2 underline cursor-pointer"
-                  >
-                    Download File
-                  </button>
-                </div>
-              }
-            >
-              {Array.from(new Array(numPages), (el, index) => (
-                <div key={`page_${index + 1}`} className="mb-4 transform-gpu">
-                  <Page
-                    pageNumber={index + 1}
-                    width={pdfWidth}
-                    renderTextLayer={false}
-                    renderAnnotationLayer={false}
-                    devicePixelRatio={Math.min(
-                      window.devicePixelRatio || 1,
-                      1.5,
-                    )}
-                    className="flex items-center justify-center bg-white rounded-md overflow-hidden border border-border-soft"
-                  />
-                </div>
-              ))}
-            </Document>
-          </div>
+        <div className="flex-1 overflow-hidden bg-black/50 rounded-b-xl relative">
+          {isDesktop ? (
+            <iframe
+              src={currentPdf.path}
+              className="w-full h-full bg-white border-none"
+              title="PDF Viewer"
+            />
+          ) : (
+            <div className="w-full h-full overflow-y-auto overscroll-contain transform-gpu [-webkit-overflow-scrolling:touch]">
+              <div className="flex flex-col items-center w-full min-h-full py-4">
+                <Document
+                  file={currentPdf.path}
+                  onLoadSuccess={onDocumentLoadSuccess}
+                  loading={
+                    <span className="text-cyan text-sm flex h-full items-center justify-center mt-10">
+                      Memuat PDF...
+                    </span>
+                  }
+                  error={
+                    <div className="flex flex-col items-center mt-10">
+                      <span className="text-red-500 text-sm">
+                        Gagal memuat PDF.
+                      </span>
+                      <button
+                        onClick={handleDownload}
+                        className="text-cyan mt-2 underline cursor-pointer"
+                      >
+                        Download File
+                      </button>
+                    </div>
+                  }
+                >
+                  {Array.from(new Array(numPages), (el, index) => (
+                    <div
+                      key={`page_${index + 1}`}
+                      className="mb-4 shadow-md w-full flex justify-center"
+                    >
+                      <Page
+                        pageNumber={index + 1}
+                        width={pdfWidth}
+                        renderTextLayer={false}
+                        renderAnnotationLayer={false}
+                        devicePixelRatio={Math.max(
+                          window.devicePixelRatio || 1,
+                          3,
+                        )}
+                        className="bg-white rounded-md overflow-hidden"
+                      />
+                    </div>
+                  ))}
+                </Document>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
