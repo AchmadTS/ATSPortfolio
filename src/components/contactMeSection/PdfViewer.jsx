@@ -111,7 +111,6 @@ const PdfViewer = ({ show, currentPdf, onClose }) => {
             </button>
           </div>
         </div>
-
         <div className="flex-1 overflow-hidden bg-black/50 rounded-b-xl relative">
           {isDesktop ? (
             <iframe
@@ -145,20 +144,14 @@ const PdfViewer = ({ show, currentPdf, onClose }) => {
                   }
                 >
                   {Array.from(new Array(numPages), (el, index) => (
-                    <div
-                      key={`page_${index + 1}`}
-                      className="mb-4 shadow-md w-full flex justify-center"
-                    >
+                    <div key={`page_${index + 1}`} className="mb-4 shadow-md">
                       <Page
                         pageNumber={index + 1}
                         width={pdfWidth}
-                        renderTextLayer={false}
-                        renderAnnotationLayer={false}
-                        devicePixelRatio={Math.max(
-                          window.devicePixelRatio || 1,
-                          3,
-                        )}
-                        className="bg-white rounded-md overflow-hidden"
+                        renderTextLayer={true}
+                        renderAnnotationLayer={true}
+                        devicePixelRatio={window.devicePixelRatio || 2}
+                        className="flex items-center justify-center bg-white rounded-md overflow-hidden"
                       />
                     </div>
                   ))}
