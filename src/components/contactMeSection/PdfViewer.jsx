@@ -111,7 +111,7 @@ const PdfViewer = ({ show, currentPdf, onClose }) => {
             </button>
           </div>
         </div>
-        <div className="flex-1 overflow-hidden bg-black/50 rounded-b-xl relative">
+        <div className="flex-1 overscroll-contain overflow-hidden bg-black/50 rounded-b-xl relative">
           {isDesktop ? (
             <iframe
               src={currentPdf.path}
