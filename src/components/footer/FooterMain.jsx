@@ -25,6 +25,10 @@ const FooterMain = () => {
       section: "projects",
     },
     {
+      name: "Certificates",
+      section: "certificate",
+    },
+    {
       name: "Education",
       section: "education",
     },
