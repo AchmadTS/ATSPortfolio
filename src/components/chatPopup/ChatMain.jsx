@@ -265,7 +265,7 @@ const ChatMain = ({ isOpen, onClose }) => {
 
             <div
               className="flex items-center gap-3 px-6 pt-6 pb-4 shrink-0 
-                  bg-linear-to-br from-card to-card-soft backdrop-blur-2xl"
+                 bg-linear-to-br from-card to-card-soft backdrop-blur-2xl"
             >
               <motion.div
                 animate={{
@@ -363,7 +363,9 @@ const ChatMain = ({ isOpen, onClose }) => {
                             );
 
                             setTimeout(() => {
-                              inputRef.current?.focus();
+                              if (window.innerWidth > 768) {
+                                inputRef.current?.focus();
+                              }
                             }, 50);
                           }}
                         />
