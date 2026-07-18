@@ -8,6 +8,8 @@ import {
   BsGithub,
   BsChevronDown,
   BsChevronUp,
+  BsPerson,
+  BsLink45Deg,
 } from "react-icons/bs";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -16,13 +18,16 @@ const ProjectPopup = ({
   onClose,
   name,
   year,
-  image,
+  images,
   link,
+  role,
   techStack,
   description,
 }) => {
   const [showAllTech, setShowAllTech] = useState(false);
   const [showFullDesc, setShowFullDesc] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const MAX_DESC_LENGTH = 150;
   const isDescLong = description.length > MAX_DESC_LENGTH;
   const displayTech = showAllTech ? techStack : techStack.slice(0, 5);
@@ -30,6 +35,14 @@ const ProjectPopup = ({
     showFullDesc || !isDescLong
       ? description
       : `${description.slice(0, MAX_DESC_LENGTH).trim()}...`;
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -40,6 +53,7 @@ const ProjectPopup = ({
 
     if (isOpen) {
       document.addEventListener("keydown", handleKeyDown);
+      setCurrentIndex(0);
     } else {
       setShowAllTech(false);
       setShowFullDesc(false);
@@ -73,26 +87,37 @@ const ProjectPopup = ({
             </button>
 
             <div className="w-full md:w-[55%] p-6 md:p-10 flex flex-col items-center justify-center relative border-b md:border-b-0 md:border-r border-border-soft bg-card-soft/30 overscroll-contain">
-              <button className="cursor-pointer absolute left-2 md:left-4 p-2 md:p-3 rounded-full bg-card/50 border border-border-soft text-text-muted hover:text-orange hover:border-orange transition-all z-10 backdrop-blur-md">
+              <button
+                onClick={handlePrev}
+                className="cursor-pointer absolute left-2 md:left-4 p-2 md:p-3 rounded-full bg-card/50 border border-border-soft text-text-muted hover:text-orange hover:border-orange transition-all z-10 backdrop-blur-md"
+              >
                 <BsChevronLeft size={18} />
               </button>
 
               <div className="w-full h-48 sm:h-64 md:h-80 lg:h-96 rounded-xl overflow-hidden border border-border-soft shadow-lg relative group">
                 <img
-                  src={image}
-                  alt={name}
+                  src={images[currentIndex]}
+                  alt={`${name} - ${currentIndex + 1}`}
                   className="w-full h-full object-cover object-center"
                 />
               </div>
 
-              <button className="cursor-pointer absolute right-2 md:right-4 p-2 md:p-3 rounded-full bg-card/50 border border-border-soft text-text-muted hover:text-orange hover:border-orange transition-all z-10 backdrop-blur-md">
+              <button
+                onClick={handleNext}
+                className="cursor-pointer absolute right-2 md:right-4 p-2 md:p-3 rounded-full bg-card/50 border border-border-soft text-text-muted hover:text-orange hover:border-orange transition-all z-10 backdrop-blur-md"
+              >
                 <BsChevronRight size={18} />
               </button>
 
               <div className="flex gap-2 mt-6">
-                <span className="w-2 h-2 rounded-full bg-orange"></span>
-                <span className="w-2 h-2 rounded-full bg-text-muted/50"></span>
-                <span className="w-2 h-2 rounded-full bg-text-muted/50"></span>
+                {images.map((_, index) => (
+                  <span
+                    key={index}
+                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                      index === currentIndex ? "bg-orange" : "bg-text-muted/50"
+                    }`}
+                  ></span>
+                ))}
               </div>
             </div>
 
@@ -118,9 +143,6 @@ const ProjectPopup = ({
                   <button
                     onClick={() => setShowAllTech(!showAllTech)}
                     className="p-1.5 bg-card-soft border border-border-soft rounded-full text-text-muted hover:text-cyan hover:border-cyan/50 transition-colors cursor-pointer flex items-center justify-center"
-                    title={
-                      showAllTech ? "Lebih sedikit" : "Lihat semua teknologi"
-                    }
                   >
                     {showAllTech ? (
                       <BsChevronUp size={14} />
@@ -130,6 +152,14 @@ const ProjectPopup = ({
                   </button>
                 )}
               </div>
+
+              <div className="flex items-center gap-2 mb-2">
+                <BsPerson className="text-text-muted" size={14} />
+                <span className="text-xs font-bold tracking-widest text-text-muted uppercase">
+                  Role
+                </span>
+              </div>
+              <p className="text-white/90 font-semibold text-sm mb-6">{role}</p>
 
               <div className="flex items-center gap-2 mb-3">
                 <BsInfoCircleFill className="text-text-muted" size={14} />
@@ -160,11 +190,23 @@ const ProjectPopup = ({
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-3 bg-card/50 hover:bg-card border border-border-soft hover:border-orange text-white py-3 md:py-4 rounded-xl transition-all duration-300 font-bold font-body group backdrop-blur-sm cursor-pointer"
                 >
-                  <BsGithub
-                    className="text-text-muted group-hover:text-orange transition-colors"
-                    size={20}
-                  />
-                  View Repository
+                  {link.includes("github.com") ? (
+                    <>
+                      <BsGithub
+                        className="text-text-muted group-hover:text-orange transition-colors"
+                        size={20}
+                      />
+                      View Repository
+                    </>
+                  ) : (
+                    <>
+                      <BsLink45Deg
+                        className="text-text-muted group-hover:text-orange transition-colors"
+                        size={20}
+                      />
+                      Visit Site
+                    </>
+                  )}
                 </a>
               </div>
             </div>
@@ -180,8 +222,9 @@ ProjectPopup.propTypes = {
   onClose: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   year: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
   link: PropTypes.string.isRequired,
+  role: PropTypes.string.isRequired,
   techStack: PropTypes.arrayOf(PropTypes.string).isRequired,
   description: PropTypes.string.isRequired,
 };

@@ -8,8 +8,9 @@ const projects = [
     name: "Neskar Insight",
     year: "Sept2024",
     align: "right",
-    image: "/images/webNeskar.webp",
+    images: ["/images/webNeskar.webp",],
     link: "https://smkn1karawang.sch.id/",
+    role: "Back-End",
     techStack: [
       "Node.js + TypeScript",
       "Fastify",
@@ -41,8 +42,9 @@ const projects = [
     name: "ATZuperr-Cashier",
     year: "Feb2025",
     align: "left",
-    image: "/images/Kasir.webp",
+    images: ["/images/Kasir.webp",],
     link: "https://github.com/Achmadts/ATZuperr-Cashier-FrontEnd",
+    role: "Full-Stack",
     techStack: [
       "PHP 8.2",
       "Laravel 11",
@@ -72,8 +74,9 @@ const projects = [
     name: "TofuBase",
     year: "Jun2026",
     align: "right",
-    image: "/images/website-img-3.webp",
+    images: ["/images/website-img-3.webp",],
     link: "https://github.com/achmadTS/TofuBase/",
+    role: "Full-Stack",
     techStack: [
       "Java 25",
       "Maven",
@@ -110,8 +113,9 @@ const ProjectsMain = () => {
               name={project.name}
               year={project.year}
               align={project.align}
-              image={project.image}
+              images={project.images}
               link={project.link}
+              role={project.role}
               techStack={project.techStack}
               description={project.description}
             />

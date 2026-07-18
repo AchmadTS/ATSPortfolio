@@ -9,8 +9,9 @@ const SingleProject = ({
   name,
   year,
   align,
-  image,
+  images,
   link,
+  role,
   techStack,
   description,
 }) => {
@@ -47,7 +48,7 @@ const SingleProject = ({
         <div className="max-h-55 max-w-100 rounded-xl overflow-hidden hover:scale-110 transform transition-all duration-500 relative border border-white">
           {" "}
           <div className="w-full h-full bg-cyan opacity-50 absolute top-0 left-0 hover:opacity-0 transition-all duration-500 md:block sm:hidden"></div>
-          <img src={image} alt="website image" className="w-full h-full" />
+          <img src={images} alt="website image" className="w-full h-full" />
         </div>
       </motion.div>
       <ProjectPopup
@@ -55,8 +56,9 @@ const SingleProject = ({
         onClose={() => setIsPopupOpen(false)}
         name={name}
         year={year}
-        image={image}
+        images={images}
         link={link}
+        role={role}
         techStack={techStack}
         description={description}
       />
@@ -68,8 +70,9 @@ SingleProject.propTypes = {
   name: PropTypes.string.isRequired,
   year: PropTypes.string.isRequired,
   align: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
   link: PropTypes.string.isRequired,
+  role: PropTypes.string.isRequired,
   techStack: PropTypes.arrayOf(PropTypes.string).isRequired,
   description: PropTypes.string.isRequired,
 };
