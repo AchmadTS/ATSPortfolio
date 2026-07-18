@@ -10,6 +10,32 @@ const projects = [
     align: "right",
     image: "/images/webNeskar.webp",
     link: "https://smkn1karawang.sch.id/",
+    techStack: [
+      "Node.js + TypeScript",
+      "Fastify",
+      "Prisma ORM",
+      "PostgreSQL",
+      "Lucia Auth",
+      "@fastify/cookie, cors, multipart, oauth2",
+      "Nodemailer",
+      "TypeBox",
+      "Docker",
+      "Dev Container",
+      "pnpm",
+      "Next.js 14",
+      "React 18",
+      "TypeScript",
+      "Tailwind CSS",
+      "DaisyUI",
+      "Axios",
+      "SWR",
+      "Formik",
+      "Quill / React Quill",
+      "Sonner",
+      "Tabler Icons / React Icons",
+    ],
+    description:
+      "A modern full-stack web platform built for SMKN 1 Karawang, designed to deliver school information in a clean, responsive, and user-friendly interface. Neskar Insight combines a Fastify and Prisma-powered backend with a Next.js frontend to support a smooth experience for accessing content, managing data, and handling authentication. The project focuses on performance, maintainability, and a polished UI built with Tailwind CSS and DaisyUI.",
   },
   {
     name: "ATZuperr-Cashier",
@@ -17,13 +43,51 @@ const projects = [
     align: "left",
     image: "/images/Kasir.webp",
     link: "https://github.com/Achmadts/ATZuperr-Cashier-FrontEnd",
+    techStack: [
+      "PHP 8.2",
+      "Laravel 11",
+      "Laravel Sanctum",
+      "Laravel Socialite",
+      "tymon/jwt-auth",
+      "Maatwebsite Excel",
+      "Scramble API Documentation",
+      "Vite",
+      "React 19",
+      "JavaScript",
+      "React Router DOM",
+      "Tailwind CSS",
+      "DaisyUI",
+      "MUI",
+      "Chart.js",
+      "React Toastify",
+      "Axios",
+      "ExcelJS",
+      "XLSX",
+      "pnpm",
+    ],
+    description:
+      "A modern cashier and inventory management system built for managing products, categories, purchases, sales, cashier data, and user authentication in one centralized platform. The project features a responsive React-based frontend and a Laravel backend with API support, social login, JWT authentication, and export capabilities for handling daily operational workflows more efficiently.",
   },
   {
-    name: "Sianes",
-    year: "Okt2024",
+    name: "TofuBase",
+    year: "Jun2026",
     align: "right",
     image: "/images/website-img-3.webp",
-    link: "#",
+    link: "https://github.com/achmadTS/TofuBase/",
+    techStack: [
+      "Java 25",
+      "Maven",
+      "Java Swing",
+      "JDBC",
+      "MySQL / MariaDB",
+      "MySQL Connector/J 8.3.0",
+      "DAO Pattern",
+      "Custom Swing Components",
+      "PDF / Receipt Export",
+      "Database Seeder",
+    ],
+    description:
+      "A desktop-based tofu factory management system built with Java Swing and MySQL to handle operational workflows in a centralized way. TofuBase provides role-based authentication, dashboard monitoring, and modules for managing raw materials, suppliers, products, customers, production, sales, inventory, finance, and user administration. The application is designed with a clean custom UI, structured data access layer, and automated database seeding to support efficient daily operations and easier testing.",
   },
 ];
 
@@ -48,6 +112,8 @@ const ProjectsMain = () => {
               align={project.align}
               image={project.image}
               link={project.link}
+              techStack={project.techStack}
+              description={project.description}
             />
           );
         })}
