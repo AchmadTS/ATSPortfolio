@@ -28,7 +28,6 @@ Projects:
 - TofuBase: [GitHub](https://github.com/AchmadTS/TofuBase)
 - Neskar Insight: [smkn1karawang.sch.id](https://smkn1karawang.sch.id/)
 - ATZuperr-Cashier: [GitHub](https://github.com/Achmadts/ATZuperr-Cashier-FrontEnd)
-- Sianes: [Informasi Sistem Sekolah](https://smkn1karawang.sch.id/)
 Certs: HackerRank Jul 2025 (Problem Solving Int, Rest API Int, JS Int, Node.js Int, Java Basic, SQL Adv).
 Contacts:
 - Email: [achmadtirtosudirosudiro@gmail.com](mailto:achmadtirtosudirosudiro@gmail.com)
