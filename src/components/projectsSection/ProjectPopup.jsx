@@ -27,7 +27,6 @@ const ProjectPopup = ({
   const [showAllTech, setShowAllTech] = useState(false);
   const [showFullDesc, setShowFullDesc] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const MAX_DESC_LENGTH = 150;
   const isDescLong = description.length > MAX_DESC_LENGTH;
   const displayTech = showAllTech ? techStack : techStack.slice(0, 5);
@@ -79,46 +78,54 @@ const ProjectPopup = ({
             className="relative w-full max-w-5xl bg-surface-2/80 backdrop-blur-xl border border-border-soft rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden max-h-[90vh] overscroll-contain"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              onClick={onClose}
-              className="cursor-pointer absolute top-4 right-4 z-20 p-2 rounded-full text-text-muted hover:text-white hover:bg-card-soft transition-all duration-300"
-            >
-              <BsX size={24} />
-            </button>
+            <div className="w-full md:w-[55%] pt-16 pb-6 px-6 md:p-10 flex flex-col items-center justify-center relative border-b md:border-b-0 md:border-r border-border-soft bg-card-soft/30 overscroll-contain">
+              {images.length > 1 && currentIndex > 0 && (
+                <button
+                  onClick={handlePrev}
+                  className="cursor-pointer absolute left-2 md:left-4 p-2 md:p-3 rounded-full bg-card/50 border border-border-soft text-text-muted hover:text-orange hover:border-orange transition-all z-20 backdrop-blur-md"
+                >
+                  <BsChevronLeft size={18} />
+                </button>
+              )}
 
-            <div className="w-full md:w-[55%] p-6 md:p-10 flex flex-col items-center justify-center relative border-b md:border-b-0 md:border-r border-border-soft bg-card-soft/30 overscroll-contain">
-              <button
-                onClick={handlePrev}
-                className="cursor-pointer absolute left-2 md:left-4 p-2 md:p-3 rounded-full bg-card/50 border border-border-soft text-text-muted hover:text-orange hover:border-orange transition-all z-10 backdrop-blur-md"
-              >
-                <BsChevronLeft size={18} />
-              </button>
-
-              <div className="w-full h-48 sm:h-64 md:h-80 lg:h-96 rounded-xl overflow-hidden border border-border-soft shadow-lg relative group">
-                <img
-                  src={images[currentIndex]}
-                  alt={`${name} - ${currentIndex + 1}`}
-                  className="w-full h-full object-cover object-center"
-                />
+              <div className="w-fit h-fit max-w-full max-h-64 sm:max-h-80 md:max-h-96 lg:max-h-[400px] rounded-xl overflow-hidden border border-border-soft shadow-lg relative group flex items-center justify-center">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={currentIndex}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    src={images[currentIndex]}
+                    alt={`${name} - ${currentIndex + 1}`}
+                    className="w-auto h-auto max-w-full max-h-64 sm:max-h-80 md:max-h-96 lg:max-h-[400px] object-contain object-center"
+                  />
+                </AnimatePresence>
               </div>
 
-              <button
-                onClick={handleNext}
-                className="cursor-pointer absolute right-2 md:right-4 p-2 md:p-3 rounded-full bg-card/50 border border-border-soft text-text-muted hover:text-orange hover:border-orange transition-all z-10 backdrop-blur-md"
-              >
-                <BsChevronRight size={18} />
-              </button>
+              {images.length > 1 && currentIndex < images.length - 1 && (
+                <button
+                  onClick={handleNext}
+                  className="cursor-pointer absolute right-2 md:right-4 p-2 md:p-3 rounded-full bg-card/50 border border-border-soft text-text-muted hover:text-orange hover:border-orange transition-all z-20 backdrop-blur-md"
+                >
+                  <BsChevronRight size={18} />
+                </button>
+              )}
 
-              <div className="flex gap-2 mt-6">
-                {images.map((_, index) => (
-                  <span
-                    key={index}
-                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-                      index === currentIndex ? "bg-orange" : "bg-text-muted/50"
-                    }`}
-                  ></span>
-                ))}
-              </div>
+              {images.length > 1 && (
+                <div className="flex gap-2 mt-6">
+                  {images.map((_, index) => (
+                    <span
+                      key={index}
+                      className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                        index === currentIndex
+                          ? "bg-orange"
+                          : "bg-text-muted/50"
+                      }`}
+                    ></span>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div className="w-full md:w-[45%] p-6 md:p-10 flex flex-col custom-scroll overflow-y-auto overscroll-contain">
@@ -210,6 +217,12 @@ const ProjectPopup = ({
                 </a>
               </div>
             </div>
+            <button
+              onClick={onClose}
+              className="cursor-pointer absolute top-3 right-3 md:top-4 md:right-4 z-50 p-2 rounded-full bg-black/60 md:bg-transparent text-white md:text-text-muted hover:text-white hover:bg-card-soft transition-all duration-300"
+            >
+              <BsX size={24} />
+            </button>
           </motion.div>
         </div>
       )}
