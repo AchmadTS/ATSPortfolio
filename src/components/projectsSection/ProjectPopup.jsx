@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import {
   BsX,
@@ -10,6 +10,7 @@ import {
   BsChevronUp,
   BsPerson,
   BsLink45Deg,
+  BsChevronDoubleDown,
 } from "react-icons/bs";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -27,6 +28,8 @@ const ProjectPopup = ({
   const [showAllTech, setShowAllTech] = useState(false);
   const [showFullDesc, setShowFullDesc] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const scrollContainerRef = useRef(null);
+  const [showScrollBtn, setShowScrollBtn] = useState(false);
   const MAX_DESC_LENGTH = 150;
   const isDescLong = description.length > MAX_DESC_LENGTH;
   const displayTech = showAllTech ? techStack : techStack.slice(0, 5);
@@ -42,6 +45,33 @@ const ProjectPopup = ({
   const handleNext = () => {
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
+
+  const handleScroll = () => {
+    if (!scrollContainerRef.current) return;
+    const { scrollTop, scrollHeight, clientHeight } =
+      scrollContainerRef.current;
+
+    if (scrollTop + clientHeight >= scrollHeight - 20) {
+      setShowScrollBtn(false);
+    } else {
+      setShowScrollBtn(true);
+    }
+  };
+
+  const scrollToBottom = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({
+        top: scrollContainerRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      setTimeout(() => handleScroll(), 100);
+    }
+  }, [isOpen, showAllTech, showFullDesc]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -68,7 +98,7 @@ const ProjectPopup = ({
     if (isOpen && images.length > 1 && currentIndex < images.length - 1) {
       slideInterval = setInterval(() => {
         setCurrentIndex((prev) => prev + 1);
-      }, 3000); // 3000 ms = 3 detik
+      }, 3000);
     }
 
     return () => {
@@ -88,7 +118,7 @@ const ProjectPopup = ({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="relative w-full max-w-5xl bg-surface-2/80 backdrop-blur-xl border border-border-soft rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden max-h-[90vh] overscroll-contain"
+            className="relative w-full max-w-5xl bg-surface-2/80 backdrop-blur-xl border border-border-soft rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden max-h-[90vh] md:h-[80vh] overscroll-contain"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="w-full md:w-[55%] pt-16 pb-6 px-6 md:p-10 flex flex-col items-center justify-center relative border-b md:border-b-0 md:border-r border-border-soft bg-card-soft/30 overscroll-contain">
@@ -155,7 +185,11 @@ const ProjectPopup = ({
               )}
             </div>
 
-            <div className="w-full md:w-[45%] p-6 md:p-10 flex flex-col custom-scroll overflow-y-auto overscroll-contain">
+            <div
+              ref={scrollContainerRef}
+              onScroll={handleScroll}
+              className="w-full md:w-[45%] p-6 md:p-10 flex flex-col custom-scroll overflow-y-auto overscroll-contain relative"
+            >
               <h2 className="text-3xl md:text-4xl font-bold text-orange font-body mb-1 mt-4 md:mt-0">
                 {name}
               </h2>
@@ -244,6 +278,19 @@ const ProjectPopup = ({
                 </a>
               </div>
             </div>
+            <AnimatePresence>
+              {showScrollBtn && (
+                <motion.button
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  onClick={scrollToBottom}
+                  className="cursor-pointer absolute bottom-6 right-6 md:bottom-8 md:right-8 z-40 p-3 rounded-full bg-orange/80 backdrop-blur-md border border-orange text-white hover:bg-orange transition-colors shadow-[0_0_15px_rgba(255,165,0,0.4)] animate-bounce"
+                >
+                  <BsChevronDoubleDown size={20} />
+                </motion.button>
+              )}
+            </AnimatePresence>
             <button
               onClick={onClose}
               className="cursor-pointer absolute top-3 right-3 md:top-4 md:right-4 z-50 p-2 rounded-full bg-black/60 md:bg-transparent text-white md:text-text-muted hover:text-white hover:bg-card-soft transition-all duration-300"
