@@ -41,7 +41,7 @@ const projects = [
   {
     name: "TofuBase",
     year: "Jun2026",
-    align: "right",
+    align: "left",
     images: [
       "/images/TofuBase1.webp",
       "/images/TofuBase2.webp",
@@ -74,7 +74,7 @@ const projects = [
   {
     name: "ATZuperr-Cashier",
     year: "Feb2025",
-    align: "left",
+    align: "right",
     images: ["/images/Kasir.webp"],
     link: "https://github.com/Achmadts/ATZuperr-Cashier-FrontEnd",
     role: "Full-Stack",

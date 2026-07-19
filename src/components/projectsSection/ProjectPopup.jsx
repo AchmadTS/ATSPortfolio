@@ -94,16 +94,18 @@ const ProjectPopup = ({
   }, [isOpen, onClose]);
 
   useEffect(() => {
-    let slideInterval;
-    if (isOpen && images.length > 1 && currentIndex < images.length - 1) {
-      slideInterval = setInterval(() => {
+    if (!isOpen || images.length <= 1) return;
+    const isLastIndex = currentIndex === images.length - 1;
+    const delay = isLastIndex ? 5000 : 3000;
+    const timer = setTimeout(() => {
+      if (isLastIndex) {
+        setCurrentIndex(0);
+      } else {
         setCurrentIndex((prev) => prev + 1);
-      }, 3000);
-    }
+      }
+    }, delay);
 
-    return () => {
-      if (slideInterval) clearInterval(slideInterval);
-    };
+    return () => clearTimeout(timer);
   }, [isOpen, currentIndex, images.length]);
 
   return (
