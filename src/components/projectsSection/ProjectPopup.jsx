@@ -285,7 +285,7 @@ const ProjectPopup = ({
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   onClick={scrollToBottom}
-                  className="cursor-pointer absolute bottom-6 right-6 md:bottom-8 md:right-8 z-40 p-3 rounded-full bg-orange/80 backdrop-blur-md border border-orange text-white hover:bg-orange transition-colors shadow-[0_0_15px_rgba(255,165,0,0.4)] animate-bounce"
+                  className="cursor-pointer absolute bottom-6 right-6 md:bottom-8 md:right-8 z-40 p-3 rounded-full bg-orange/20 backdrop-blur-sm border border-orange/50 text-orange hover:text-white hover:bg-orange/80 hover:border-orange transition-all duration-300 shadow-[0_0_15px_rgba(255,165,0,0.2)] animate-bounce"
                 >
                   <BsChevronDoubleDown size={20} />
                 </motion.button>
