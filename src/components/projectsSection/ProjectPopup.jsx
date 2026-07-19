@@ -63,6 +63,19 @@ const ProjectPopup = ({
     };
   }, [isOpen, onClose]);
 
+  useEffect(() => {
+    let slideInterval;
+    if (isOpen && images.length > 1 && currentIndex < images.length - 1) {
+      slideInterval = setInterval(() => {
+        setCurrentIndex((prev) => prev + 1);
+      }, 3000); // 3000 ms = 3 detik
+    }
+
+    return () => {
+      if (slideInterval) clearInterval(slideInterval);
+    };
+  }, [isOpen, currentIndex, images.length]);
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -88,19 +101,33 @@ const ProjectPopup = ({
                 </button>
               )}
 
-              <div className="w-fit h-fit max-w-full max-h-64 sm:max-h-80 md:max-h-96 lg:max-h-[400px] rounded-xl overflow-hidden border border-border-soft shadow-lg relative group flex items-center justify-center">
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={currentIndex}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    src={images[currentIndex]}
-                    alt={`${name} - ${currentIndex + 1}`}
-                    className="w-auto h-auto max-w-full max-h-64 sm:max-h-80 md:max-h-96 lg:max-h-[400px] object-contain object-center"
-                  />
-                </AnimatePresence>
+              <div className="relative w-fit h-fit max-w-full rounded-xl overflow-hidden border border-border-soft shadow-lg group flex items-center justify-center">
+                <div className="grid opacity-0 pointer-events-none select-none">
+                  {images.map((img, index) => (
+                    <img
+                      key={`ghost-${index}`}
+                      src={img}
+                      alt=""
+                      aria-hidden="true"
+                      className="col-start-1 row-start-1 w-auto h-auto max-w-full max-h-64 sm:max-h-80 md:max-h-96 lg:max-h-100 object-contain object-center"
+                    />
+                  ))}
+                </div>
+
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={currentIndex}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      src={images[currentIndex]}
+                      alt={`${name} - ${currentIndex + 1}`}
+                      className="w-auto h-auto max-w-full max-h-full object-contain object-center"
+                    />
+                  </AnimatePresence>
+                </div>
               </div>
 
               {images.length > 1 && currentIndex < images.length - 1 && (

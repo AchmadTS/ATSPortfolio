@@ -8,7 +8,7 @@ const projects = [
     name: "Neskar Insight",
     year: "Sept2024",
     align: "right",
-    images: ["/images/webNeskar.webp",],
+    images: ["/images/webNeskar.webp", "/images/webNeskar2.webp"],
     link: "https://smkn1karawang.sch.id/",
     role: "Back-End",
     techStack: [
@@ -42,7 +42,7 @@ const projects = [
     name: "ATZuperr-Cashier",
     year: "Feb2025",
     align: "left",
-    images: ["/images/Kasir.webp",],
+    images: ["/images/Kasir.webp"],
     link: "https://github.com/Achmadts/ATZuperr-Cashier-FrontEnd",
     role: "Full-Stack",
     techStack: [
@@ -74,7 +74,18 @@ const projects = [
     name: "TofuBase",
     year: "Jun2026",
     align: "right",
-    images: ["/images/website-img-3.webp",],
+    images: [
+      "/images/TofuBase1.webp",
+      "/images/TofuBase2.webp",
+      "/images/TofuBase3.webp",
+      "/images/TofuBase4.webp",
+      "/images/TofuBase5.webp",
+      "/images/TofuBase6.webp",
+      "/images/TofuBase7.webp",
+      "/images/TofuBase8.webp",
+      "/images/TofuBase9.webp",
+      "/images/TofuBase10.webp",
+    ],
     link: "https://github.com/achmadTS/TofuBase/",
     role: "Full-Stack",
     techStack: [
