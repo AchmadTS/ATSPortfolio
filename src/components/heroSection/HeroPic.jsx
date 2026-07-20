@@ -14,14 +14,14 @@ const HeroPic = () => {
       <img
         src="/images/Me-Mobile.webp"
         alt="Achmad Tirto Sudiro"
-        width="500"
-        height="500"
+        width="400"
+        height="400"
         className="
           block md:hidden
-          max-h-60
+          h-60
+          hover:h-62.5
           w-auto
-          hover:max-h-62.5
-          transition-[max-height]
+          transition-[height]
           duration-300
           ease-out
         "
@@ -31,10 +31,10 @@ const HeroPic = () => {
         src="/images/Me.webp"
         alt="Achmad Tirto Sudiro"
         width="800"
-        height="1200" 
+        height="1200"
         className="
           hidden md:block
-          max-h-112.5
+          h-112.5
           w-auto
           transition-transform
           duration-300

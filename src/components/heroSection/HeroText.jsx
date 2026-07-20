@@ -43,15 +43,22 @@ const HeroText = () => {
         initial="hidden"
         whileInView="show"
         viewport={{ once: false, amount: 0 }}
-        className="md:text-[2.8rem] lg:text-6xl sm:text-4xl font-bold uppercase leading-tight text-orange"
+        className="
+          md:text-[2.8rem] 
+          lg:text-6xl 
+          sm:text-4xl 
+          font-bold 
+          uppercase 
+          leading-tight 
+          text-orange 
+          min-h-21.25 
+          sm:min-h-25 
+          md:min-h-30
+          lg:min-h-40
+        "
       >
         <TypeAnimation
-          sequence={[
-            "Achmad Tirto\nSudiro",
-            1500,
-            "",
-            1000,
-          ]}
+          sequence={["Achmad Tirto\nSudiro", 1500, "", 1000]}
           speed={30}
           deletionSpeed={30}
           cursor={true}

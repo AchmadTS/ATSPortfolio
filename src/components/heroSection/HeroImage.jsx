@@ -12,13 +12,13 @@ const HeroImage = () => {
           className="block md:hidden w-auto h-auto max-w-75 absolute bottom-0 left-1/2 -translate-x-1/2 z-10"
         />
 
-        <img
-          src="/images/Me.webp"
-          alt="Achmad Tirto Sudiro"
-          width="800"
-          height="1200"
-          className="hidden md:block w-auto h-auto md:max-w-142.5 absolute bottom-0 left-1/2 -translate-x-1/2 z-10"
-        />
+      <img
+        src="/images/Me.webp"
+        alt="Achmad Tirto Sudiro"
+        width="800"
+        height="1200"
+        className=" hidden md:block max-h-112.5 w-auto aspect-2/3 object-cover transition-transform duration-300 hover:scale-105"
+      />
 
         <div className="w-full h-full absolute bottom-[-20%] -z-10 flex justify-center items-center rotate-90">
           <PiHexagonThin className="md:h-[90%] h-[120%] min-h-150 w-auto text-orange opacity-70 animate-[spin_20s_linear_infinite]" />
