@@ -7,12 +7,16 @@ const HeroImage = () => {
         <img
           src="/images/Me-Mobile.webp"
           alt="Achmad Tirto Sudiro"
+          width="400"
+          height="400"
           className="block md:hidden w-auto h-auto max-w-75 absolute bottom-0 left-1/2 -translate-x-1/2 z-10"
         />
 
         <img
           src="/images/Me.webp"
           alt="Achmad Tirto Sudiro"
+          width="800"
+          height="1200"
           className="hidden md:block w-auto h-auto md:max-w-142.5 absolute bottom-0 left-1/2 -translate-x-1/2 z-10"
         />
 
