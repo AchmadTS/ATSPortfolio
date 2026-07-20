@@ -1,34 +1,19 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect } from "react";
 import { FiCommand } from "react-icons/fi";
-import NavbarMain from "./components/navbar/NavbarMain";
-import HeroMain from "./components/heroSection/HeroMain";
+import AboutMeMain from "./components/aboutMeSection/AboutMeMain";
+import ContactMeMain from "./components/contactMeSection/ContactMeMain";
+import ExperienceMain from "./components/experienceSection/ExperienceMain";
+import FooterMain from "./components/footer/FooterMain";
 import HeroGradient from "./components/heroSection/HeroGradient";
-
-const SubHeroMain = lazy(
-  () => import("./components/subHeroSection/SubHeroMain"),
-);
-const AboutMeMain = lazy(
-  () => import("./components/aboutMeSection/AboutMeMain"),
-);
-const SkillsMain = lazy(() => import("./components/skillsSection/SkillsMain"));
-const SubSkills = lazy(() => import("./components/skillsSection/SubSkills"));
-const ExperienceMain = lazy(
-  () => import("./components/experienceSection/ExperienceMain"),
-);
-const ProjectsMain = lazy(
-  () => import("./components/projectsSection/ProjectsMain"),
-);
-const CertificateMain = lazy(
-  () => import("./components/certificateSection/CertificateMain"),
-);
-const SchoolsMain = lazy(
-  () => import("./components/schoolsSection/SchoolsMain"),
-);
-const ContactMeMain = lazy(
-  () => import("./components/contactMeSection/ContactMeMain"),
-);
-const FooterMain = lazy(() => import("./components/footer/FooterMain"));
-const ChatMain = lazy(() => import("./components/chatPopup/ChatMain"));
+import HeroMain from "./components/heroSection/HeroMain";
+import NavbarMain from "./components/navbar/NavbarMain";
+import ProjectsMain from "./components/projectsSection/ProjectsMain";
+import CertificateMain from "./components/certificateSection/CertificateMain";
+import SchoolsMain from "./components/schoolsSection/SchoolsMain";
+import SkillsMain from "./components/skillsSection/SkillsMain";
+import SubSkills from "./components/skillsSection/SubSkills";
+import SubHeroMain from "./components/subHeroSection/SubHeroMain";
+import ChatMain from "./components/chatPopup/ChatMain";
 
 function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -66,19 +51,16 @@ function App() {
       <NavbarMain />
       <HeroMain />
       <HeroGradient />
-      <Suspense fallback={<div className="min-h-[2000px]" />}>
-        <SubHeroMain />
-        <AboutMeMain />
-        <SkillsMain />
-        <SubSkills />
-        <ExperienceMain />
-        <ProjectsMain />
-        <CertificateMain />
-        <SchoolsMain />
-        <ContactMeMain />
-        <FooterMain />
-        <ChatMain isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
-      </Suspense>
+      <SubHeroMain />
+      <AboutMeMain />
+      <SkillsMain />
+      <SubSkills />
+      <ExperienceMain />
+      <ProjectsMain />
+      <CertificateMain />
+      <SchoolsMain />
+      <ContactMeMain />
+      <FooterMain />
 
       {showCtrlKPopup && (
         <div
@@ -96,6 +78,7 @@ function App() {
           </p>
         </div>
       )}
+      <ChatMain isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </main>
   );
 }
