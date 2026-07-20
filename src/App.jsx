@@ -66,7 +66,7 @@ function App() {
       <NavbarMain />
       <HeroMain />
       <HeroGradient />
-      <Suspense fallback={null}>
+      <Suspense fallback={<div className="min-h-[2000px]" />}>
         <SubHeroMain />
         <AboutMeMain />
         <SkillsMain />
