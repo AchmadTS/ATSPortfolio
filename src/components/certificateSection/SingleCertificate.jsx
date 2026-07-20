@@ -4,12 +4,8 @@ import { BsFillArrowUpRightCircleFill } from "react-icons/bs";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../framerMotion/variants";
 import PdfViewer from "../contactMeSection/PdfViewer";
-import { Document, Page, pdfjs } from "react-pdf";
-import "react-pdf/dist/Page/AnnotationLayer.css";
-import "react-pdf/dist/Page/TextLayer.css";
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
-const SingleCertificate = ({ name, issuer, year, link }) => {
+const SingleCertificate = ({ name, issuer, year, link, image }) => {
   const [showPdf, setShowPdf] = useState(false);
   const pdfData = {
     path: link,
@@ -28,39 +24,12 @@ const SingleCertificate = ({ name, issuer, year, link }) => {
       >
         <div className="w-full aspect-4/3 rounded-xl overflow-hidden transform transition-all duration-500 relative border border-white hover:scale-105 bg-gray-900 flex items-center justify-center">
           <div className="w-full h-full bg-cyan opacity-50 absolute top-0 left-0 group-hover:opacity-0 transition-all duration-500 z-10 md:block sm:hidden pointer-events-none"></div>
-          <div className="w-full h-full absolute inset-0 pointer-events-none flex items-center justify-center p-2">
-            <div className="w-full h-full flex md:hidden items-center justify-center overflow-hidden">
-              <Document
-                file={link}
-                loading={
-                  <span className="text-cyan text-sm flex h-full items-center justify-center">
-                    Loading...
-                  </span>
-                }
-                error={
-                  <span className="text-red-500 text-sm flex h-full items-center justify-center">
-                    Gagal memuat
-                  </span>
-                }
-                className="w-full h-full flex items-center justify-center"
-              >
-                <Page
-                  pageNumber={1}
-                  width={300}
-                  renderTextLayer={false}
-                  renderAnnotationLayer={false}
-                  className="flex items-center justify-center"
-                  canvasClassName="!max-w-full !h-auto !object-contain rounded-md"
-                />
-              </Document>
-            </div>
-            <iframe
-              src={`${link}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
-              title={name}
-              className="w-full h-full object-cover hidden md:block pointer-events-none"
-              tabIndex={-1}
-            />
-          </div>
+          <img
+            src={image}
+            alt={`Sertifikat ${name}`}
+            className="w-[85%] h-[85%] object-contain rounded-sm shadow-[0_0_15px_rgba(0,0,0,0.5)] bg-white"
+            loading="lazy"
+          />
         </div>
 
         <div className="flex flex-col items-center w-full text-center">
@@ -91,6 +60,7 @@ SingleCertificate.propTypes = {
   issuer: PropTypes.string.isRequired,
   year: PropTypes.string.isRequired,
   link: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
 };
 
 export default SingleCertificate;
