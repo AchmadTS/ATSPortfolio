@@ -32,6 +32,7 @@ const NavbarLinks = () => {
               duration={500}
               offset={-130}
               to={link.section}
+              href={`#${link.section}`}
               activeClass="active"
               className="cursor-pointer text-white hover:text-cyan transition-all duration-500"
               onClick={handleLinkClick}

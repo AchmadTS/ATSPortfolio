@@ -57,6 +57,7 @@ const AboutMeText = () => {
           duration={500}
           offset={-120}
           to="projects"
+          href="#projects"
           className="cursor-pointer text-white transition-all duration-500 flex gap-2 items-center"
         >
           My Projects

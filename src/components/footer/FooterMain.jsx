@@ -1,7 +1,8 @@
 import { Link } from "react-scroll";
 
 const FooterMain = () => {
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
     const heroSection = document.getElementById("heroSection");
     if (heroSection) {
       heroSection.scrollIntoView({ behavior: "smooth" });
@@ -19,12 +20,13 @@ const FooterMain = () => {
     <div className="px-4">
       <div className="w-full h-px bg-lightGrey mt-24"></div>
       <div className="flex flex-col md:flex-row items-center md:items-start md:justify-between mt-8 max-w-300 mx-auto gap-6 md:gap-0">
-        <p
+        <a
+          href="#heroSection"
           className="text-2xl md:text-3xl text-lightGrey relative cursor-pointer hover:text-white transition-all duration-500 text-center md:text-left"
           onClick={handleClick}
         >
           Achmad Tirto Sudiro
-        </p>
+        </a>
 
         <ul className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-3 text-lightGrey text-base md:text-xl max-w-md md:max-w-none">
           {footerLinks.map((item, index) => {
@@ -36,6 +38,7 @@ const FooterMain = () => {
                   duration={500}
                   offset={-120}
                   to={item.section}
+                  href={`#${item.section}`}
                   className="hover:text-white transition-all duration-500 cursor-pointer"
                 >
                   {item.name}
