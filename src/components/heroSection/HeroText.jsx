@@ -67,7 +67,7 @@ const HeroText = () => {
             display: "inline-block",
           }}
           repeat={Infinity}
-          className="[&::after]:inline-block [&::after]:scale-y-[0.80] [&::after]:origin-center [&::after]:-translate-y-2"
+          className="[&::after]:inline-block [&::after]:scale-y-[0.85] [&::after]:origin-center [&::after]:-translate-y-1.5"
         />
       </motion.h1>
 
