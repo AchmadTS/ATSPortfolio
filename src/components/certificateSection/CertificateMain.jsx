@@ -96,6 +96,7 @@ const CertificateMain = () => {
             <button
               onClick={() => handlePageChange(Math.max(0, currentPage - 1))}
               disabled={currentPage === 0}
+              aria-label="Previous page"
               className="cursor-pointer pointer-events-auto p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all bg-gray-900 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-gray-900 disabled:hover:text-cyan"
             >
               <FiChevronLeft size={30} />
@@ -105,6 +106,7 @@ const CertificateMain = () => {
                 handlePageChange(Math.min(pages.length - 1, currentPage + 1))
               }
               disabled={currentPage === pages.length - 1}
+              aria-label="Next page"
               className="cursor-pointer pointer-events-auto p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all bg-gray-900 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-gray-900 disabled:hover:text-cyan"
             >
               <FiChevronRight size={30} />
@@ -132,6 +134,7 @@ const CertificateMain = () => {
             <button
               onClick={() => handlePageChange(Math.max(0, currentPage - 1))}
               disabled={currentPage === 0}
+              aria-label="Previous page"
               className="cursor-pointer p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all bg-gray-900 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-gray-900 disabled:hover:text-cyan"
             >
               <FiChevronLeft size={24} />
@@ -144,6 +147,7 @@ const CertificateMain = () => {
                 handlePageChange(Math.min(pages.length - 1, currentPage + 1))
               }
               disabled={currentPage === pages.length - 1}
+              aria-label="Next page"
               className="cursor-pointer p-3 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all bg-gray-900 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-gray-900 disabled:hover:text-cyan"
             >
               <FiChevronRight size={24} />
@@ -168,6 +172,9 @@ const CertificateMain = () => {
                 }, 150);
               }
             }}
+            aria-label={
+              showAll ? "Show less certificates" : "Show more certificates"
+            }
             className="cursor-pointer flex items-center justify-center w-12 h-12 rounded-full border border-cyan text-cyan hover:bg-cyan hover:text-white transition-all duration-300"
           >
             {showAll ? <FiChevronUp size={28} /> : <FiChevronDown size={28} />}
