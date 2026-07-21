@@ -17,25 +17,28 @@ const AboutMeText = () => {
       <p className="text-lightGrey leading-relaxed max-w-2xl">
         Hello! I&apos;m{" "}
         <span className="text-orange font-semibold">Achmad Tirto Sudiro</span>,
-        a fresh graduate of{" "}
+        currently an undergraduate student at{" "}
         <span className="text-cyan font-semibold">
           <a
-            href="https://smkn1karawang.sch.id/"
+            href="https://telkomuniversity.ac.id/"
             target="_blank"
             rel="noopener noreferrer"
+            className="hover:underline hover:text-cyan/80 transition-colors duration-200"
           >
-            SMKN 1 Karawang
+            Telkom University
           </a>
         </span>
         , majoring in{" "}
-        <a
-          href="https://pplg.smkn1karawang.sch.id/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-orange font-semibold hover:underline hover:text-orange/80 transition-colors duration-200"
-        >
-          Software Engineering (Rekayasa Perangkat Lunak)
-        </a>
+        <span className="text-orange font-semibold">
+          <a
+            href="https://bse.telkomuniversity.ac.id/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline hover:text-orange/80 transition-colors duration-200"
+          >
+            Software Engineering (S1 RPL)
+          </a>
+        </span>
         . My background in web development and administrative tasks has equipped
         me with a versatile skill set in both IT support and office
         administration. I have strong collaboration and project management
